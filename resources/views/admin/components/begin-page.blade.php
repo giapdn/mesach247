@@ -1015,7 +1015,21 @@
 
                         <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Quản lý </span>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#chuyenmuc" data-bs-toggle="collapse"
+                               role="button" aria-expanded="false" aria-controls="chuyenmuc">
+                                <i class="ri-pages-line"></i> <span data-key="t-pages">Quản lý chuyên mục</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="chuyenmuc">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="/chuyen-muc/index" class="nav-link" data-key="t-starter">
+                                            Danh sách chuyên mục </a>
+                                    </li>
 
+                                </ul>
+                            </div>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="#theloai" data-bs-toggle="collapse"
                                role="button" aria-expanded="false" aria-controls="theloai">
