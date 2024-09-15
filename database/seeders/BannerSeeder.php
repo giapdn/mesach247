@@ -17,6 +17,7 @@ class BannerSeeder extends Seeder
             DB::table('banners')->insert([
                 'hinh_anh'=>fake()->imageUrl(20),
                 'noi_dung'=>fake()->text(100),
+                'loai_banner'=>fake()->randomElement(['Slideshow','Footer']),
             ]);
         }
     }

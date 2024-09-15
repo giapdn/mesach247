@@ -14,7 +14,9 @@ return new class extends Migration
     {
         Schema::create('chuongs', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Sach::class)->constrained();
+            $table->foreignIdFor(Sach::class)->nullable()
+                ->constrained()
+                ->onDelete('set null');;
             $table->string('tieu_de');
             $table->text('noi_dung');
             $table->integer('thu_tu');

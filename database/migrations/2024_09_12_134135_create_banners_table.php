@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('hinh_anh');
             $table->text('noi_dung');
+            $table->enum('loai_banner',['Slideshow','Footer']);
             $table->timestamps();
         });
     }

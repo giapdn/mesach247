@@ -18,6 +18,7 @@ class ThanhToanSeeder extends Seeder
                 'sach_id' => rand(1,10),
                 'user_id' => rand(1,10),
                 'phuong_thuc_thanh_toan_id' => rand(1,10),
+                'ma_giam_gia_id' => rand(1,10),
                 'gia_cuoi_cung' => fake()->numberBetween(10000,1000000),
                 'tong_gia' => fake()->numberBetween(10000,1000000),
             ]);

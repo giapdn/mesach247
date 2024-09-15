@@ -41,11 +41,10 @@ class DatabaseSeeder extends Seeder
             TheLoaiSeeder::class,
             SachSeeder::class,
             YeuThichSeeder::class,
-            KhuyenMaiSeeder::class,
-            KhuyenMaiSachSeeder::class,
             DanhGiaSeeder::class,
             ChuongSeeder::class,
             PhuongThucThanhToanSeeder::class,
+            MaGiamGiaSeeder::class,
             ThanhToanSeeder::class,
         ]);
     }

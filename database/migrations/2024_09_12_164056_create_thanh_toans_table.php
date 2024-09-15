@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\MaGiamGia;
 use App\Models\PhuongThucThanhToan;
 use App\Models\Sach;
 use App\Models\User;
@@ -19,6 +20,7 @@ return new class extends Migration
             $table->foreignIdFor(Sach::class)->constrained();
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(PhuongThucThanhToan::class)->constrained();
+            $table->foreignIdFor(MaGiamGia::class)->constrained();
             $table->bigInteger('gia_cuoi_cung');
             $table->bigInteger('tong_gia');
             $table->timestamps();
