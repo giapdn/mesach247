@@ -23,11 +23,12 @@ return new class extends Migration
             $table->string('ten_sach');
             $table->string('anh_bia_sach')->nullable();
             $table->unsignedBigInteger('gia_goc');
-            $table->text('mo_ta_ngan')->nullable();
-            $table->text('mo_ta_chi_tiet')->nullable();
+            $table->text('tom_tat')->nullable();
             $table->date('ngay_dang');
             $table->integer('so_luong_da_ban');
-            $table->enum('trang_thai', ['Chờ xác nhận', 'Từ chối', 'Duyệt']);
+            $table->enum('kiem_duyet', ['Chờ xác nhận', 'Từ chối', 'Duyệt']);
+            $table->unsignedBigInteger('gia_khuyen_mai');
+            $table->enum('trang_thai', ['Ẩn', 'Hiện']);
             $table->timestamps();
         });
     }

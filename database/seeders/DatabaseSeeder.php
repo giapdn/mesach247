@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\AdminPhanHoi;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -28,6 +30,7 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call([
+
             BannerSeeder::class,
             QuyenSeeder::class,
             VaiTroSeeder::class,
@@ -37,15 +40,15 @@ class DatabaseSeeder extends Seeder
             BaiVietSeeder::class,
             BinhLuanSeeder::class,
             LienHeSeeder::class,
-            AdminPhanHoiSeeder::class,
             TheLoaiSeeder::class,
             SachSeeder::class,
             YeuThichSeeder::class,
             DanhGiaSeeder::class,
             ChuongSeeder::class,
             PhuongThucThanhToanSeeder::class,
-            MaGiamGiaSeeder::class,
-            ThanhToanSeeder::class,
+            PhanHoiKiemDuyetVienSeeder::class,
+            ThongBaoSeeder::class,
+            DonHangSeeder::class,
         ]);
     }
 }

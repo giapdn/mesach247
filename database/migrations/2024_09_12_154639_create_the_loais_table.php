@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('ten_the_loai');
             $table->string('anh_the_loai')->nullable();
+            $table->text('mo_ta')->nullable();
+            $table->enum('trang_thai',['Ẩn','Hiện']);
             $table->timestamps();
         });
     }

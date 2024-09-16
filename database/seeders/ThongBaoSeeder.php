@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class AdminPhanHoiSeeder extends Seeder
+class ThongBaoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,10 +14,11 @@ class AdminPhanHoiSeeder extends Seeder
     public function run(): void
     {
         for ($i = 1; $i <= 10; $i++) {
-            DB::table('admin_phan_hois')->insert([
+            DB::table('thong_baos')->insert([
+                'tieu_de' => fake()->text(30),
+                'noi_dung' => fake()->text(200),
+                'trang_thai' => fake()->randomElement(['Đã xem', 'Chưa xem']),
                 'user_id' => rand(1, 10),
-                'lien_he_id' => rand(1, 10),
-                'noi_dung_phan_hoi' => fake()->text(200),
             ]);
         }
     }

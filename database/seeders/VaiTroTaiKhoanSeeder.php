@@ -13,18 +13,12 @@ class VaiTroTaiKhoanSeeder extends Seeder
      */
     public function run(): void
     {
-        // for ($i = 1; $i <= 10; $i++) {
-        //     DB::table('vai_tro_tai_khoans')->insert([
-        //         'user_id' => rand(1, 10),
-        //         'vai_tro_id' => rand(1, 10),
-        //     ]);
-        // }
-
+    
         for ($i = 1; $i <= 10; $i++) {
             $userId = rand(1, 10);
             $vaiTroId = rand(1, 10);
 
-            
+
             $exists = DB::table('vai_tro_tai_khoans')
                 ->where('user_id', $userId)
                 ->where('vai_tro_id', $vaiTroId)

@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('email');
             $table->string('chu_de');
             $table->text('noi_dung');
-            $table->enum('trang_thai',['Đang liên hệ','Hoàn thành']);
+            $table->string('anh')->nullable();
+            $table->enum('trang_thai',['open','closed','pending']);
             $table->timestamps();
         });
     }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\LienHe;
+use App\Models\Sach;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admin_phan_hois', function (Blueprint $table) {
+        Schema::create('phan_hoi_kiem_duyet_viens', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Sach::class)->constrained();
             $table->foreignIdFor(User::class)->constrained();
-            $table->foreignIdFor(LienHe::class)->constrained();
-            $table->text('noi_dung_phan_hoi');
+            $table->string('chu_de');
+            $table->text('noi_dung')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admin_phan_hois');
+        Schema::dropIfExists('phan_hoi_kiem_duyet_viens');
     }
 };

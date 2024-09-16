@@ -15,16 +15,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('thanh_toans', function (Blueprint $table) {
+        Schema::create('don_hangs', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Sach::class)->constrained();
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(PhuongThucThanhToan::class)->constrained();
-            $table->foreignIdFor(MaGiamGia::class)->constrained();
-            $table->bigInteger('gia_cuoi_cung');
-            $table->bigInteger('tong_gia');
+            $table->bigInteger('so_tien_thanh_toan');
+            $table->enum('trang_thai', ['Thành công', 'Đang xử lý', 'Thất bại']);
+            $table->text('mo_ta')->nullable();
             $table->timestamps();
         });
+
     }
 
     /**
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('thanh_toans');
+        Schema::dropIfExists('don_hangs');
     }
 };
