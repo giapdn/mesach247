@@ -5,6 +5,7 @@
 @section('title')
     Chi tiết banner
 @endsection
+
 @section('content')
     <div class="row">
         <div class="card">
@@ -12,49 +13,43 @@
                 <form action="">
                     <div class="row mb-3">
                         <div class="col-lg-3">
-                            <label for="" class="form-label">Mã thể loại</label>
+                            <label for="websiteUrl" class="form-label">Ảnh Banner:</label>
                         </div>
                         <div class="col-lg-9">
-                            <input type="text" class="form-control" id="" placeholder="Nhập mã thể loại">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-lg-3">
-                            <label for="nameInput" class="form-label">Tên thể loại</label>
-                        </div>
-                        <div class="col-lg-9">
-                            <input type="text" class="form-control" id="nameInput" placeholder="Nhập tên thể loại">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-lg-3">
-                            <label for="websiteUrl" class="form-label">Ảnh </label>
-                        </div>
-                        <div class="col-lg-9">
-                            <input type="url" class="form-control" id="websiteUrl" placeholder="Nhập ảnh thể loại">
-                        </div>
-                    </div>
+                            <img src="{{ asset('storage/' . $banner->hinh_anh) }}" alt="Banner Image" width="200px"
+                                height="100px">
 
-                    <div class="row mb-3">
-                        <div class="col-lg-3">
-                            <label for="timeInput" class="form-label">Trạng thái</label>
-                        </div>
-                        <div class="col-lg-9">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="SwitchCheck3">
-                            </div>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-lg-3">
-                            <label for="meassageInput" class="form-label">Mô tả</label>
+                            <label for="timeInput" class="form-label">Nội dung:</label>
+                        </div>
+
+                        <div class="col-lg-9">
+                            <textarea class="form-control" rows="5" readonly>{{ $banner->noi_dung }}</textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-3">
+                            <label for="loaiBanner" class="form-label">Loại Banner:</label>
                         </div>
                         <div class="col-lg-9">
-                            <textarea class="form-control" id="meassageInput" rows="3" placeholder="Nhập mô tả"></textarea>
+                            <input type="text" class="form-control" id="loaiBanner" value="{{ $banner->loai_banner }}"
+                                readonly>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-3">
+                            <label for="loaiBanner" class="form-label">Trạng thái:</label>
+                        </div>
+                        <div class="col-lg-9">
+                            <input type="text" class="form-control" id="loaiBanner" 
+                                   value="{{ $banner->trang_thai === 'hien' ? 'Hiển thị' : 'Ẩn' }}" readonly>
                         </div>
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-warning">Sửa</button>
+                        <a href="{{ route('banner.index') }}" class="btn btn-sm btn-primary">Quay lại</a>
                     </div>
                 </form>
 
@@ -64,10 +59,7 @@
 @endsection
 
 @push('styles')
-
 @endpush
 
 @push('scripts')
-
-
 @endpush

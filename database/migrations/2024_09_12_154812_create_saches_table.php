@@ -16,15 +16,20 @@ return new class extends Migration
         Schema::create('saches', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained();
-            $table->foreignIdFor(TheLoai::class)->constrained();
-            $table->string( 'ten_sach');
-            $table->string( 'anh_bia_sach')->nullable();
-            $table->integer( 'gia_goc');
-            $table->text( 'mo_ta_ngan')->nullable();
-            $table->text( 'mo_ta_chi_tiet')->nullable();
-            $table->date( 'ngay_dang');
-            $table->integer( 'so_luong_da_ban');
-            $table->enum('trang_thai',['Chờ xác nhận','Từ chối','Duyệt']);
+            $table->foreignIdFor(TheLoai::class)
+                ->nullable()
+                ->constrained()
+                ->onDelete('set null');
+            $table->string('ten_sach');
+            $table->string('anh_bia_sach')->nullable();
+            $table->unsignedBigInteger('gia_goc');
+            $table->text('tom_tat')->nullable();
+            $table->date('ngay_dang');
+            $table->integer('so_luong_da_ban');
+            $table->enum('kiem_duyet', ['cho_xac_nhan', 'tu_choi', 'duyet','ban_nhap']);
+            $table->unsignedBigInteger('gia_khuyen_mai');
+            $table->enum('trang_thai', ['an', 'hien']);
+            $table->enum('tinh_trang_cap_nhat', ['da_full', 'tiep_tuc_cap_nhat']);
             $table->timestamps();
         });
     }

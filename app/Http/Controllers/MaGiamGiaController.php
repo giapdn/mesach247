@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sach;
-use App\Models\TheLoai;
+use App\Models\MaGiamGia;
 use Illuminate\Http\Request;
 
-class SachController extends Controller
+class MaGiamGiaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $saches = Sach::with('theLoai', 'tacGia')->get();
-        return view('admin.sach.index', compact('saches'));
+        //
     }
 
     /**
@@ -22,7 +20,7 @@ class SachController extends Controller
      */
     public function create()
     {
-        return view('admin.sach.add');
+        //
     }
 
     /**
@@ -36,7 +34,7 @@ class SachController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Sach $sach)
+    public function show(MaGiamGia $maGiamGia)
     {
         //
     }
@@ -44,7 +42,7 @@ class SachController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Sach $sach)
+    public function edit(MaGiamGia $maGiamGia)
     {
         //
     }
@@ -52,7 +50,7 @@ class SachController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Sach $sach)
+    public function update(Request $request, MaGiamGia $maGiamGia)
     {
         //
     }
@@ -60,7 +58,7 @@ class SachController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Sach $sach)
+    public function destroy(MaGiamGia $maGiamGia)
     {
         //
     }

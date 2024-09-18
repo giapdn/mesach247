@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('ten_chuyen_muc');
             $table->string('chuyen_muc_cha_id');
+            $table->enum('trang_thai',['an','hien']);
             $table->timestamps();
         });
     }

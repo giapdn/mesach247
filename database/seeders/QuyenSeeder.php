@@ -17,6 +17,9 @@ class QuyenSeeder extends Seeder
             DB::table('quyens')->insert([
                 'ten_quyen'=>fake()->randomElement(['Admin','Khách hàng','Kiểm duyệt viên','Cộng tác viên']),
                 'mo_ta'=>fake()->text(100),
+                'trang_thai'=>fake()->randomElement(['an','hien']),
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         }
     }

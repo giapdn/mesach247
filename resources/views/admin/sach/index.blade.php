@@ -281,7 +281,7 @@
                             <h4 class="card-title mb-0 flex-grow-1">Danh sách </h4>
 
                         <div class="flex-shrink-0">
-                            <a href="{{ route('sach.add') }}" class="btn btn-success"><i class="ri-add-line align-bottom me-1"></i> Thêm mới sách</a>
+                            <a href="{{ route('sach.create') }}" class="btn btn-success"><i class="ri-add-line align-bottom me-1"></i> Thêm mới sách</a>
                         </div>
                     </div><!-- end card header -->
 
@@ -292,6 +292,7 @@
             </div>        </div>
         <!-- end col -->
     </div>
+
     <!-- end row -->
 @endsection
 
@@ -307,60 +308,64 @@
     <!-- gridjs js -->
     <script src="{{ asset('assets/admin/libs/gridjs/gridjs.umd.js') }}"></script>
     <!--  Đây là chỗ hiển thị dữ liệu phân trang -->
-    <script>
-        document.getElementById("table-gridjs") && new gridjs.Grid({
-            columns: [{
-                name: "ID", width: "80px", formatter: function (e) {
-                    return gridjs.html('<span class="fw-semibold">' + e + "</span>")
-                }
-            }, {name: "Họ và tên", width: "150px",
-                formatter: function (e) {
-                    return gridjs.html(` ${e}
-                    <div class="d-flex justify-content-start mt-2">
-                        <a href="{{ route('sach.edit') }}" class="btn btn-link p-0">Sửa |</a>
-                        <a href="{{ route('sach.detail') }}" class="btn btn-link p-0">Xem |</a>
-                        <a href="#" class="btn btn-link p-0 text-danger">Xóa</a>
-                    </div>
-                `);
-                }
-            }, {
-                name: "Email", width: "220px", formatter: function (e) {
-                    return gridjs.html('<a href="">' + e + "</a>")
-                }
-            }, {name: "Ảnh",
-                width: "100px",
-                formatter: function (e) {
-                    return gridjs.html(`<img src="{{ asset('${e}') }}" alt="" width="50px">`)
-                }
-            }, {name: "Company", width: "180px"}, {
-                name: "Country",
-                width: "180px",
-                formatter: function (e) {
-                    return gridjs.html('<span class="badge bg-success-subtle text-success">' + e + "</span>")
-                }
-            },],
-            pagination: {limit: 5},
-            sort: !0,
-            search: !0,
-            data: [["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck AInc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
 
-            ]
-        }).render(document.getElementById("table-gridjs"));
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var saches = @json($saches);
+            new gridjs.Grid({
+                columns: [
+                    { name: "ID", width: "90px",
+                        formatter: function (e) {
+                            return gridjs.html(` <b>${e}</b>
+                                <div class="d-flex justify-content-start mt-2">
+                                    <a href="{{ route('sach1.edit') }}" class="btn btn-link p-0">Sửa |</a>
+                                    <a href="{{ route('sach1.detail') }}" class="btn btn-link p-0">Xem |</a>
+                                    <a href="#" class="btn btn-link p-0 text-danger">Xóa</a>
+                                </div>
+                            `);
+                        }},
+                    { name: "Tiêu đề sách", width: "150px",
+                    },
+                    { name: "Ảnh bìa", width: "100px",
+                        formatter: function (e) {
+                            return gridjs.html(`<img src="${e}" alt="User Image" width="50px">`);
+                        }
+                    },
+                    { name: "Giá gốc", width: "70px",
+                        formatter: function (e) {
+                            return gridjs.html(`<div class="text-danger">${e}</div>`);
+                        }
+                    },
+                    { name: "Ngày đăng", width: "70px",
+                    },
+                    { name: "Thể loại", width: "100px",
+
+                    },
+                    { name: "Đã bán", width: "100px" },
+                    { name: "Tác giả", width: "100px" },
+                    { name: "Trạng thái", width: "70px",
+                        formatter: function (e) {
+                            return gridjs.html(`<div class="fs-6 badge ${e === 'Hiện' ? 'bg-success' : 'bg-danger'}">${e}</div>`);
+                        }
+                    },
+                ],
+                data: saches.map(function(item) {
+                    return [
+                        item.id,
+                        item.ten_sach,
+                        item.anh_bia_sach,
+                        item.gia_goc,
+                        item.ngay_dang,
+                        item.the_loai ? item.the_loai.ten_the_loai : 'Chưa phân loại' ,
+                        item.so_luong_da_ban,
+                        item.tac_gia.ten_doc_gia,
+                        item.trang_thai,
+                    ];
+                }),
+                pagination: { limit: 5 },
+                sort: true,
+                search: true,
+            }).render(document.getElementById("table-gridjs"));
+        });
     </script>
 @endpush

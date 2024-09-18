@@ -20,11 +20,15 @@ class SachSeeder extends Seeder
                 'ten_sach'=>fake()->text(30),
                 'anh_bia_sach'=>fake()->imageUrl(),
                 'gia_goc'=>fake()->numberBetween(10000,1000000),
-                'mo_ta_ngan'=>fake()->text(100),
-                'mo_ta_chi_tiet'=>fake()->text(200),
+                'tom_tat' => fake()->text(200),
                 'ngay_dang'=>fake()->date(),
+                'gia_khuyen_mai'=>fake()->numberBetween(10000,1000000),
                 'so_luong_da_ban'=>fake()->numberBetween(1,100),
-                'trang_thai'=>fake()->randomElement(['Chờ xác nhận','Từ chối','Duyệt']),
+                'kiem_duyet'=>fake()->randomElement(['cho_xac_nhan','tu_choi','duyet','ban_nhap']),
+                'trang_thai'=>fake()->randomElement(['an','hien']),
+                'tinh_trang_cap_nhat'=>fake()->randomElement(['da_full','tiep_tuc_cap_nhat']),
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         }
     }

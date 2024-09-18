@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ThanhToanSeeder extends Seeder
+class PhanHoiKiemDuyetVienSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,12 +14,13 @@ class ThanhToanSeeder extends Seeder
     public function run(): void
     {
         for ($i = 1; $i <= 10; $i++) {
-            DB::table('thanh_toans')->insert([
-                'sach_id' => rand(1,10),
+            DB::table('phan_hoi_kiem_duyet_viens')->insert([
                 'user_id' => rand(1,10),
-                'phuong_thuc_thanh_toan_id' => rand(1,10),
-                'gia_cuoi_cung' => fake()->numberBetween(10000,1000000),
-                'tong_gia' => fake()->numberBetween(10000,1000000),
+                'sach_id' => rand(1, 10),
+                'chu_de' => fake()->text(30),
+                'noi_dung' => fake()->text(200),
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         }
     }

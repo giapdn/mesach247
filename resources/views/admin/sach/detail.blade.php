@@ -37,7 +37,7 @@
                                     </div>
                                     <div class="flex-shrink-0">
                                         <div>
-                                            <a href="{{ route('sach.edit') }}" class="btn btn-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ri-pencil-fill align-bottom"></i></a>
+                                            <a href="{{ route('sach1.edit') }}" class="btn btn-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ri-pencil-fill align-bottom"></i></a>
                                         </div>
                                     </div>
                                 </div>

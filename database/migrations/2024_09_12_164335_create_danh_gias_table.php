@@ -15,11 +15,14 @@ return new class extends Migration
     {
         Schema::create('danh_gias', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Sach::class)->constrained();
-            $table->foreignIdFor(User::class)->constrained();
+            $table->foreignIdFor(Sach::class)
+            ->constrained()
+            ->onDelete('cascade');
+            $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->text('noi_dung');
             $table->date('ngay_danh_gia');
-            $table->enum('muc_do_hai_long',['Rất hay','Hay','Trung bình','Tệ','Rất tệ']);
+            $table->enum('muc_do_hai_long',['rat_hay','hay','trung_binh','te','rat_te']);
+            $table->enum('trang_thai',['an','hien']);
             $table->timestamps();
         });
     }

@@ -14,7 +14,7 @@
                         <div class="col-xl-4 col-md-8 mx-auto">
                             <div class="product-img-slider sticky-side-div">
                                 <div class="swiper product-thumbnail-slider p-2 rounded bg-light">
-                                    <img src="{{ asset('assets/admin/images/products/img-8.png') }}" alt="" class="img-fluid d-block" />
+                                    <img src="{{ Storage::url($theLoai->anh_the_loai) }}" alt="" class="img-fluid d-block" />
                                 </div>
                             </div>
                         </div>
@@ -24,17 +24,17 @@
                             <div class="mt-xl-0 mt-5">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <h4>Khoa học viễn tưởng</h4>
+                                        <h4>{{ $theLoai->ten_the_loai }}</h4>
                                         <div class="hstack gap-3 flex-wrap">
                                             <div class="vr"></div>
-                                            <div class="text-muted">Mã thể loại : <span class="text-body fw-medium">#00001</span></div>
+                                            <div class="text-muted">Mã thể loại : <span class="text-body fw-medium">#000{{ $theLoai->id }}</span></div>
                                             <div class="vr"></div>
-                                            <div class="text-muted">Ngày tạo : <span class="text-body fw-medium">26 Mar, 2021</span></div>
+                                            <div class="text-muted">Ngày tạo : <span class="text-body fw-medium"> {{ optional($theLoai->created_at)->format('d-m-Y') ?? 'Không có dữ liệu' }}</span></div>
                                         </div>
                                     </div>
                                     <div class="flex-shrink-0">
                                         <div>
-                                            <a href="{{ route('the-loai.edit') }}" class="btn btn-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ri-pencil-fill align-bottom"></i></a>
+                                            <a href="{{ route('the-loai.edit', $theLoai->id) }}" class="btn btn-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ri-pencil-fill align-bottom"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -52,7 +52,7 @@
 
                                 <div class="mt-4 text-muted">
                                     <h5 class="fs-14">Mô tả :</h5>
-                                    <p>Khoa học viễn tưởng trong sách là một thể loại văn học hư cấu tập trung vào các ý tưởng về công nghệ và khoa học vượt xa hiện tại, thường dựa trên những gì có thể xảy ra trong tương lai hoặc trong các bối cảnh khác với thế giới thực.</p>
+                                    <p>{{ $theLoai->mo_ta }}</p>
                                 </div>
 
                                 <div class="row">
@@ -60,8 +60,10 @@
                                         <div class="mt-3">
                                             <h5 class="fs-14">Trạng thái :</h5>
                                             <div class="form-check form-switch form-switch-lg" dir="ltr">
-                                                <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked="">
-                                                <label class="form-check-label" for="customSwitchsizelg">Ẩn / Hiện</label>
+                                                <input disabled class="form-check-input @error('trang_thai') is-invalid @enderror" type="checkbox" role="switch" id="SwitchCheck3"
+                                                    {{ old('trang_thai', $theLoai->trang_thai) === 'hien' ? 'checked' : '' }}>
+                                                <input type="hidden" name="trang_thai" id="trang_thai_hidden" value="{{ old('trang_thai', $theLoai->trang_thai) }}">
+                                                <label class="form-check-label" for="SwitchCheck3">Ẩn / Hiện</label>
                                             </div>
                                         </div>
                                     </div>
@@ -77,17 +79,7 @@
                                         </div>
                                     </div>
                                     </div>
-                                    <div class="d-flex justify-content-end mt-3">
-                                        <div class="pagination-wrap hstack gap-2">
-                                            <a class="page-item pagination-prev disabled" href="#">
-                                                Previous
-                                            </a>
-                                            <ul class="pagination listjs-pagination mb-0"></ul>
-                                            <a class="page-item pagination-next" href="#">
-                                                Next
-                                            </a>
-                                        </div>
-                                    </div>
+
                                 </div>
 
                                 <!-- end card body -->
@@ -121,59 +113,62 @@
     <script src="{{ asset('assets/admin/libs/gridjs/gridjs.umd.js') }}"></script>
     <!--  Đây là chỗ hiển thị dữ liệu phân trang -->
     <script>
-        document.getElementById("table-gridjs") && new gridjs.Grid({
-            columns: [{
-                name: "ID", width: "80px", formatter: function (e) {
-                    return gridjs.html('<span class="fw-semibold">' + e + "</span>")
-                }
-            }, {name: "Họ và tên", width: "150px",
-                formatter: function (e) {
-                    return gridjs.html(` ${e}
-                    <div class="d-flex justify-content-start mt-2">
-                        <a href="{{ route('bai-viet.edit') }}" class="btn btn-link p-0">Sửa |</a>
-                        <a href="{{ route('bai-viet.detail') }}" class="btn btn-link p-0">Xem |</a>
-                        <a href="#" class="btn btn-link p-0 text-danger">Xóa</a>
-                    </div>
-                `);
-                }
-            }, {
-                name: "Email", width: "220px", formatter: function (e) {
-                    return gridjs.html('<a href="">' + e + "</a>")
-                }
-            }, {name: "Ảnh",
-                width: "100px",
-                formatter: function (e) {
-                    return gridjs.html(`<img src="{{ asset('${e}') }}" alt="" width="50px">`)
-                }
-            }, {name: "Company", width: "180px"}, {
-                name: "Country",
-                width: "180px",
-                formatter: function (e) {
-                    return gridjs.html('<span class="badge bg-success-subtle text-success">' + e + "</span>")
-                }
-            },],
-            pagination: {limit: 3},
-            sort: !0,
-            search: !0,
-            data: [["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
+        document.addEventListener('DOMContentLoaded', function() {
+            var saches = @json($saches);
+            new gridjs.Grid({
+                columns: [
+                    { name: "ID", width: "80px" },
+                    { name: "Tiêu đề sách", width: "150px",
+                        formatter: function (e) {
+                            return gridjs.html(` <b>${e}</b>
+                                <div class="d-flex justify-content-start mt-2">
+                                    <a href="{{ route('sach1.edit') }}" class="btn btn-link p-0">Sửa |</a>
+                                    <a href="{{ route('sach1.detail') }}" class="btn btn-link p-0">Xem |</a>
+                                    <a href="#" class="btn btn-link p-0 text-danger">Xóa</a>
+                                </div>
+                            `);
+                        }
+                    },
+                    { name: "Ảnh bìa", width: "100px",
+                        formatter: function (e) {
+                            return gridjs.html(`<img src="${e}" alt="User Image" width="50px">`);
+                        }
+                    },
+                    { name: "Giá gốc", width: "70px",
+                        formatter: function (e) {
+                            return gridjs.html(`<div class="text-danger">${e}</div>`);
+                        }
+                    },
+                    { name: "Ngày đăng", width: "70px",
+                    },
+                    { name: "Thể loại", width: "100px",
 
-            ]
-        }).render(document.getElementById("table-gridjs"));
+                    },
+                    { name: "Đã bán", width: "100px" },
+                    { name: "Tác giả", width: "100px" },
+                    { name: "Trạng thái", width: "70px",
+                        formatter: function (e) {
+                            return gridjs.html(`<div class="badge bg-success">${e}</div>`);
+                        }
+                    },
+                ],
+                data: saches.map(function(item) {
+                    return [
+                        item.id,
+                        item.ten_sach,
+                        item.anh_bia_sach,
+                        item.gia_goc,
+                        item.ngay_dang,
+                        item.the_loai ? item.the_loai.ten_the_loai : 'Chưa phân loại' ,
+                        item.so_luong_da_ban,
+                        item.tac_gia.ten_doc_gia,
+                        item.trang_thai,
+                    ];
+                }),
+                pagination: { limit: 5 },
+                sort: true,
+                search: true,
+            }).render(document.getElementById("table-gridjs"));
+        });
     </script>
 @endpush

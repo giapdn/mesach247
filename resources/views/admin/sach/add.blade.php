@@ -7,7 +7,6 @@
 @endsection
 @section('content')
 
-
     <form id="createproduct-form" autocomplete="off" class="needs-validation" novalidate>
         <div class="row">
             <div class="col-lg-8">
@@ -20,18 +19,13 @@
                             <input type="text" class="form-control" id="product-title-input" value="" placeholder="Nhập tiêu đề sách" required>
                             <div class="invalid-feedback">Vui lòng nhập tên sách.</div>
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="product-title-input">Mô tả ngắn</label>
+                            <input type="text" class="form-control" id="product-title-input" value="" placeholder="Nhập mô tả ngắn" required>
+                        </div>
                         <div>
-                            <label>Product Description</label>
-
-                            <div id="ckeditor-classic">
-                                <p>Tommy Hilfiger men striped pink sweatshirt. Crafted with cotton. Material composition is 100% organic cotton. This is one of the world’s leading designer lifestyle brands and is internationally recognized for celebrating the essence of classic American cool style, featuring preppy with a twist designs.</p>
-                                <ul>
-                                    <li>Full Sleeve</li>
-                                    <li>Cotton</li>
-                                    <li>All Sizes available</li>
-                                    <li>4 Different Color</li>
-                                </ul>
-                            </div>
+                            <label>Mô tả chi tiết</label>
+                            <textarea id="ckeditor-classic" name="content" class="form-control"></textarea>
                         </div>
                     </div>
                 </div>
@@ -50,8 +44,7 @@
                                     <div class="position-absolute top-100 start-100 translate-middle">
                                         <label for="product-image-input" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Select Image">
                                             <div class="avatar-xs">
-                                                <div class="avatar-title bg-light border rounded-circle text-muted cursor-pointer">
-                                                    <i class="ri-image-fill"></i>
+                                                <div class="avatar-title bg-light border rounded-circle text-muted cursor-pointer"><i class="ri-image-fill"></i>
                                                 </div>
                                             </div>
                                         </label>
@@ -97,8 +90,7 @@
                                                     <h5 class="fs-14 mb-1" data-dz-name>&nbsp;</h5>
                                                     <p class="fs-13 text-muted mb-0" data-dz-size></p>
                                                     <strong class="error text-danger" data-dz-errormessage></strong>
-                                                </div>
-                                            </div>
+                                                </div></div>
                                             <div class="flex-shrink-0 ms-3">
                                                 <button data-dz-remove class="btn btn-sm btn-danger">Delete</button>
                                             </div>
@@ -149,8 +141,7 @@
 
                                 <div class="row">
                                     <div class="col-lg-3 col-sm-6">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="stocks-input">Stocks</label>
+                                        <div class="mb-3"><label class="form-label" for="stocks-input">Stocks</label>
                                             <input type="text" class="form-control" id="stocks-input" placeholder="Stocks" required>
                                             <div class="invalid-feedback">Please Enter a product stocks.</div>
                                         </div>
@@ -188,8 +179,7 @@
                             </div>
                             <!-- end tab-pane -->
 
-                            <div class="tab-pane" id="addproduct-metadata" role="tabpanel">
-                                <div class="row">
+                            <div class="tab-pane" id="addproduct-metadata" role="tabpanel"><div class="row">
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label class="form-label" for="meta-title-input">Meta title</label>
@@ -243,8 +233,7 @@
                         </div>
 
                         <div>
-                            <label for="choices-publish-visibility-input" class="form-label">Visibility</label>
-                            <select class="form-select" id="choices-publish-visibility-input" data-choices data-choices-search-false>
+                            <label for="choices-publish-visibility-input" class="form-label">Visibility</label><select class="form-select" id="choices-publish-visibility-input" data-choices data-choices-search-false>
                                 <option value="Public" selected>Public</option>
                                 <option value="Hidden">Hidden</option>
                             </select>
@@ -295,8 +284,7 @@
                     </div>
                     <div class="card-body">
                         <div class="hstack gap-3 align-items-start">
-                            <div class="flex-grow-1">
-                                <input class="form-control" data-choices data-choices-multiple-remove="true" placeholder="Enter tags" type="text" value="Cotton" />
+                            <div class="flex-grow-1"><input class="form-control" data-choices data-choices-multiple-remove="true" placeholder="Enter tags" type="text" value="Cotton" />
                             </div>
                         </div>
                     </div>
@@ -341,4 +329,3 @@
     <script src="{{ asset('assets/admin/js/pages/ecommerce-product-create.init.js') }}"></script>
 
 @endpush
-

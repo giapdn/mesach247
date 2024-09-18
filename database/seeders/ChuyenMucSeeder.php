@@ -17,6 +17,9 @@ class ChuyenMucSeeder extends Seeder
             DB::table('chuyen_mucs')->insert([
                 'ten_chuyen_muc' => fake()->text(20),
                 'chuyen_muc_cha_id' => rand(1, 10),
+                'trang_thai'=>fake()->randomElement(['an','hien']),
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         }
     }

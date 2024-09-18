@@ -7,7 +7,6 @@
 @endsection
 @section('content')
 
-
     <form id="createproduct-form" autocomplete="off" class="needs-validation" novalidate>
         <div class="row">
             <div class="col-lg-8">

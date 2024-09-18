@@ -24,7 +24,7 @@ class QuyenVaiTro extends Seeder
             $quyenId = rand(1, 10);
             $vaiTroId = rand(1, 10);
 
-            
+
             $exists = DB::table('quyen_vai_tros')
                 ->where('quyen_id', $quyenId)
                 ->where('vai_tro_id', $vaiTroId)
@@ -34,6 +34,7 @@ class QuyenVaiTro extends Seeder
                 DB::table('quyen_vai_tros')->insert([
                     'quyen_id' => $quyenId,
                     'vai_tro_id' => $vaiTroId,
+                    
                 ]);
             }
         }

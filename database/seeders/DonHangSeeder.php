@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class DanhGiaSeeder extends Seeder
+class DonHangSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,16 +14,22 @@ class DanhGiaSeeder extends Seeder
     public function run(): void
     {
         for ($i = 1; $i <= 10; $i++) {
-            DB::table('danh_gias')->insert([
+            DB::table('don_hangs')->insert([
                 'sach_id' => rand(1,10),
                 'user_id' => rand(1,10),
-                'noi_dung' => rand(1,10),
-                'ngay_danh_gia' => fake()->date(),
-                'muc_do_hai_long' => fake()->randomElement(['rat_hay','hay','trung_binh','te','rat_te']),
-                'trang_thai'=>fake()->randomElement(['an','hien']),
+                'phuong_thuc_thanh_toan_id' => rand(1,10),
+                'so_tien_thanh_toan' => fake()->numberBetween(10000,1000000),
+                'trang_thai'=>fake()->randomElement(['thanh_cong','dang_xu_ly','that_bai']),
+                'mo_ta' => fake()->text(200),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
         }
     }
 }
+
+
+
+
+
+

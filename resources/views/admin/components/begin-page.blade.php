@@ -1027,7 +1027,7 @@
                                             Danh sách thể loại </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link" data-key="t-team"> Thêm mới thể loại </a>
+                                        <a href="{{ route('the-loai.index') }}" class="nav-link" data-key="t-team"> Thêm mới thể loại </a>
                                     </li>
 
                                 </ul>
@@ -1049,7 +1049,7 @@
                                             Danh sách sách</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('sach.add') }}" class="nav-link" data-key="t-crm"> Thêm mới sách</a>
+                                        <a href="{{ route('sach.create') }}" class="nav-link" data-key="t-crm"> Thêm mới sách</a>
                                     </li>
                                 </ul>
                             </div>

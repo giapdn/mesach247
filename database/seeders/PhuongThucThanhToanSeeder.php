@@ -17,6 +17,9 @@ class PhuongThucThanhToanSeeder extends Seeder
             DB::table('phuong_thuc_thanh_toans')->insert([
                 'ten_phuong_thuc'=>fake()->randomElement(['aaaaa','bbbbb','ccccc']),
                 'mo_ta'=>fake()->text(100),
+                'trang_thai'=>fake()->randomElement(['an','hien']),
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         }
     }

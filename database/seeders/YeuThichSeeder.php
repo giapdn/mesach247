@@ -17,6 +17,8 @@ class YeuThichSeeder extends Seeder
             DB::table('yeu_thiches')->insert([
                 'user_id'=>rand(1,10),
                 'sach_id'=>rand(1,10),
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         }
     }

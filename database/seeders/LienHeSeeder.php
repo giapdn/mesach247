@@ -20,7 +20,10 @@ class LienHeSeeder extends Seeder
                 'email' => fake()->email(),
                 'chu_de' => fake()->text(50),
                 'noi_dung' => fake()->text(200),
-                'trang_thai' => fake()->randomElement(['Đang liên hệ','Hoàn thành']),
+                'anh' => fake()->imageUrl(20),
+                'trang_thai' => fake()->randomElement(['mo', 'dong','dang_ho_tro']),
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         }
     }

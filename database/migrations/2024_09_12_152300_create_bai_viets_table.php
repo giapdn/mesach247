@@ -16,11 +16,14 @@ return new class extends Migration
         Schema::create('bai_viets', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained();
-            $table->foreignIdFor(ChuyenMuc::class)->constrained();
+            $table->foreignIdFor(ChuyenMuc::class)->nullable()
+                ->constrained()
+                ->onDelete('set null');;
             $table->string('hinh_anh')->nullable();
             $table->string('tieu_de');
             $table->text('noi_dung');
             $table->date('ngay_dang');
+            $table->enum('trang_thai',['an','hien']);
             $table->timestamps();
         });
     }

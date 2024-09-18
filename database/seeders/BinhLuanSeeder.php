@@ -19,6 +19,9 @@ class BinhLuanSeeder extends Seeder
                 'bai_viet_id' => rand(1, 10),
                 'noi_dung' => fake()->text(200),
                 'ngay_binh_luan' => fake()->date(),
+                'trang_thai'=>fake()->randomElement(['an','hien']),
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         }
     }

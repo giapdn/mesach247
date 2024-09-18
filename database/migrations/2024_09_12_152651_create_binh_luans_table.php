@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignIdFor(BaiViet::class)->constrained();
             $table->text('noi_dung');
             $table->date('ngay_binh_luan');
+            $table->enum('trang_thai',['an','hien']);
             $table->timestamps();
         });
     }
