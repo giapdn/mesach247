@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BaiVietController;
+use App\Http\Controllers\ChuyenMucController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +35,29 @@ Route::get('sach/detail', function () {
 Route::get('sach/edit', function () {
     return view('admin.sach.edit');
 })->name('sach.edit');
+// Quản lý chuyên mục
+Route::prefix('chuyen-muc')->group(function () {
+    // Danh sách chuyên mục
+    Route::get('/index', [ChuyenMucController::class, 'index'])->name('chuyenmuc.index');
+    
+    // Hiển thị chi tiết chuyên mục
+    Route::get('/{id}/detail', [ChuyenMucController::class, 'show'])->name('chuyenmuc.show');
+    
+    // Hiển thị form chỉnh sửa chuyên mục
+    Route::get('/{id}/edit', [ChuyenMucController::class, 'edit'])->name('chuyenmuc.edit');
+    
+    // Cập nhật chuyên mục
+    Route::put('/{id}', [ChuyenMucController::class, 'update'])->name('chuyenmuc.update');
+    
+    // Xóa chuyên mục
+    Route::get('/{id}/delete', [ChuyenMucController::class, 'destroy'])->name('chuyenmuc.destroy');
+    
+    // Hiển thị form tạo mới chuyên mục
+    Route::get('/create', [ChuyenMucController::class, 'create'])->name('chuyenmuc.create');
+    
+    // Lưu trữ chuyên mục mới
+    Route::post('/store', [ChuyenMucController::class, 'store'])->name('chuyenmuc.store');
+});
 
 // Quản lý thể loại
 Route::get('the-loai/index', function () {
@@ -48,9 +73,8 @@ Route::get('the-loai/edit', function () {
 })->name('the-loai.edit');
 
 // Quản lý bài viết
-Route::get('bai-viet/index', function () {
-    return view('admin.bai-viet.index');
-})->name('bai-viet.index');
+Route::get('bai-viet/index', [BaiVietController::class, 'index'] )->name('bai-viet.index');
+Route::get('bai-viet/{id}/delete', [BaiVietController::class, 'destroy'] )->name('bai-viet.destroy');
 
 Route::get('bai-viet/add', function () {
     return view('admin.bai-viet.add');

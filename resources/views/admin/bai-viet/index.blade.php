@@ -1,366 +1,190 @@
 @extends('admin.layouts.app')
+
 @section('start-point')
-    Quản lý sách
+    Quản lý bài viết
 @endsection
+
 @section('title')
-    Danh sách
+    Danh sách bài viết
 @endsection
+
 @section('content')
     <div class="row">
+        <!-- Form thêm bài viết -->
         <div class="col-xl-3 col-lg-4">
             <div class="card">
                 <div class="card-header">
-                    <div class="d-flex mb-3">
-                        <div class="flex-grow-1">
-                            <h5 class="fs-16">Bộ lọc</h5>
-                        </div>
-                        <div class="flex-shrink-0">
-                            <a href="#" class="text-decoration-underline" id="clearall">Xóa tất cả</a>
-                        </div>
-                    </div>
-
-                    <div class="filter-choices-input">
-                        <input class="form-control" data-choices data-choices-removeItem type="text" id="filter-choices-input" placeholder="Nhập tên sách" />
-                    </div>
+                    <h5 class="fs-16">Thêm bài viết mới</h5>
                 </div>
-
-                <div class="accordion accordion-flush filter-accordion">
-
-                    <div class="card-body border-bottom">
-                        <div>
-                            <p class="text-muted text-uppercase fs-12 fw-medium mb-2">Thể loại</p>
-                            <ul class="list-unstyled mb-0 filter-list">
-                                <li>
-                                    <a href="#" class="d-flex py-1 align-items-center">
-                                        <div class="flex-grow-1">
-                                            <h5 class="fs-13 mb-0 listname">Grocery</h5>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex py-1 align-items-center">
-                                        <div class="flex-grow-1">
-                                            <h5 class="fs-13 mb-0 listname">Fashion</h5>
-                                        </div>
-                                        <div class="flex-shrink-0 ms-2">
-                                            <span class="badge bg-light text-muted">5</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex py-1 align-items-center">
-                                        <div class="flex-grow-1">
-                                            <h5 class="fs-13 mb-0 listname">Watches</h5>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex py-1 align-items-center">
-                                        <div class="flex-grow-1">
-                                            <h5 class="fs-13 mb-0 listname">Electronics</h5>
-                                        </div>
-                                        <div class="flex-shrink-0 ms-2">
-                                            <span class="badge bg-light text-muted">5</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex py-1 align-items-center">
-                                        <div class="flex-grow-1">
-                                            <h5 class="fs-13 mb-0 listname">Furniture</h5>
-                                        </div>
-                                        <div class="flex-shrink-0 ms-2">
-                                            <span class="badge bg-light text-muted">6</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex py-1 align-items-center">
-                                        <div class="flex-grow-1">
-                                            <h5 class="fs-13 mb-0 listname">Automotive Accessories</h5>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex py-1 align-items-center">
-                                        <div class="flex-grow-1">
-                                            <h5 class="fs-13 mb-0 listname">Appliances</h5>
-                                        </div>
-                                        <div class="flex-shrink-0 ms-2">
-                                            <span class="badge bg-light text-muted">7</span>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="d-flex py-1 align-items-center">
-                                        <div class="flex-grow-1">
-                                            <h5 class="fs-13 mb-0 listname">Kids</h5>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
+                <div class="card-body">
+                    <form id="postForm" action="" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="chuyen_muc_id" class="form-label">Chuyên mục</label>
+                            <select class="form-select" id="chuyen_muc_id" name="chuyen_muc_id">
+                                <option value="">Chọn chuyên mục</option>
+                            </select>
+                            <div id="chuyen_muc_id_error" class="text-danger error" style="display: none;"></div>
                         </div>
-                    </div>
-
-                    <div class="card-body border-bottom">
-                        <p class="text-muted text-uppercase fs-12 fw-medium mb-4">Price</p>
-
-                        <div id="product-price-range"></div>
-                        <div class="formCost d-flex gap-2 align-items-center mt-3">
-                            <input class="form-control form-control-sm" type="text" id="minCost" value="0" /> <span class="fw-semibold text-muted">to</span> <input class="form-control form-control-sm" type="text" id="maxCost" value="1000" />
+                        <div class="mb-3">
+                            <label for="hinh_anh" class="form-label">Hình ảnh</label>
+                            <input type="file" class="form-control" id="hinh_anh" name="hinh_anh">
+                            <div id="hinh_anh_error" class="text-danger error" style="display: none;"></div>
                         </div>
-                    </div>
-
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingBrands">
-                            <button class="accordion-button bg-transparent shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseBrands" aria-expanded="true" aria-controls="flush-collapseBrands">
-                                <span class="text-muted text-uppercase fs-12 fw-medium">Brands</span> <span class="badge bg-success rounded-pill align-middle ms-1 filter-badge"></span>
-                            </button>
-                        </h2>
-
-                        <div id="flush-collapseBrands" class="accordion-collapse collapse show" aria-labelledby="flush-headingBrands">
-                            <div class="accordion-body text-body pt-0">
-                                <div class="search-box search-box-sm">
-                                    <input type="text" class="form-control bg-light border-0" id="searchBrandsList" placeholder="Search Brands...">
-                                    <i class="ri-search-line search-icon"></i>
-                                </div>
-                                <div class="d-flex flex-column gap-2 mt-3 filter-check">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="Boat" id="productBrandRadio5" checked>
-                                        <label class="form-check-label" for="productBrandRadio5">Boat</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="OnePlus" id="productBrandRadio4">
-                                        <label class="form-check-label" for="productBrandRadio4">OnePlus</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="Realme" id="productBrandRadio3">
-                                        <label class="form-check-label" for="productBrandRadio3">Realme</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="Sony" id="productBrandRadio2">
-                                        <label class="form-check-label" for="productBrandRadio2">Sony</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="JBL" id="productBrandRadio1" checked>
-                                        <label class="form-check-label" for="productBrandRadio1">JBL</label>
-                                    </div>
-
-                                    <div>
-                                        <button type="button" class="btn btn-link text-decoration-none text-uppercase fw-medium p-0">1,235
-                                            More</button>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="mb-3">
+                            <label for="tieu_de" class="form-label">Tiêu đề</label>
+                            <input type="text" class="form-control" id="tieu_de" name="tieu_de" placeholder="Nhập tiêu đề">
+                            <div id="tieu_de_error" class="text-danger error" style="display: none;"></div>
                         </div>
-                    </div>
-                    <!-- end accordion-item -->
-
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingDiscount">
-                            <button class="accordion-button bg-transparent shadow-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseDiscount" aria-expanded="true" aria-controls="flush-collapseDiscount">
-                                <span class="text-muted text-uppercase fs-12 fw-medium">Discount</span> <span class="badge bg-success rounded-pill align-middle ms-1 filter-badge"></span>
-                            </button>
-                        </h2>
-                        <div id="flush-collapseDiscount" class="accordion-collapse collapse" aria-labelledby="flush-headingDiscount">
-                            <div class="accordion-body text-body pt-1">
-                                <div class="d-flex flex-column gap-2 filter-check">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="50% or more" id="productdiscountRadio6">
-                                        <label class="form-check-label" for="productdiscountRadio6">50% or more</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="40% or more" id="productdiscountRadio5">
-                                        <label class="form-check-label" for="productdiscountRadio5">40% or more</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="30% or more" id="productdiscountRadio4">
-                                        <label class="form-check-label" for="productdiscountRadio4">
-                                            30% or more
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="20% or more" id="productdiscountRadio3" checked>
-                                        <label class="form-check-label" for="productdiscountRadio3">
-                                            20% or more
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="10% or more" id="productdiscountRadio2">
-                                        <label class="form-check-label" for="productdiscountRadio2">
-                                            10% or more
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="Less than 10%" id="productdiscountRadio1">
-                                        <label class="form-check-label" for="productdiscountRadio1">
-                                            Less than 10%
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="mb-3">
+                            <label for="noi_dung" class="form-label">Nội dung</label>
+                            <textarea class="form-control" id="noi_dung" name="noi_dung" rows="3" placeholder="Nhập nội dung"></textarea>
+                            <div id="noi_dung_error" class="text-danger error" style="display: none;"></div>
                         </div>
-                    </div>
-                    <!-- end accordion-item -->
-
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingRating">
-                            <button class="accordion-button bg-transparent shadow-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseRating" aria-expanded="false" aria-controls="flush-collapseRating">
-                                <span class="text-muted text-uppercase fs-12 fw-medium">Rating</span> <span class="badge bg-success rounded-pill align-middle ms-1 filter-badge"></span>
-                            </button>
-                        </h2>
-
-                        <div id="flush-collapseRating" class="accordion-collapse collapse" aria-labelledby="flush-headingRating">
-                            <div class="accordion-body text-body">
-                                <div class="d-flex flex-column gap-2 filter-check">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="4 & Above Star" id="productratingRadio4" checked>
-                                        <label class="form-check-label" for="productratingRadio4">
-                                                            <span class="text-muted">
-                                                                <i class="mdi mdi-star text-warning"></i>
-                                                                <i class="mdi mdi-star text-warning"></i>
-                                                                <i class="mdi mdi-star text-warning"></i>
-                                                                <i class="mdi mdi-star text-warning"></i>
-                                                                <i class="mdi mdi-star"></i>
-                                                            </span> 4 & Above
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="3 & Above Star" id="productratingRadio3">
-                                        <label class="form-check-label" for="productratingRadio3">
-                                                            <span class="text-muted">
-                                                                <i class="mdi mdi-star text-warning"></i>
-                                                                <i class="mdi mdi-star text-warning"></i>
-                                                                <i class="mdi mdi-star text-warning"></i>
-                                                                <i class="mdi mdi-star"></i>
-                                                                <i class="mdi mdi-star"></i>
-                                                            </span> 3 & Above
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="2 & Above Star" id="productratingRadio2">
-                                        <label class="form-check-label" for="productratingRadio2">
-                                                            <span class="text-muted">
-                                                                <i class="mdi mdi-star text-warning"></i>
-                                                                <i class="mdi mdi-star text-warning"></i>
-                                                                <i class="mdi mdi-star"></i>
-                                                                <i class="mdi mdi-star"></i>
-                                                                <i class="mdi mdi-star"></i>
-                                                            </span> 2 & Above
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="1 Star" id="productratingRadio1">
-                                        <label class="form-check-label" for="productratingRadio1">
-                                                            <span class="text-muted">
-                                                                <i class="mdi mdi-star text-warning"></i>
-                                                                <i class="mdi mdi-star"></i>
-                                                                <i class="mdi mdi-star"></i>
-                                                                <i class="mdi mdi-star"></i>
-                                                                <i class="mdi mdi-star"></i>
-                                                            </span> 1
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="mb-3">
+                            <label for="ngay_dang" class="form-label">Ngày đăng</label>
+                            <input type="date" class="form-control" id="ngay_dang" name="ngay_dang">
+                            <div id="ngay_dang_error" class="text-danger error" style="display: none;"></div>
                         </div>
-                    </div>
-                    <!-- end accordion-item -->
+                        <button type="submit" class="btn btn-primary">Thêm bài viết</button>
+                    </form>
                 </div>
             </div>
-            <!-- end card -->
         </div>
-        <!-- end col -->
-
+        
+        <!-- Bảng hiển thị bài viết -->
         <div class="col-xl-9 col-lg-8">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-header align-items-center d-flex">
-
-                        <h4 class="card-title mb-0 flex-grow-1">Danh sách </h4>
-
-                        <div class="flex-shrink-0">
-                            <a href="{{ route('sach.add') }}" class="btn btn-success"><i class="ri-add-line align-bottom me-1"></i> Thêm bài viết mới</a>
-                        </div>
-                    </div><!-- end card header -->
-
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="card-title mb-0">Danh sách bài viết</h4>
+                        <a href="{{ route('bai-viet.add') }}" class="btn btn-success">
+                            <i class="ri-add-line align-bottom me-1"></i> Thêm bài viết mới
+                        </a>
+                    </div>
                     <div class="card-body">
                         <div id="table-gridjs"></div>
-                    </div><!-- end card-body -->
-                </div><!-- end card -->
-            </div>        </div>
-        <!-- end col -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- end row -->
 @endsection
 
 @push('styles')
-    <!-- gridjs css -->
     <link rel="stylesheet" href="{{ asset('assets/admin/libs/gridjs/theme/mermaid.min.css') }}">
-
 @endpush
+@php
+    $data = $baiViets->map(function ($baiViet) {
+        return [
+            $baiViet->id,
+            $baiViet->user_id,
+            $baiViet->chuyen_muc_id,
+            $baiViet->hinh_anh,
+            $baiViet->tieu_de,
+            $baiViet->noi_dung,
+            $baiViet->ngay_dang ? $baiViet->ngay_dang->format('Y-m-d') : 'Chưa có',
+        ];
+    });
+@endphp
 @push('scripts')
-    <!-- prismjs plugin -->
-    <script src="{{ asset('assets/admin/libs/prismjs/prism.js') }}"></script>
-
-    <!-- gridjs js -->
     <script src="{{ asset('assets/admin/libs/gridjs/gridjs.umd.js') }}"></script>
-    <!--  Đây là chỗ hiển thị dữ liệu phân trang -->
     <script>
         document.getElementById("table-gridjs") && new gridjs.Grid({
-            columns: [{
-                name: "ID", width: "80px", formatter: function (e) {
-                    return gridjs.html('<span class="fw-semibold">' + e + "</span>")
-                }
-            }, {name: "Họ và tên", width: "150px",
-                formatter: function (e) {
-                    return gridjs.html(` ${e}
-                    <div class="d-flex justify-content-start mt-2">
-                        <a href="{{ route('bai-viet.edit') }}" class="btn btn-link p-0">Sửa |</a>
-                        <a href="{{ route('bai-viet.detail') }}" class="btn btn-link p-0">Xem |</a>
-                        <a href="#" class="btn btn-link p-0 text-danger">Xóa</a>
-                    </div>
-                `);
-                }
-            }, {
-                name: "Email", width: "220px", formatter: function (e) {
-                    return gridjs.html('<a href="">' + e + "</a>")
-                }
-            }, {name: "Ảnh",
-                width: "100px",
-                formatter: function (e) {
-                    return gridjs.html(`<img src="{{ asset('${e}') }}" alt="" width="50px">`)
-                }
-            }, {name: "Company", width: "180px"}, {
-                name: "Country",
-                width: "180px",
-                formatter: function (e) {
-                    return gridjs.html('<span class="badge bg-success-subtle text-success">' + e + "</span>")
-                }
-            },],
-            pagination: {limit: 5},
-            sort: !0,
-            search: !0,
-            data: [["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck AInc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-                ["01", "Jonathan", "jonathan@example.com", "assets/admin/images/about.jpg", "Hauck Inc", "Holy See"],
-
-            ]
+            columns: [
+                { 
+                    name: "ID", 
+                    width: "80px", 
+                    formatter: (cell, row) => {
+                        return gridjs.html(`
+                            <div class="d-flex flex-column align-items-center">
+                                <span class="fw-semibold">${cell}</span>
+                                <div class="mt-2">
+                                    <a href="/bai-viet/${cell}/edit" class="btn btn-link p-0">Sửa</a>
+                                    <a href="/bai-viet/${cell}/detail" class="btn btn-link p-0">Xem</a>
+                                    <a href="/bai-viet/${cell}/delete" class="btn btn-link p-0 text-danger" onclick="return confirm('Bạn chắc chắn muốn xóa bài viết này?') && deletePost(${cell})">Xóa</a>
+                                </div>
+                            </div>
+                        `);
+                    }
+                },
+                { name: "ID User", width: "100px" },
+                { name: "ID Chuyên mục", width: "120px" },
+                { name: "Hình ảnh", width: "100px", formatter: (e) => gridjs.html(`<img src="${e}" alt="" width="50px">`) },
+                { name: "Tiêu đề", width: "200px" },
+                { name: "Nội dung", width: "300px" },
+                { name: "Ngày đăng", width: "120px" }
+            ],
+            pagination: { limit: 5 },
+            sort: true,
+            search: true,
+            data: {!! json_encode($data) !!}
         }).render(document.getElementById("table-gridjs"));
+
+    </script>
+    <script>
+        document.getElementById('postForm').addEventListener('submit', function(event) {
+            var isValid = true;
+
+            // Clear old error messages
+            clearErrors();
+
+            // Get values from fields
+            var chuyenMucId = document.getElementById('chuyen_muc_id').value.trim();
+            var hinhAnh = document.getElementById('hinh_anh').files.length; // Number of files selected
+            var tieuDe = document.getElementById('tieu_de').value.trim();
+            var noiDung = document.getElementById('noi_dung').value.trim();
+            var ngayDang = document.getElementById('ngay_dang').value.trim();
+
+            // Validate Chuyên mục
+            if (chuyenMucId === '') {
+                showError('chuyen_muc_id_error', 'Bạn phải chọn chuyên mục.');
+                isValid = false;
+            }
+
+            // Validate Hình ảnh
+            if (hinhAnh === 0) {
+                showError('hinh_anh_error', 'Bạn phải chọn hình ảnh.');
+                isValid = false;
+            }
+
+            // Validate Tiêu đề
+            if (tieuDe === '') {
+                showError('tieu_de_error', 'Tiêu đề không được để trống.');
+                isValid = false;
+            }
+
+            // Validate Nội dung
+            if (noiDung === '') {
+                showError('noi_dung_error', 'Nội dung không được để trống.');
+                isValid = false;
+            }
+
+            // Validate Ngày đăng
+            if (ngayDang === '') {
+                showError('ngay_dang_error', 'Ngày đăng không được để trống.');
+                isValid = false;
+            }
+
+            // Prevent form submission if invalid
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+
+        function showError(id, message) {
+            var errorElement = document.getElementById(id);
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+        }
+
+        function clearErrors() {
+            var errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(function(element) {
+                element.style.display = 'none';
+            });
+        }
     </script>
 @endpush

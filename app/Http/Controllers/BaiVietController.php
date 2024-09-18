@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BaiViet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BaiVietController extends Controller
 {
@@ -12,7 +13,13 @@ class BaiVietController extends Controller
      */
     public function index()
     {
-        //
+        // Lấy tất cả các bài viết
+        $baiViets = BaiViet::all();
+        $baiViets = $baiViets->map(function ($baiViet) {
+            $baiViet->ngay_dang = $baiViet->ngay_dang ? \Carbon\Carbon::parse($baiViet->ngay_dang) : null;
+            return $baiViet;
+        });
+        return view('admin.bai-viet.index', compact('baiViets'));
     }
 
     /**
@@ -20,7 +27,6 @@ class BaiVietController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -28,7 +34,6 @@ class BaiVietController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -36,7 +41,6 @@ class BaiVietController extends Controller
      */
     public function show(BaiViet $baiViet)
     {
-        //
     }
 
     /**
@@ -44,7 +48,6 @@ class BaiVietController extends Controller
      */
     public function edit(BaiViet $baiViet)
     {
-        //
     }
 
     /**
@@ -52,14 +55,21 @@ class BaiVietController extends Controller
      */
     public function update(Request $request, BaiViet $baiViet)
     {
-        //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(BaiViet $baiViet)
+    public function destroy(BaiViet $baiViet, string $id)
     {
-        //
+        $baiViet = BaiViet::findOrFail($id);
+        // Xóa ảnh nếu có
+        if ($baiViet->hinh_anh) {
+            Storage::delete($baiViet->hinh_anh);
+        }
+
+        $baiViet->delete();
+
+        return redirect()->route('bai-viet.index')->with('success', 'Bài viết đã được xóa thành công.');
     }
 }

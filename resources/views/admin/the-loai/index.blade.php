@@ -141,3 +141,4 @@
         }).render(document.getElementById("table-gridjs"));
     </script>
 @endpush
+

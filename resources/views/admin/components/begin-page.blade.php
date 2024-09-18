@@ -1015,7 +1015,6 @@
 
                         <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Quản lý </span>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="#theloai" data-bs-toggle="collapse"
                                role="button" aria-expanded="false" aria-controls="theloai">
@@ -1071,6 +1070,10 @@
 
                             <div class="collapse menu-dropdown" id="quanlybaiviet">
                                 <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="/chuyen-muc/index" class="nav-link" data-key="t-starter">
+                                            Danh sách chuyên mục </a>
+                                    </li>
                                     <li class="nav-item">
                                         <a href="{{ route('bai-viet.index') }}" class="nav-link" data-key="t-analytics">
                                             Danh sách bài viết</a>
