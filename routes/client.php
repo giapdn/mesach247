@@ -80,8 +80,7 @@ Route::get('chi-tiet-thong-bao', function () {
     return view('client.pages.chi-tiet-thong-bao');
 })->name('chi-tiet-thong-bao');
 
-
-
+Route::post('/lien-he', [\App\Http\Controllers\Client\LienHeController::class, 'store'])->name('lien_he.store');
 
 // Bài Viết
  Route::get('bai-viet/{id}', [\App\Http\Controllers\Client\BaiVietController::class, 'index'])->name('bai-viet');
