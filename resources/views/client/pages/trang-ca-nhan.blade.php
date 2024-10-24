@@ -501,7 +501,7 @@
                         margin-right: -4px;
                         min-height: 44px;
                         /*		 	border-right-width: 0;
-                                                                                                                                                                                                                                                            */
+                                                                                                                                                                                                                                                                                                    */
                     }
 
                     .list-group-horizontal .list-group-item:first-child {
@@ -516,8 +516,8 @@
                     }
 
                     /*-------------------------------------------------
-                                                                                                                                                                                                                                                                |           Badge
-                                                                                                                                                                                                                                                                |-------------------------------------------------*/
+                                                                                                                                                                                                                                                                                                        |           Badge
+                                                                                                                                                                                                                                                                                                        |-------------------------------------------------*/
                     .badge {
                         display: inline-block;
                         padding: .25em .4em;
@@ -579,14 +579,14 @@
                     }
 
                     /*		@media (min-width: 1200px) {
-                                                                                                                                                                                                                                                                    .pull-right .badge, a .badge, .tf-active .badge{
-                                                                                                                                                                                                                                                                        padding: 3px 7px;
-                                                                                                                                                                                                                                                                        font-size: 12px;
-                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                }*/
+                                                                                                                                                                                                                                                                                                            .pull-right .badge, a .badge, .tf-active .badge{
+                                                                                                                                                                                                                                                                                                                padding: 3px 7px;
+                                                                                                                                                                                                                                                                                                                font-size: 12px;
+                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                        }*/
                     /*-------------------------------------------------
-                                                                                                                                                                                                                                                                |            Button Ajax Loading
-                                                                                                                                                                                                                                                                |-------------------------------------------------*/
+                                                                                                                                                                                                                                                                                                        |            Button Ajax Loading
+                                                                                                                                                                                                                                                                                                        |-------------------------------------------------*/
                     .lds-ellipsis {
                         display: inline-block;
                         position: relative;
@@ -936,13 +936,13 @@
                             <li class="list-group-item" id="menu-purchased" data-target="#purchased">
                                 <a href="javascript:void(0);">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i> Sách đã mua
-                                    <span class="badge">11</span>
+                                    <span class="badge">{{ $sanhDaMua->total() }}</span>
                                 </a>
                             </li>
                             <li class="list-group-item" id="menu-favorites" data-target="#favorites">
                                 <a href="javascript:void(0);">
                                     <i class="fa fa-heart" aria-hidden="true"></i> Yêu thích
-                                    <span class="badge">11</span>
+                                    <span class="badge">{{ $danhSachYeuThich->total() }}</span>
                                 </a>
                             </li>
 
@@ -1120,7 +1120,7 @@
                         <div id="purchased-content" class="content-div" style="display: none;">
                             <div class="hr-primary"></div>
                             <div class="list-group-item list-group-item-info d-flex">
-                                <strong class="font-16">Sách đã mua(45)</strong>
+                                <strong class="font-16">Sách đã mua({{ $sanhDaMua->total() }})</strong>
 
                                 <div class="pull-right">
                                     <form action="" method="get" class="navbar-form navbar-left"
@@ -1140,138 +1140,53 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th>STT</th>
                                                 <th>Truyện</th>
                                                 <th>Tác giả</th>
-                                                <th>Gần đây</th>
+                                                <th>Giá tiền</th>
                                                 <th>Mới nhất</th>
                                                 <th>Tình Trạng</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach ($sanhDaMua as $key =>$sachMua)
+                                                <tr>
+                                                    <th>{{$key +1}}</th>
 
-                                            <tr>
-                                                <th>149</th>
-
-                                                <th>
-                                                    <img src="https://truyenhdt.com/wp-content/uploads/2023/04/9140707.jpg"
-                                                        width="40" height="60" style="margin-right: 5px;" />
-                                                    Vạn Người Chê Thụ Cù&nbsp;&hellip;
-                                                </th>
-                                                <th>Alexander okok</th>
-                                                <th>Chap 1</th>
-                                                <th>Chap 100</th>
-                                                <th><span class="badge badge-success">Hoàn Thành</span></th>
-                                                <th>
-                                                    <div class="dropdown pull-right">
-                                                        <button class="btn btn-default dropdown-toggle" type="button"
-                                                            data-toggle="dropdown"><i class="fa fa-cog"
-                                                                aria-hidden="true"></i>
-                                                            <span class="caret"></span>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a href="/user/nhiem-vu/view/?id=149#h1"><i
-                                                                        class="fa fa-info" aria-hidden="true"></i> Chi
-                                                                    Tiết</a></li>
-                                                            <li><a href="/user/nhiem-vu/view/?id=149#h1"><i
-                                                                        class="fa fa-trash text-danger"
-                                                                        aria-hidden="true"></i> Xóa lịch sử </a></li>
-                                                        </ul>
-                                                    </div>
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <th>149</th>
-
-                                                <th>
-                                                    <img src="https://truyenhdt.com/wp-content/uploads/2023/04/9140707.jpg"
-                                                        width="40" height="60" style="margin-right: 5px;" />
-                                                    Vạn Người Chê Thụ Cù&nbsp;&hellip;
-                                                </th>
-                                                <th>Alexander okok</th>
-                                                <th>Chap 1</th>
-                                                <th>Chap 100</th>
-                                                <th><span class="badge badge-success">Hoàn Thành</span></th>
-                                                <th>
-                                                    <div class="dropdown pull-right">
-                                                        <button class="btn btn-default dropdown-toggle" type="button"
-                                                            data-toggle="dropdown"><i class="fa fa-trash"
-                                                                aria-hidden="true"></i>
-                                                            <span class="caret"></span>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a href="/user/nhiem-vu/view/?id=149#h1"><i
-                                                                        class="fa fa-info" aria-hidden="true"></i> Chi
-                                                                    Tiết</a></li>
-                                                            <li><a href="/user/nhiem-vu/view/?id=149#h1"><i
-                                                                        class="fa fa-trash text-danger"
-                                                                        aria-hidden="true"></i> Xóa lịch sử </a></li>
-                                                        </ul>
-                                                    </div>
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <th>149</th>
-
-                                                <th>
-                                                    <img src="https://truyenhdt.com/wp-content/uploads/2023/06/truc-ma-cua-toi-vo-cung-nham-hiem-1686392020.jpg"
-                                                        width="40" height="60" style="margin-right: 5px;" />
-                                                    Vạn Người Chê Thụ Cù&nbsp;&hellip;
-                                                </th>
-                                                <th>Alexander okok</th>
-                                                <th>Chap 1</th>
-                                                <th>Chap 100</th>
-                                                <th><span class="badge badge-success">Hoàn Thành</span></th>
-                                                <th>
-                                                    <div class="dropdown pull-right">
-                                                        <button class="btn btn-default dropdown-toggle" type="button"
-                                                            data-toggle="dropdown"><i class="fa fa-cog"
-                                                                aria-hidden="true"></i>
-                                                            <span class="caret"></span>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a href="/user/nhiem-vu/view/?id=149#h1"><i
-                                                                        class="fa fa-info" aria-hidden="true"></i> Chi
-                                                                    Tiết</a></li>
-                                                            <li><a href="/user/nhiem-vu/view/?id=149#h1"><i
-                                                                        class="fa fa-trash text-danger"
-                                                                        aria-hidden="true"></i> Xóa lịch sử </a></li>
-                                                        </ul>
-                                                    </div>
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <th>149</th>
-
-                                                <th>
-                                                    <img src="https://truyenhdt.com/wp-content/uploads/2023/07/di-the-tim-chong-1688466583.jpg"
-                                                        width="40" height="60" style="margin-right: 5px;" />
-                                                    Vạn Người Chê Thụ Cù&nbsp;&hellip;
-                                                </th>
-                                                <th>Alexander okok</th>
-                                                <th>Chap 1</th>
-                                                <th>Chap 100</th>
-                                                <th><span class="badge badge-success">Hoàn Thành</span></th>
-                                                <th>
-                                                    <div class="dropdown pull-right">
-                                                        <button class="btn btn-default dropdown-toggle" type="button"
-                                                            data-toggle="dropdown"><i class="fa fa-cog"
-                                                                aria-hidden="true"></i>
-                                                            <span class="caret"></span>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a href="/user/nhiem-vu/view/?id=149#h1"><i
-                                                                        class="fa fa-info" aria-hidden="true"></i> Chi
-                                                                    Tiết</a></li>
-                                                            <li><a href="/user/nhiem-vu/view/?id=149#h1"><i
-                                                                        class="fa fa-trash text-danger"
-                                                                        aria-hidden="true"></i> Xóa lịch sử </a></li>
-                                                        </ul>
-                                                    </div>
-                                                </th>
-                                            </tr>
-
-
+                                                    <th>
+                                                        <img src="https://truyenhdt.com/wp-content/uploads/2023/04/9140707.jpg"
+                                                            width="40" height="60" style="margin-right: 5px;" />
+                                                      {{$sachMua->sach->ten_sach}}
+                                                    </th>
+                                                    <th>   {{$sachMua->sach->user->ten_doc_gia}}</th>
+                                                    <th>   {{$sachMua->sach->gia_goc}}</th>
+                                                    <th>Chap 100</th>
+                                                    <th>
+                                                        @if ($sachMua->sach->tinh_trang_cap_nhat == 'da_full')
+                                                            <span class="badge badge-success">Hoàn Thành</span>
+                                                        @else
+                                                            <span class="badge badge-warning">Đang cập nhật</span>
+                                                        @endif
+                                                    </th>
+                                                    {{-- <th>
+                                                        <div class="dropdown pull-right">
+                                                            <button class="btn btn-default dropdown-toggle" type="button"
+                                                                data-toggle="dropdown"><i class="fa fa-cog"
+                                                                    aria-hidden="true"></i>
+                                                                <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a href="/user/nhiem-vu/view/?id=149#h1"><i
+                                                                            class="fa fa-info" aria-hidden="true"></i> Chi
+                                                                        Tiết</a></li>
+                                                                <li><a href="/user/nhiem-vu/view/?id=149#h1"><i
+                                                                            class="fa fa-trash text-danger"
+                                                                            aria-hidden="true"></i> Xóa lịch sử </a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </th> --}}
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                     <ul class="pagination text-center" id="id_pagination">
@@ -1289,7 +1204,7 @@
                         <div id="favorites-content" class="content-div" style="display: none;">
                             <div class="hr-primary"></div>
                             <div class="list-group-item list-group-item-info d-flex">
-                                <strong class="font-16">Sách yêu thích (45)</strong>
+                                <strong class="font-16">Sách yêu thích ({{ $danhSachYeuThich->total() }})</strong>
 
                                 <div class="pull-right">
                                     <form action="" method="get" class="navbar-form navbar-left"
@@ -1306,152 +1221,25 @@
                             </div>
                             <div class="list-group-item">
                                 <div style="overflow-x:auto;">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
 
-                                                <th>Truyện</th>
-                                                <th>Tác giả</th>
-                                                <th>Gần đây</th>
-                                                <th>Mới nhất</th>
-                                                <th>Tình Trạng</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                                    <div id="yeu-thich-content">
+                                        @include('client.pages.sach-yeu-thich', [
+                                            'danhSachYeuThich' => $danhSachYeuThich,
+                                        ])
 
-                                            <tr>
-                                                <th>149</th>
-
-                                                <th>
-                                                    <img src="https://truyenhdt.com/wp-content/uploads/2023/04/9140707.jpg"
-                                                        width="40" height="60" style="margin-right: 5px;" />
-                                                    Vạn Người Chê Thụ Cù&nbsp;&hellip;
-                                                </th>
-                                                <th>Alexander okok</th>
-                                                <th>Chap 1</th>
-                                                <th>Chap 100</th>
-                                                <th><span class="badge badge-success">Hoàn Thành</span></th>
-                                                <th>
-                                                    <div class="dropdown pull-right">
-                                                        <button class="btn btn-default dropdown-toggle" type="button"
-                                                            data-toggle="dropdown"><i class="fa fa-cog"
-                                                                aria-hidden="true"></i>
-                                                            <span class="caret"></span>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a href="/user/nhiem-vu/view/?id=149#h1"><i
-                                                                        class="fa fa-info" aria-hidden="true"></i> Chi
-                                                                    Tiết</a></li>
-                                                            <li><a href="/user/nhiem-vu/view/?id=149#h1"><i
-                                                                        class="fa fa-trash text-danger"
-                                                                        aria-hidden="true"></i> Xóa lịch sử </a></li>
-                                                        </ul>
-                                                    </div>
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <th>149</th>
-
-                                                <th>
-                                                    <img src="https://truyenhdt.com/wp-content/uploads/2023/04/9140707.jpg"
-                                                        width="40" height="60" style="margin-right: 5px;" />
-                                                    Vạn Người Chê Thụ Cù&nbsp;&hellip;
-                                                </th>
-                                                <th>Alexander okok</th>
-                                                <th>Chap 1</th>
-                                                <th>Chap 100</th>
-                                                <th><span class="badge badge-success">Hoàn Thành</span></th>
-                                                <th>
-                                                    <div class="dropdown pull-right">
-                                                        <button class="btn btn-default dropdown-toggle" type="button"
-                                                            data-toggle="dropdown"><i class="fa fa-trash"
-                                                                aria-hidden="true"></i>
-                                                            <span class="caret"></span>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a href="/user/nhiem-vu/view/?id=149#h1"><i
-                                                                        class="fa fa-info" aria-hidden="true"></i> Chi
-                                                                    Tiết</a></li>
-                                                            <li><a href="/user/nhiem-vu/view/?id=149#h1"><i
-                                                                        class="fa fa-trash text-danger"
-                                                                        aria-hidden="true"></i> Xóa lịch sử </a></li>
-                                                        </ul>
-                                                    </div>
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <th>149</th>
-
-                                                <th>
-                                                    <img src="https://truyenhdt.com/wp-content/uploads/2023/06/truc-ma-cua-toi-vo-cung-nham-hiem-1686392020.jpg"
-                                                        width="40" height="60" style="margin-right: 5px;" />
-                                                    Vạn Người Chê Thụ Cù&nbsp;&hellip;
-                                                </th>
-                                                <th>Alexander okok</th>
-                                                <th>Chap 1</th>
-                                                <th>Chap 100</th>
-                                                <th><span class="badge badge-success">Hoàn Thành</span></th>
-                                                <th>
-                                                    <div class="dropdown pull-right">
-                                                        <button class="btn btn-default dropdown-toggle" type="button"
-                                                            data-toggle="dropdown"><i class="fa fa-cog"
-                                                                aria-hidden="true"></i>
-                                                            <span class="caret"></span>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a href="/user/nhiem-vu/view/?id=149#h1"><i
-                                                                        class="fa fa-info" aria-hidden="true"></i> Chi
-                                                                    Tiết</a></li>
-                                                            <li><a href="/user/nhiem-vu/view/?id=149#h1"><i
-                                                                        class="fa fa-trash text-danger"
-                                                                        aria-hidden="true"></i> Xóa lịch sử </a></li>
-                                                        </ul>
-                                                    </div>
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <th>149</th>
-
-                                                <th>
-                                                    <img src="https://truyenhdt.com/wp-content/uploads/2023/07/di-the-tim-chong-1688466583.jpg"
-                                                        width="40" height="60" style="margin-right: 5px;" />
-                                                    Vạn Người Chê Thụ Cù&nbsp;&hellip;
-                                                </th>
-                                                <th>Alexander okok</th>
-                                                <th>Chap 1</th>
-                                                <th>Chap 100</th>
-                                                <th><span class="badge badge-success">Hoàn Thành</span></th>
-                                                <th>
-                                                    <div class="dropdown pull-right">
-                                                        <button class="btn btn-default dropdown-toggle" type="button"
-                                                            data-toggle="dropdown"><i class="fa fa-cog"
-                                                                aria-hidden="true"></i>
-                                                            <span class="caret"></span>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a href="/user/nhiem-vu/view/?id=149#h1"><i
-                                                                        class="fa fa-info" aria-hidden="true"></i> Chi
-                                                                    Tiết</a></li>
-                                                            <li><a href="/user/nhiem-vu/view/?id=149#h1"><i
-                                                                        class="fa fa-trash text-danger"
-                                                                        aria-hidden="true"></i> Xóa lịch sử </a></li>
-                                                        </ul>
-                                                    </div>
-                                                </th>
-                                            </tr>
+                                    </div>
 
 
-                                        </tbody>
-                                    </table>
-                                    <ul class="pagination text-center" id="id_pagination">
+
+
+                                    {{-- <ul class="pagination text-center" id="id_pagination">
                                         <li class="active"><a href="/user/nhiem-vu/?q=1&x=1&n=1#h1">1</a></li>
                                         <li class><a href="/user/nhiem-vu/?q=1&x=1&n=2#h1">2</a></li>
                                         <li class><a href="/user/nhiem-vu/?q=1&x=1&n=3#h1">3</a></li>
                                         <li class><a href="/user/nhiem-vu/?q=1&x=1&n=4#h1">4</a></li>
                                         <li class><a href="/user/nhiem-vu/?q=1&x=1&n=5#h1">5</a></li>
                                         <li><a href="/user/nhiem-vu/?q=1&x=1&n=2#h1">»</a></li>
-                                    </ul>
+                                    </ul> --}}
 
                                 </div>
                             </div>
@@ -2439,9 +2227,9 @@
         table tbody tr:last-child .dropdown-menu,
         table tbody tr:nth-last-child(2) .dropdown-menu {
             /*		right: 0;
-                                                                                left: unset;
-                                                                                top: unset;
-                                                                                bottom: 35px;*/
+                                                                                                                        left: unset;
+                                                                                                                        top: unset;
+                                                                                                                        bottom: 35px;*/
         }
 
         ul.pagination li {
@@ -2481,4 +2269,50 @@
             width: 100%
         }
     </style>
+
+    <script>
+        $(document).on('click', '.pagination a', function(event) {
+            event.preventDefault();
+            var page = $(this).attr('href').split('page=')[1]; // Lấy số trang từ URL
+
+            $.ajax({
+                url: $(this).attr('href'), // Gọi Ajax đến URL phân trang
+                success: function(data) {
+                    $('#yeu-thich-content').html(data); // Cập nhật nội dung
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).on('click', '.delete-btn', function() {
+            event.preventDefault();
+            var form = $(this).closest('form'); // Lưu trữ form
+            var url = form.attr('action'); // Lấy URL từ thuộc tính action của form
+
+            if (confirm('Bạn có chắc chắn muốn xóa không?')) {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: form.serialize() +
+                        '&_method=DELETE',
+                    success: function(response) {
+                        if (response.success) {
+                            alert(response.message);
+                            form.closest('tr').remove();
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 419) {
+                            alert(
+                                'Phiên làm việc đã hết hạn. Vui lòng tải lại trang và thử lại.');
+                        } else {
+                            alert('Có lỗi xảy ra. Vui lòng thử lại.');
+                        }
+                    }
+                });
+            }
+        });
+    </script>
 @endpush

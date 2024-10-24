@@ -98,8 +98,6 @@ class SachController extends Controller
         // Lấy tất cả các đánh giá của sách
         $listDanhGia = DanhGia::with('sach', 'user')->where('sach_id', $sach->id)->where('trang_thai', 'hien')->latest('id')->get();
 
-        // dd($danhGia);
-
         $soLuongDanhGia = $listDanhGia->count();
 
         $trungBinhHaiLong = $sach->danh_gias()

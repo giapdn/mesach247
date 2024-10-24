@@ -3,18 +3,48 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\DonHang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\YeuThich;
 use Illuminate\Support\Facades\Storage;
 
 class TrangCaNhanController extends Controller
 {
-    public function index($section = 'profile')
+    // public function index($section = 'profile', Request $request)
+    public function index(Request $request)
     {
         $user = Auth::user();
 
-        return view('client.pages.trang-ca-nhan', compact('user'));
+        $page = $request->input('page', 1);
+
+        $danhSachYeuThich = YeuThich::with('user', 'sach.user')
+            ->where('user_id', $user->id)
+            ->whereHas('sach', function ($query) {
+                $query->where('kiem_duyet', 'duyet');
+            })
+            ->whereHas('sach', function ($query) {
+                $query->where('trang_thai', 'hien');
+            })
+            ->paginate(3, ['*'], 'page', $page);
+
+        $sanhDaMua = DonHang::with('sach.user', 'user')
+            ->where('user_id', Auth::id())
+            ->where('trang_thai', 'thanh_cong')
+            ->whereHas('sach', function ($query) {
+                $query->where('kiem_duyet', 'duyet');
+            })
+            ->whereHas('sach', function ($query) {
+                $query->where('trang_thai', 'hien');
+            })->paginate(5);
+
+
+        if ($request->ajax()) {
+            return view('client.pages.sach-yeu-thich', compact('danhSachYeuThich'))->render();
+        }
+
+        return view('client.pages.trang-ca-nhan', compact('user', 'danhSachYeuThich', 'sanhDaMua'));
     }
 
     public function update(Request $request, $id)
@@ -49,5 +79,10 @@ class TrangCaNhanController extends Controller
         }
     }
 
-
+    public function destroy($id)
+    {
+        $yeuThich = YeuThich::findOrFail($id);
+        $yeuThich->delete();
+        return response()->json(['success' => true, 'message' => 'Xóa thành công!']);
+    }
 }
