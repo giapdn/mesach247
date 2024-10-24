@@ -16,35 +16,37 @@ class TrangCaNhanController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-
         $page = $request->input('page', 1);
-
+    
+        // Lấy sách yêu thích
         $danhSachYeuThich = YeuThich::with('user', 'sach.user')
             ->where('user_id', $user->id)
             ->whereHas('sach', function ($query) {
-                $query->where('kiem_duyet', 'duyet');
-            })
-            ->whereHas('sach', function ($query) {
-                $query->where('trang_thai', 'hien');
+                $query->where('kiem_duyet', 'duyet')
+                      ->where('trang_thai', 'hien');
             })
             ->paginate(3, ['*'], 'page', $page);
-
-        $sanhDaMua = DonHang::with('sach.user', 'user')
-            ->where('user_id', Auth::id())
+    
+        // Lấy sách đã mua
+        $sachDaMua = DonHang::with('sach.user', 'user')
+            ->where('user_id', $user->id)
             ->where('trang_thai', 'thanh_cong')
             ->whereHas('sach', function ($query) {
-                $query->where('kiem_duyet', 'duyet');
+                $query->where('kiem_duyet', 'duyet')
+                      ->where('trang_thai', 'hien');
             })
-            ->whereHas('sach', function ($query) {
-                $query->where('trang_thai', 'hien');
-            })->paginate(5);
-
-
+            ->paginate(3, ['*'], 'page', $page);
+    
+        // Kiểm tra nếu là yêu cầu AJAX
         if ($request->ajax()) {
-            return view('client.pages.sach-yeu-thich', compact('danhSachYeuThich'))->render();
+            if ($request->input('section') == 'purchased') {
+                return view('client.pages.sach-da-mua', compact('sachDaMua'))->render();
+            } else {
+                return view('client.pages.sach-yeu-thich', compact('danhSachYeuThich'))->render();
+            }
         }
-
-        return view('client.pages.trang-ca-nhan', compact('user', 'danhSachYeuThich', 'sanhDaMua'));
+    
+        return view('client.pages.trang-ca-nhan', compact('user', 'danhSachYeuThich', 'sachDaMua'));
     }
 
     public function update(Request $request, $id)

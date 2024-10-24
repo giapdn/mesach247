@@ -40,7 +40,8 @@ Route::get('/trang-ca-nhan', [TrangCaNhanController::class, 'index'])
     ->name('trang-ca-nhan');
 Route::put('/trang-ca-nhan/{id}', [TrangCaNhanController::class, 'update'])
     ->name('trang-ca-nhan.update');
-Route::get('/trang-ca-nhan/sach-yeu-thich', [TrangCaNhanController::class, 'showYeuThich'])->name('sach-yeu-thich');
+// Route::get('/trang-ca-nhan/sach-yeu-thich', [TrangCaNhanController::class, 'showYeuThich'])->name('sach-yeu-thich');
+// Route::get('/trang-ca-nhan/sach-da-mua', [TrangCaNhanController::class, 'showYeuThich'])->name('sach-yeu-thich');
 Route::delete('/trang-ca-nhan/sach-yeu-thich/{id}', [TrangCaNhanController::class, 'destroy'])->name('xoa-yeu-thich');
 
 // Bài viết

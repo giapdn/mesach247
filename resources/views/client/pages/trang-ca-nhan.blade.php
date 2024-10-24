@@ -501,7 +501,7 @@
                         margin-right: -4px;
                         min-height: 44px;
                         /*		 	border-right-width: 0;
-                                                                                                                                                                                                                                                                                                    */
+                                                                                                                                                                                                                                                                                                        */
                     }
 
                     .list-group-horizontal .list-group-item:first-child {
@@ -516,8 +516,8 @@
                     }
 
                     /*-------------------------------------------------
-                                                                                                                                                                                                                                                                                                        |           Badge
-                                                                                                                                                                                                                                                                                                        |-------------------------------------------------*/
+                                                                                                                                                                                                                                                                                                            |           Badge
+                                                                                                                                                                                                                                                                                                            |-------------------------------------------------*/
                     .badge {
                         display: inline-block;
                         padding: .25em .4em;
@@ -579,14 +579,14 @@
                     }
 
                     /*		@media (min-width: 1200px) {
-                                                                                                                                                                                                                                                                                                            .pull-right .badge, a .badge, .tf-active .badge{
-                                                                                                                                                                                                                                                                                                                padding: 3px 7px;
-                                                                                                                                                                                                                                                                                                                font-size: 12px;
-                                                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                                                        }*/
+                                                                                                                                                                                                                                                                                                                .pull-right .badge, a .badge, .tf-active .badge{
+                                                                                                                                                                                                                                                                                                                    padding: 3px 7px;
+                                                                                                                                                                                                                                                                                                                    font-size: 12px;
+                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                            }*/
                     /*-------------------------------------------------
-                                                                                                                                                                                                                                                                                                        |            Button Ajax Loading
-                                                                                                                                                                                                                                                                                                        |-------------------------------------------------*/
+                                                                                                                                                                                                                                                                                                            |            Button Ajax Loading
+                                                                                                                                                                                                                                                                                                            |-------------------------------------------------*/
                     .lds-ellipsis {
                         display: inline-block;
                         position: relative;
@@ -936,7 +936,7 @@
                             <li class="list-group-item" id="menu-purchased" data-target="#purchased">
                                 <a href="javascript:void(0);">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i> Sách đã mua
-                                    <span class="badge">{{ $sanhDaMua->total() }}</span>
+                                    <span class="badge">{{ $sachDaMua->total() }}</span>
                                 </a>
                             </li>
                             <li class="list-group-item" id="menu-favorites" data-target="#favorites">
@@ -1120,7 +1120,7 @@
                         <div id="purchased-content" class="content-div" style="display: none;">
                             <div class="hr-primary"></div>
                             <div class="list-group-item list-group-item-info d-flex">
-                                <strong class="font-16">Sách đã mua({{ $sanhDaMua->total() }})</strong>
+                                <strong class="font-16">Sách đã mua({{ $sachDaMua->total() }})</strong>
 
                                 <div class="pull-right">
                                     <form action="" method="get" class="navbar-form navbar-left"
@@ -1137,67 +1137,12 @@
                             </div>
                             <div class="list-group-item">
                                 <div style="overflow-x:auto;">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>STT</th>
-                                                <th>Truyện</th>
-                                                <th>Tác giả</th>
-                                                <th>Giá tiền</th>
-                                                <th>Mới nhất</th>
-                                                <th>Tình Trạng</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($sanhDaMua as $key =>$sachMua)
-                                                <tr>
-                                                    <th>{{$key +1}}</th>
 
-                                                    <th>
-                                                        <img src="https://truyenhdt.com/wp-content/uploads/2023/04/9140707.jpg"
-                                                            width="40" height="60" style="margin-right: 5px;" />
-                                                      {{$sachMua->sach->ten_sach}}
-                                                    </th>
-                                                    <th>   {{$sachMua->sach->user->ten_doc_gia}}</th>
-                                                    <th>   {{$sachMua->sach->gia_goc}}</th>
-                                                    <th>Chap 100</th>
-                                                    <th>
-                                                        @if ($sachMua->sach->tinh_trang_cap_nhat == 'da_full')
-                                                            <span class="badge badge-success">Hoàn Thành</span>
-                                                        @else
-                                                            <span class="badge badge-warning">Đang cập nhật</span>
-                                                        @endif
-                                                    </th>
-                                                    {{-- <th>
-                                                        <div class="dropdown pull-right">
-                                                            <button class="btn btn-default dropdown-toggle" type="button"
-                                                                data-toggle="dropdown"><i class="fa fa-cog"
-                                                                    aria-hidden="true"></i>
-                                                                <span class="caret"></span>
-                                                            </button>
-                                                            <ul class="dropdown-menu">
-                                                                <li><a href="/user/nhiem-vu/view/?id=149#h1"><i
-                                                                            class="fa fa-info" aria-hidden="true"></i> Chi
-                                                                        Tiết</a></li>
-                                                                <li><a href="/user/nhiem-vu/view/?id=149#h1"><i
-                                                                            class="fa fa-trash text-danger"
-                                                                            aria-hidden="true"></i> Xóa lịch sử </a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </th> --}}
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <ul class="pagination text-center" id="id_pagination">
-                                        <li class="active"><a href="/user/nhiem-vu/?q=1&x=1&n=1#h1">1</a></li>
-                                        <li class><a href="/user/nhiem-vu/?q=1&x=1&n=2#h1">2</a></li>
-                                        <li class><a href="/user/nhiem-vu/?q=1&x=1&n=3#h1">3</a></li>
-                                        <li class><a href="/user/nhiem-vu/?q=1&x=1&n=4#h1">4</a></li>
-                                        <li class><a href="/user/nhiem-vu/?q=1&x=1&n=5#h1">5</a></li>
-                                        <li><a href="/user/nhiem-vu/?q=1&x=1&n=2#h1">»</a></li>
-                                    </ul>
-
+                                    <div id="sach-da-mua">
+                                        @include('client.pages.sach-da-mua', [
+                                            'sachDaMua' => $sachDaMua,
+                                        ])
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1228,19 +1173,6 @@
                                         ])
 
                                     </div>
-
-
-
-
-                                    {{-- <ul class="pagination text-center" id="id_pagination">
-                                        <li class="active"><a href="/user/nhiem-vu/?q=1&x=1&n=1#h1">1</a></li>
-                                        <li class><a href="/user/nhiem-vu/?q=1&x=1&n=2#h1">2</a></li>
-                                        <li class><a href="/user/nhiem-vu/?q=1&x=1&n=3#h1">3</a></li>
-                                        <li class><a href="/user/nhiem-vu/?q=1&x=1&n=4#h1">4</a></li>
-                                        <li class><a href="/user/nhiem-vu/?q=1&x=1&n=5#h1">5</a></li>
-                                        <li><a href="/user/nhiem-vu/?q=1&x=1&n=2#h1">»</a></li>
-                                    </ul> --}}
-
                                 </div>
                             </div>
                         </div>
@@ -2172,117 +2104,33 @@
         });
     </script>
 
-    <style type="text/css">
-        .d-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .d-flex .form-group {
-            margin-bottom: 0px;
-        }
-
-        table {
-            background-color: transparent;
-            border-collapse: collapse;
-            border-spacing: 0;
-            width: 100%;
-        }
-
-        .table>caption+thead>tr:first-child>td,
-        .table>caption+thead>tr:first-child>th,
-        .table>colgroup+thead>tr:first-child>td,
-        .table>colgroup+thead>tr:first-child>th,
-        .table>thead:first-child>tr:first-child>td,
-        .table>thead:first-child>tr:first-child>th {
-            border-top: 0;
-        }
-
-        .table>thead>tr>th {
-            vertical-align: bottom;
-            border-bottom: 2px solid #ddd;
-        }
-
-        .table>tbody>tr>td,
-        .table>tbody>tr>th,
-        .table>tfoot>tr>td,
-        .table>tfoot>tr>th,
-        .table>thead>tr>td,
-        .table>thead>tr>th {
-            padding: 8px;
-            line-height: 1.42857143;
-            vertical-align: middle;
-            border-top: 1px solid #ddd;
-        }
-
-        th {
-            text-align: left;
-        }
-
-        tbody th {
-            font-weight: normal;
-        }
-
-        table tbody tr:last-child .dropdown-menu,
-        table tbody tr:nth-last-child(2) .dropdown-menu {
-            /*		right: 0;
-                                                                                                                        left: unset;
-                                                                                                                        top: unset;
-                                                                                                                        bottom: 35px;*/
-        }
-
-        ul.pagination li {
-            list-style: none;
-            display: inline-block;
-            margin: 10px 0px;
-        }
-
-        .pagination li:hover a {
-            background: linear-gradient(135deg, #848484 30%, #000000 100%);
-            color: #fff;
-        }
-
-        .pagination li.active a {
-            color: #fff;
-            background: linear-gradient(135deg, #000000 30%, #848484 100%);
-        }
-
-        .pagination li.active:hover a,
-        .pagination li.disabled:hover a {
-            background: linear-gradient(135deg, #000000 30%, #848484 100%);
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-
-        .pagination li a {
-            border: solid 1px #000000;
-            color: #000000;
-            padding: 0.6rem 1.0rem;
-            border-radius: 4px;
-            border: solid 1px black;
-            margin: 4px 2px;
-        }
-
-        #css-td-n-a-q-a td {
-            display: block;
-            width: 100%
-        }
-    </style>
 
     <script>
-        $(document).on('click', '.pagination a', function(event) {
-            event.preventDefault();
-            var page = $(this).attr('href').split('page=')[1]; // Lấy số trang từ URL
+      $(document).on('click', '.pagination a', function(event) {
+    event.preventDefault();
+    
+    var page = $(this).attr('href').split('page=')[1]; // Lấy số trang từ URL
+    var targetContent = $(this).closest('.content-div').attr('id'); // Lấy loại nội dung (sách đã mua hoặc yêu thích)
+    
+    var section = (targetContent === 'purchased-content') ? 'purchased' : 'favorites'; // Xác định phần đang thao tác
 
-            $.ajax({
-                url: $(this).attr('href'), // Gọi Ajax đến URL phân trang
-                success: function(data) {
-                    $('#yeu-thich-content').html(data); // Cập nhật nội dung
-                }
-            });
-        });
+    $.ajax({
+        url: $(this).attr('href'),
+        data: { section: section }, // Gửi section để phân biệt phần được yêu cầu
+        success: function(data) {
+            if (section === 'purchased') {
+                $('#sach-da-mua').html(data); // Cập nhật nội dung sách đã mua
+            } else {
+                $('#yeu-thich-content').html(data); // Cập nhật nội dung sách yêu thích
+            }
+        },
+        error: function() {
+            alert('Có lỗi xảy ra khi tải dữ liệu!');
+        }
+    });
+});
     </script>
+
     <script>
         $(document).on('click', '.delete-btn', function() {
             event.preventDefault();
@@ -2315,4 +2163,103 @@
             }
         });
     </script>
+
+
+<style type="text/css">
+    .d-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .d-flex .form-group {
+        margin-bottom: 0px;
+    }
+
+    table {
+        background-color: transparent;
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+    }
+
+    .table>caption+thead>tr:first-child>td,
+    .table>caption+thead>tr:first-child>th,
+    .table>colgroup+thead>tr:first-child>td,
+    .table>colgroup+thead>tr:first-child>th,
+    .table>thead:first-child>tr:first-child>td,
+    .table>thead:first-child>tr:first-child>th {
+        border-top: 0;
+    }
+
+    .table>thead>tr>th {
+        vertical-align: bottom;
+        border-bottom: 2px solid #ddd;
+    }
+
+    .table>tbody>tr>td,
+    .table>tbody>tr>th,
+    .table>tfoot>tr>td,
+    .table>tfoot>tr>th,
+    .table>thead>tr>td,
+    .table>thead>tr>th {
+        padding: 8px;
+        line-height: 1.42857143;
+        vertical-align: middle;
+        border-top: 1px solid #ddd;
+    }
+
+    th {
+        text-align: left;
+    }
+
+    tbody th {
+        font-weight: normal;
+    }
+
+    table tbody tr:last-child .dropdown-menu,
+    table tbody tr:nth-last-child(2) .dropdown-menu {
+        /*		right: 0;
+                                                                                                                        left: unset;
+                                                                                                                        top: unset;
+                                                                                                                        bottom: 35px;*/
+    }
+
+    ul.pagination li {
+        list-style: none;
+        display: inline-block;
+        margin: 10px 0px;
+    }
+
+    .pagination li:hover a {
+        background: linear-gradient(135deg, #848484 30%, #000000 100%);
+        color: #fff;
+    }
+
+    .pagination li.active a {
+        color: #fff;
+        background: linear-gradient(135deg, #000000 30%, #848484 100%);
+    }
+
+    .pagination li.active:hover a,
+    .pagination li.disabled:hover a {
+        background: linear-gradient(135deg, #000000 30%, #848484 100%);
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    .pagination li a {
+        border: solid 1px #000000;
+        color: #000000;
+        padding: 0.6rem 1.0rem;
+        border-radius: 4px;
+        border: solid 1px black;
+        margin: 4px 2px;
+    }
+
+    #css-td-n-a-q-a td {
+        display: block;
+        width: 100%
+    }
+</style>
 @endpush
