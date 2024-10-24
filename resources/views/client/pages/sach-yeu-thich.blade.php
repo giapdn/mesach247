@@ -5,7 +5,6 @@
             <th>Truyện</th>
             <th>Tác giả</th>
             <th>Giá tiền</th>
-            <th>Mới nhất</th>
             <th>Tình Trạng</th>
         </tr>
     </thead>
@@ -21,7 +20,6 @@
                 </th>
                 <th>{{ $yeuThich->sach->user->ten_doc_gia }}</th>
                 <th>{{ number_format($yeuThich->sach->gia_goc, 0, ',', '.') }} VNĐ</th>
-                <th>Chap 100</th>
                 <th>
                     @if ($yeuThich->sach->tinh_trang_cap_nhat == 'da_full')
                         <span class="badge badge-success">Hoàn Thành</span>

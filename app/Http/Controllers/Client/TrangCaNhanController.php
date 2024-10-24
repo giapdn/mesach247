@@ -12,13 +12,12 @@ use Illuminate\Support\Facades\Storage;
 
 class TrangCaNhanController extends Controller
 {
-    // public function index($section = 'profile', Request $request)
     public function index(Request $request)
     {
         $user = Auth::user();
+
         $page = $request->input('page', 1);
     
-        // Lấy sách yêu thích
         $danhSachYeuThich = YeuThich::with('user', 'sach.user')
             ->where('user_id', $user->id)
             ->whereHas('sach', function ($query) {
@@ -27,7 +26,6 @@ class TrangCaNhanController extends Controller
             })
             ->paginate(3, ['*'], 'page', $page);
     
-        // Lấy sách đã mua
         $sachDaMua = DonHang::with('sach.user', 'user')
             ->where('user_id', $user->id)
             ->where('trang_thai', 'thanh_cong')
@@ -84,7 +82,9 @@ class TrangCaNhanController extends Controller
     public function destroy($id)
     {
         $yeuThich = YeuThich::findOrFail($id);
+
         $yeuThich->delete();
+
         return response()->json(['success' => true, 'message' => 'Xóa thành công!']);
     }
 }
