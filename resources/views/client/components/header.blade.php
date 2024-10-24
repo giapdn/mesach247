@@ -310,21 +310,21 @@
                     <a href="{{ route('tim-kiem-sach') }}" class="nav-link">Danh Sách</a>
                     <a href="#" class="nav-link">Truyện full</a>
                     <a href="#" class="nav-link">Truyện mới</a>
-                    <a href="#" class="nav-link">Phúc lợi</a>
-                    <a href="#" class="nav-link">Hỏi đáp</a>
+                    <a href="{{route('phuc-loi-tac-gia')}}" class="nav-link">Phúc lợi</a>
+
 
                 </nav>
             </div>
             <div class="bottom-trai" >
                 <ul class="navbar-nav" >
                     <li style="list-style-type: none;" class="nav-item">
-                        <a class="nav-link" href="/page/huong-dan-su-dung/" target="_blank">
+                        <a class="nav-link" href="{{ route('hoi-dap') }}" >
                             <i class="iconfont icon-help"></i> <!-- Giữ icon cũ nếu nó đã đúng -->
-                            <i class="fa fa-question-circle"></i> Hướng Dẫn <!-- Thêm icon hỏi chấm -->
+                            <i class="fa fa-question-circle"></i> Hỏi đáp <!-- Thêm icon hỏi chấm -->
                         </a>
                     </li>
                     <li style="list-style-type: none;" class="nav-item">
-                        <a class="nav-link " href="/manager/" target="_blank" >
+                        <a class="nav-link " href="{{ route('hop-dong') }}"  >
                             <i class="iconfont icon-upload"></i> <!-- Giữ icon cũ nếu nó đã đúng -->
                             <i class="fa fa-book"></i> Đăng ký cộng tác viên <!-- Thêm icon quyển sách -->
                         </a>

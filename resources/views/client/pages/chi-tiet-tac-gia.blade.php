@@ -40,7 +40,7 @@
                         <span id="sms">
                         </span>
                         <span id="follow"></span>
-                        
+
                     </div>
                     <div class="row" id="user_count">
                         <div class="col-xs-4">

@@ -1,5 +1,9 @@
 @extends('client.layouts.app')
 @section('content')
+<div class="clearfix"></div>
+    <div class="container">
+        <div id="ads-header" class="text-center" style="margin-bottom: 10px"></div>
+    </div>
 <div class="container tax">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../index.html"><span class="fa fa-home"></span> Home</a></li>

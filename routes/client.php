@@ -126,6 +126,15 @@ Route::get('chi-tiet-bai-viet', function () {
     return view('client.pages.dang-ky-cong-tac-vien');
 })->name('dang-ky-cong-tac-vien');
 
+Route::get('phuc-loi-tac-gia', function () {
+    return view('client.pages.phuc-loi-tac-gia');
+})->name('phuc-loi-tac-gia');
+
+
+Route::get('hop-dong', function () {
+    return view('client.pages.hop-dong');
+})->name('hop-dong');
+
 
 Route::post('danh-sach/binh-luan', [\App\Http\Controllers\Client\SachController::class, 'store'])->name('danh-sach.binh-luan');
 Route::get('/ajax/danh-gia', [DanhGiaAjaxController::class, 'getDanhGia'])->name('getDanhGia');
