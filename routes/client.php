@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Client\BaiVietController;
 use App\Http\Controllers\Auth\Client\AuthController;
-use App\Http\Controllers\Client\DanhGiaAjaxController;
+use App\Http\Controllers\Client\SachController as ClientSachController;
 use App\Http\Controllers\Client\TrangCaNhanController;
 use App\Http\Controllers\Client\TrangChuController;
 use Illuminate\Support\Facades\Route;
@@ -111,8 +111,16 @@ Route::post('/lien-he', [\App\Http\Controllers\Client\LienHeController::class, '
 // Danh sách sách
 Route::get('danh-sach', [\App\Http\Controllers\Client\SachController::class, 'index'])->name('tim-kiem-sach');
 Route::get('data-sach', [\App\Http\Controllers\Client\SachController::class, 'dataSach'])->name('data-sach');
+
 // Chi tiết sách
 Route::get('sach/{id}', [\App\Http\Controllers\Client\SachController::class, 'chiTietSach'])->name('chi-tiet-sach');
+// Route::post('/submit-review', [ClientSachController::class, 'store'])->name('them-moi-danh-gia');
+Route::get('/ajax/danh-gia', [ClientSachController::class, 'getDanhGia'])->name('getDanhGia');
+
+Route::post('danh-sach/binh-luan', [\App\Http\Controllers\Client\SachController::class, 'store'])->name('danh-sach.danh-gia');
+Route::put('danh-sach/binh-luan/{id}', [\App\Http\Controllers\Client\SachController::class, 'update'])->name('cap-nhat-danh-gia');
+
+
 //api Paginate chương
 Route::get('data-chuong/{id}', [\App\Http\Controllers\Client\SachController::class, 'dataChuong'])->name('data-chuong');
 // Chi tiết chương
@@ -129,5 +137,3 @@ Route::get('chi-tiet-bai-viet', function () {
 });
 
 
-Route::post('danh-sach/binh-luan', [\App\Http\Controllers\Client\SachController::class, 'store'])->name('danh-sach.binh-luan');
-Route::get('/ajax/danh-gia', [DanhGiaAjaxController::class, 'getDanhGia'])->name('getDanhGia');

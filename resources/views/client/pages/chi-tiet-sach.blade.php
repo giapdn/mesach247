@@ -7,9 +7,9 @@
 @endpush
 @section('content')
     <style>
-        .rating {
-            direction: ltr;
-        }
+        /* .rating {
+                    direction: ltr;
+                } */
 
         .rating-container {
             margin-right: 5px;
@@ -69,7 +69,13 @@
                             <div class="rate-hover"></div>
                             <div class="rate-noti"></div>
                             <div class="rate-info">
-                                <strong>{{ $trungBinhHaiLong }}</strong>/5 trên tổng số
+                                <strong>
+                                    @if ($trungBinhHaiLong)
+                                        {{ $trungBinhHaiLong }}
+                                    @else
+                                        {{ 0 }}
+                                    @endif
+                                </strong>/5 trên tổng số
                                 <strong>{{ $soLuongDanhGia }}</strong> lượt đánh giá
                             </div>
                         </div>
@@ -267,66 +273,25 @@
                                                 </div>
                                             </div>
 
-                                            @if ($danhGia->muc_do_hai_long == 'rat_hay')
-                                                <div class="rating">
-                                                    <div class="active" data-ratingvalue="1" data-ratingtext="Rất tệ">
+                                            @php
+                                                $ratings = [
+                                                    'rat_hay' => 5,
+                                                    'hay' => 4,
+                                                    'trung_binh' => 3,
+                                                    'te' => 2,
+                                                    'rat_te' => 1,
+                                                ];
+                                                $currentRating = $ratings[$danhGia->muc_do_hai_long] ?? 0;
+                                            @endphp
+
+                                            <div class="rating">
+                                                @for ($i = 5; $i >= 1; $i--)
+                                                    <div class="{{ $i <= $currentRating ? 'active' : 'inactive' }}"
+                                                        data-ratingvalue="{{ $i }}"
+                                                        data-ratingtext="{{ $i == 5 ? 'Rất hay!' : ($i == 4 ? 'Hay' : ($i == 3 ? 'Trung bình' : ($i == 2 ? 'Tệ' : 'Rất tệ'))) }}">
                                                     </div>
-                                                    <div class="active" data-ratingvalue="2" data-ratingtext="Tệ"></div>
-                                                    <div class="active" data-ratingvalue="3"
-                                                        data-ratingtext="Trung bình"></div>
-                                                    <div class="active" data-ratingvalue="4" data-ratingtext="Hay"></div>
-                                                    <div class="active" data-ratingvalue="5" data-ratingtext="Rất hay">
-                                                    </div>
-                                                </div>
-                                            @elseif ($danhGia->muc_do_hai_long == 'hay')
-                                                <div class="rating">
-                                                    <div class="active" data-ratingvalue="1" data-ratingtext="Rất tệ">
-                                                    </div>
-                                                    <div class="active" data-ratingvalue="2" data-ratingtext="Tệ"></div>
-                                                    <div class="active" data-ratingvalue="3"
-                                                        data-ratingtext="Trung bình"></div>
-                                                    <div class="active" data-ratingvalue="4" data-ratingtext="Hay"></div>
-                                                    <div class="inactive" data-ratingvalue="5" data-ratingtext="Rất hay">
-                                                    </div>
-                                                </div>
-                                            @elseif ($danhGia->muc_do_hai_long == 'trung_binh')
-                                                <div class="rating">
-                                                    <div class="active" data-ratingvalue="1" data-ratingtext="Rất tệ">
-                                                    </div>
-                                                    <div class="active" data-ratingvalue="2" data-ratingtext="Tệ"></div>
-                                                    <div class="active" data-ratingvalue="3"
-                                                        data-ratingtext="Trung bình"></div>
-                                                    <div class="inactive" data-ratingvalue="4" data-ratingtext="Hay">
-                                                    </div>
-                                                    <div class="inactive" data-ratingvalue="5" data-ratingtext="Rất hay">
-                                                    </div>
-                                                </div>
-                                            @elseif ($danhGia->muc_do_hai_long == 'te')
-                                                <div class="rating">
-                                                    <div class="active" data-ratingvalue="1" data-ratingtext="Rất tệ">
-                                                    </div>
-                                                    <div class="active" data-ratingvalue="2" data-ratingtext="Tệ"></div>
-                                                    <div class="inactive" data-ratingvalue="3"
-                                                        data-ratingtext="Trung bình"></div>
-                                                    <div class="inactive" data-ratingvalue="4" data-ratingtext="Hay">
-                                                    </div>
-                                                    <div class="inactive" data-ratingvalue="5" data-ratingtext="Rất tệ">
-                                                    </div>
-                                                </div>
-                                            @elseif ($danhGia->muc_do_hai_long == 'rat_te')
-                                                <div class="rating">
-                                                    <div class="active" data-ratingvalue="1" data-ratingtext="Rất tệ">
-                                                    </div>
-                                                    <div class="inactive" data-ratingvalue="2" data-ratingtext="Tệ">
-                                                    </div>
-                                                    <div class="inactive" data-ratingvalue="3"
-                                                        data-ratingtext="Trung bình"></div>
-                                                    <div class="inactive" data-ratingvalue="4" data-ratingtext="Hay">
-                                                    </div>
-                                                    <div class="inactive" data-ratingvalue="5" data-ratingtext="Rất hay">
-                                                    </div>
-                                                </div>
-                                            @endif
+                                                @endfor
+                                            </div>
                                             <div class="commenttext" itemprop="commentText">
                                                 <p>{{ $danhGia->noi_dung }}</p>
                                             </div>
@@ -335,14 +300,28 @@
                                 </div>
                             </li>
                         @endforeach
+
                     </ol>
+                    <div id="newReviews"> <!-- Container mới cho đánh giá mới -->
+                        <!-- Đánh giá mới sẽ được thêm vào đây -->
+                    </div>
                     <div class="flex-comment">
-                        <span class="addcomment">
-                            <span class="btn btn-primary font-12 font-oswald">
-                                <i class="fa fa-plus" aria-hidden="true"></i> Đánh giá sách
-                                <i class="fa fa-star" aria-hidden="true"></i>
+                        @if ($userReview)
+                            <span class="addcomment">
+                                <span class="btn btn-primary font-12 font-oswald">
+                                    <i class="fa fa-plus" aria-hidden="true"></i> Đánh giá lại
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </span>
                             </span>
-                        </span>
+                        @else
+                            <span class="addcomment">
+                                <span class="btn btn-primary font-12 font-oswald">
+                                    <i class="fa fa-plus" aria-hidden="true"></i> Đánh giá sách
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </span>
+                            </span>
+                        @endif
+
                         <div id="loadMoreWrapper">
                             <button id="loadMoreBtn" class="btn-primary-border font-12 font-oswald" data-page="1">Xem
                                 thêm đánh giá→</button>
@@ -360,49 +339,92 @@
                                 <h4 class="modal-title" id="myModalLabel">Đánh giá</h4>
                             </div>
                             <div class="modal-body clearfix">
-                                <form id="ratingForm" method="post" enctype="multipart/form-data"
-                                    action="{{ route('danh-sach.binh-luan') }}">
-                                    @csrf
-                                    <input type="hidden" name="sach_id" value="{{ $sach->id }}">
-                                    <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-                                    <input type="hidden" name="ngay_danh_gia" value="{{ now() }}">
+                                @if ($userReview)
+                                    <form id="updateRatingForm" method="post" enctype="multipart/form-data"
+                                        action="{{ route('cap-nhat-danh-gia', $userReview->id) }}">
+                                        @csrf
+                                        @method('put')
+                                        <input type="hidden" name="sach_id" value="{{ $sach->id }}">
+                                        <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                                        <input type="hidden" name="ngay_danh_gia" value="{{ now() }}">
 
-                                    <!-- Giá trị sao -->
-                                    <input type="hidden" id="rating_value" name="rating_value" value="">
-
-                                    <!-- Nhập đánh giá sao -->
-                                    <div class="mb-3 mr-3">
-                                        <span >Đánh giá: </span>
-                                        <div class="rating ms-2">
-                                            <div class="star active" data-ratingvalue="1" data-ratingtext="Rất tệ"></div>
-                                            <div class="star active" data-ratingvalue="2" data-ratingtext="Tệ"></div>
-                                            <div class="star active" data-ratingvalue="3" data-ratingtext="Trung bình">
+                                        <!-- Giá trị sao -->
+                                        <input type="hidden" id="rating_value" name="rating_value"
+                                            value="{{ $soSao }}">
+                                        <!-- Nhập đánh giá sao -->
+                                        <div class="mb-3 mr-3">
+                                            <span>Đánh giá: </span>
+                                            <div class="rating ms-2">
+                                                @for ($i = 5; $i >= 1; $i--)
+                                                    <div class="star{{ $soSao >= $i ? ' active' : '' }}"
+                                                        data-ratingvalue="{{ $i }}"
+                                                        data-ratingtext="{{ $i == 5 ? 'Rất hay!' : ($i == 4 ? 'Hay' : ($i == 3 ? 'Trung bình' : ($i == 2 ? 'Tệ' : 'Rất tệ'))) }}">
+                                                    </div>
+                                                @endfor
                                             </div>
-                                            <div class="star active" data-ratingvalue="4" data-ratingtext="Hay"></div>
-                                            <div class="star active" data-ratingvalue="5" data-ratingtext="Rất hay">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <textarea class="form-control" name="noi_dung" id="noi_dung">{{ $userReview->noi_dung }}</textarea>
+                                        </div>
+
+                                        <!-- Nút gửi đánh giá -->
+                                        <div class="d-flex justify-content-between">
+                                            <div class="form-group-ajax modal-footer">
+                                                <button type="submit" class="btn btn-primary" id="submitComment">
+                                                    <i class="fa fa-upload icon-small" aria-hidden="true"></i> Gửi Nhận
+                                                    Xét
+                                                </button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default"
+                                                    data-dismiss="modal">Thoát</button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
+                                @else
+                                    <form id="newRatingForm" method="post" enctype="multipart/form-data"
+                                        action="{{ route('danh-sach.danh-gia') }}">
+                                        @csrf
+                                        <input type="hidden" name="sach_id" value="{{ $sach->id }}">
+                                        <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                                        <input type="hidden" name="ngay_danh_gia" value="{{ now() }}">
 
-                                    <div class="form-group">
-                                        <textarea class="form-control" name="noi_dung" id="noi_dung" placeholder="Nhập đánh giá của bạn ở đây... *"></textarea>
-                                    </div>
+                                        <!-- Giá trị sao -->
+                                        <input type="hidden" id="rating_value" name="rating_value" value="">
 
-                                    <!-- Nút gửi đánh giá -->
-                                    <div class="d-flex justify-content-between">
-                                        <div class="form-group-ajax modal-footer">
-                                            <button type="submit" class="btn btn-primary" id="submitComment">
-                                                <i class="fa fa-upload icon-small" aria-hidden="true"></i> Gửi Nhận Xét
-                                            </button>
+                                        <!-- Nhập đánh giá sao -->
+                                        <div class="mb-3 mr-3">
+                                            <span>Đánh giá: </span>
+                                            <div class="rating ms-2">
+                                                @for ($i = 5; $i >= 1; $i--)
+                                                    <div class="star{{ $soSao >= $i ? ' active' : '' }}"
+                                                        data-ratingvalue="{{ $i }}"
+                                                        data-ratingtext="{{ $i == 5 ? 'Rất hay!' : ($i == 4 ? 'Hay' : ($i == 3 ? 'Trung bình' : ($i == 2 ? 'Tệ' : 'Rất tệ'))) }}">
+                                                    </div>
+                                                @endfor
+                                            </div>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default"
-                                                data-dismiss="modal">Thoát</button>
+                                        <div class="form-group">
+                                            <textarea class="form-control" name="noi_dung" id="noi_dung" placeholder="Nhập đánh giá của bạn ở đây... *"></textarea>
                                         </div>
-                                    </div>
-                                </form>
+
+                                        <!-- Nút gửi đánh giá -->
+                                        <div class="d-flex justify-content-between">
+                                            <div class="form-group-ajax modal-footer">
+                                                <button type="submit" class="btn btn-primary" id="submitComment">
+                                                    <i class="fa fa-upload icon-small" aria-hidden="true"></i> Gửi Nhận
+                                                    Xét
+                                                </button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default"
+                                                    data-dismiss="modal">Thoát</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                @endif
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -522,43 +544,67 @@
     <script>
         $(document).ready(function() {
 
-            var defaultRating = 5;
-            $('#rating_value').val(defaultRating);
+            var currentRating = $('#rating_value').val();
+            updateStars(currentRating);
 
-            // Đánh dấu sao từ 1 đến 5 là active
-            $('.rating .star').addClass('active');
-        });
+            // Cập nhật sao khi nhấn
+            $('.rating .star').click(function() {
+                var ratingValue = $(this).data('ratingvalue');
+                $('#rating_value').val(ratingValue);
+                updateStars(ratingValue);
+            });
 
-        // Bắt sự kiện khi click vào sao
-        $('.rating .star').click(function() {
-            var ratingValue = $(this).data('ratingvalue');
-            console.log('Đánh giá đã chọn:', ratingValue);
+            function updateStars(rating) {
+                $('.rating .star').each(function() {
+                    var starValue = $(this).data('ratingvalue');
+                    $(this).removeClass('active');
+                    if (starValue <= rating) {
+                        $(this).addClass('active');
+                    }
+                });
+            }
 
-            $('#rating_value').val(ratingValue);
+            // AJAX submit form
+            $('#newRatingForm').on('submit', function(event) {
+                event.preventDefault();
+                let formData = new FormData(this);
 
-            $('.rating .star').removeClass('active');
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        alert('Thêm đánh giá thành công')
+                    },
+                    error: function(xhr) {
+                        console.log(xhr);
+                        alert('Có l��i xảy ra, vui lòng thử lại.');
+                    }
+                });
+            });
 
-            // Thêm class active cho các sao nhỏ hơn hoặc bằng số sao đã chọn
-            $(this).addClass('active').prevAll().addClass('active');
-        });
+            // AJAX cho Form Cập nhật Đánh Giá
+            $('#updateRatingForm').on('submit', function(event) {
+                event.preventDefault();
+                let formData = new FormData(this);
 
-        // AJAX submit form
-        $('#ratingForm').on('submit', function(event) {
-            event.preventDefault(); // Ngăn reload trang
-            let formData = new FormData(this);
-
-            $.ajax({
-                url: $(this).attr('action'),
-                method: $(this).attr('method'),
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    alert('Bình luận của bạn đã được gửi thành công!');
-                },
-                error: function(xhr) {
-                    alert('Có lỗi xảy ra, vui lòng thử lại.');
-                }
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        console.log(formData);
+                        alert('Cập nhật đánh giá thành công')
+                    },
+                    error: function(xhr) {
+                        console.log(xhr);
+                        alert('Có l��i xảy ra, vui lòng thử lại.');
+                    }
+                });
             });
         });
     </script>
@@ -572,7 +618,7 @@
                 let sachId = {{ $sach->id }}; // ID của sách, đảm bảo giá trị này có sẵn trong view
 
                 $.ajax({
-                    url: '{{ route('getDanhGia') }}', // Đường dẫn đến API
+                    url: '{{ route('getDanhGia') }}',
                     type: 'GET',
                     data: {
                         page: page + 1, // Tăng trang hiện tại lên 1 để tải thêm đánh giá
@@ -589,12 +635,12 @@
                             <div class="comment-author vcard">
                                 <div class="avatar_user_comment">
                                     ${danhGia.user.hinh_anh_url ? `
-                                                                                <a href="">
-                                                                                    <img alt="user" src="${danhGia.user.hinh_anh_url}" class="avatar-32">
-                                                                                </a>` : `
-                                                                                <a href="">
-                                                                                    <img alt="user" src="{{ asset('assets/admin/images/users/user-dummy-img.jpg') }}" class="avatar-32">
-                                                                                </a>`}
+                                                                                                                            <a href="">
+                                                                                                                                <img alt="user" src="${danhGia.user.hinh_anh_url}" class="avatar-32">
+                                                                                                                            </a>` : `
+                                                                                                                            <a href="">
+                                                                                                                                <img alt="user" src="{{ asset('assets/admin/images/users/user-dummy-img.jpg') }}" class="avatar-32">
+                                                                                                                            </a>`}
                                 </div>
                                 <div class="post-comments">
                                     <div class="d-flex justify-content-between">
@@ -672,6 +718,42 @@
             });
         });
     </script>
-   
-@endpush
+    <style>
+        .rating .star {
+            cursor: pointer;
+            transition: transform 0.2s;
+            /* Smooth transition for the transform effect */
+        }
 
+        .rating .star:hover,
+        .rating .star:hover~.star {
+            transform: scale(1.3);
+            /* Scale stars on hover */
+        }
+
+        /* Optional: change color on hover to give visual feedback */
+        .rating .star:hover,
+        .rating .star:hover~.star {
+            color: gold;
+            /* Change the color to gold when hovering */
+        }
+    </style>
+
+    {{-- <script>
+        $(document).ready(function() {
+    $('.rating .star').on('mouseenter', function() {
+        $(this).addClass('hover-active').prevAll().addClass('hover-active');
+        $(this).nextAll().removeClass('hover-active');
+    }).on('mouseleave', function() {
+        $('.rating .star').removeClass('hover-active');
+    });
+
+    $('.rating .star').click(function() {
+        var ratingValue = $(this).data('ratingvalue');
+        $('#rating_value').val(ratingValue);
+        $('.rating .star').removeClass('active');
+        $(this).addClass('active').prevAll().addClass('active');
+    });
+});
+    </script> --}}
+@endpush

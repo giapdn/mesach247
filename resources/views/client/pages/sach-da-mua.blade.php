@@ -14,9 +14,11 @@
                 <th>{{ $key + 1 }}</th>
 
                 <th>
+                    <a href="{{ route('chi-tiet-sach', $sachMua->sach->id) }}">
                     <img src="https://truyenhdt.com/wp-content/uploads/2023/04/9140707.jpg" width="40" height="60"
                         style="margin-right: 5px;" />
                     {{ $sachMua->sach->ten_sach }}
+                </a>
                 </th>
                 <th> {{ $sachMua->sach->user->ten_doc_gia }}</th>
                 <th>{{ number_format($sachMua->sach->gia_goc, 0, ',', '.') }} VNĐ</th>

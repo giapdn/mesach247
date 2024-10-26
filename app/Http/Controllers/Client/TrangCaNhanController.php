@@ -17,24 +17,24 @@ class TrangCaNhanController extends Controller
         $user = Auth::user();
 
         $page = $request->input('page', 1);
-    
+
         $danhSachYeuThich = YeuThich::with('user', 'sach.user')
             ->where('user_id', $user->id)
-            ->whereHas('sach', function ($query) {
+            ->whereHas('saches', function ($query) {
                 $query->where('kiem_duyet', 'duyet')
-                      ->where('trang_thai', 'hien');
+                    ->where('trang_thai', 'hien');
             })
             ->paginate(3, ['*'], 'page', $page);
-    
+
         $sachDaMua = DonHang::with('sach.user', 'user')
             ->where('user_id', $user->id)
             ->where('trang_thai', 'thanh_cong')
             ->whereHas('sach', function ($query) {
                 $query->where('kiem_duyet', 'duyet')
-                      ->where('trang_thai', 'hien');
+                    ->where('trang_thai', 'hien');
             })
             ->paginate(3, ['*'], 'page', $page);
-    
+
         // Kiểm tra nếu là yêu cầu AJAX
         if ($request->ajax()) {
             if ($request->input('section') == 'purchased') {
@@ -43,7 +43,7 @@ class TrangCaNhanController extends Controller
                 return view('client.pages.sach-yeu-thich', compact('danhSachYeuThich'))->render();
             }
         }
-    
+
         return view('client.pages.trang-ca-nhan', compact('user', 'danhSachYeuThich', 'sachDaMua'));
     }
 
