@@ -6,7 +6,8 @@
 
 <head itemscope itemtype="http://schema.org/WebSite">
     <meta charset="utf-8">
-    <title>Truyện HD - Thế giới Truyện Hay Nhất, Đọc Truyện Online, Truyện Full</title>
+    <title>Mê Sách 247 - Thế giới sách của bạn !</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=1.0, user-scalable=no">
     <meta name="robots" content="index, follow" />
     <meta name="description"
@@ -2691,11 +2692,10 @@
             border-bottom: 1px dashed black;
             padding: 2px;
         }
-        
+
         .commenttext {
             margin-top: -25px;
         }
-        
 
 
         .commenttext a:hover {
@@ -2985,6 +2985,12 @@
             position: relative;
         }
 
+    .dropdown-submenu>.dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -1px;
+
+    }
         .dropdown-submenu>.dropdown-menu {
             top: 0;
             left: 100%;
@@ -3001,12 +3007,72 @@
 
 <body>
 
+    <div style="padding-bottom: 130px;">
+        @include('client.components.header')
+    </div>
+        <!-- end header -->
+        {{-- @include('client.components.sidebar-mobile') --}}
+        {{-- end sidebar mobile --}}
 
     @include('client.components.header')
     <!-- end header -->
     {{-- @include('client.components.sidebar-mobile') --}}
     {{-- end sidebar mobile --}}
 
+@yield('content')
+@include('client.components.footer')
+@include('client.components.lienhe')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#search-input').on('keyup', function() {
+                let query = $(this).val();
+
+                if (query.length > 1) {
+                    $.ajax({
+                        url: "{{ route('search') }}", // URL to the search route
+                        type: "GET",
+                        data: { 'query': query },
+                        success: function(data) {
+                            $('#suggestions-list').html(''); // Clear previous results
+                            if (data.saches.length > 0 || data.users.length > 0 || data.theLoais.length > 0) {
+                                // search sách
+                                data.saches.forEach(function(item) {
+                                    let urlSach = '/danh-sach?title=' + encodeURIComponent(item.ten_sach);
+                                    $('#suggestions-list').append('<li class="suggestion-item"><a href="' + urlSach + '">Sách : ' + item.ten_sach + '</a></li>');
+                                });
+                                // search thể loại
+                                data.theLoais.forEach(function(item) {
+                                    let urlTheLoai = '/the-loai/' + encodeURIComponent(item.id);
+                                    $('#suggestions-list').append('<li class="suggestion-item"><a href="' + urlTheLoai + '">Thể loại : ' + item.ten_the_loai + '</a></li>');
+                                });
+
+                                // search tác giả
+                                data.users.forEach(function(item) {
+                                    let urlUserCTV = '/tac-gia/' + encodeURIComponent(item.id);
+                                    $('#suggestions-list').append('<li class="suggestion-item"><a href="' + urlUserCTV + '">Tác giả : ' + item.ten_doc_gia + '</a></li>');
+                                });
+                            } else {
+                                $('#suggestions-list').append('<div class="suggestion-item">Không tìm thấy dữ liệu!</div>');
+                            }
+                        },
+                        error: function() {
+                            $('#suggestions-list').html('<div class="suggestion-item">Đã có lỗi xảy ra. Vui lòng thử lại.</div>');
+                        }
+                    });
+                } else {
+                    $('#suggestions-list').html(''); // Clear suggestions when input is empty
+                }
+            });
+
+            // Handle when a suggestion is clicked
+            $(document).on('click', '.suggestion-item', function() {
+                $('#search-input').val($(this).text()); // Set the selected value into the input
+                $('#suggestions-list').html(''); // Hide suggestions list
+            });
+        });
+    </script>
+@stack('scripts')
     @yield('content')
     @include('client.components.footer')
     @include('client.components.lienhe')

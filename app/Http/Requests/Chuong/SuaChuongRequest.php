@@ -25,7 +25,6 @@ class SuaChuongRequest extends FormRequest
             'so_chuong' => 'required',
             'tieu_de' => 'required|min:3|max:255',
             'noi_dung' => 'required|min:10',
-            'trang_thai_chuong' => 'required',
         ];
     }
 
@@ -40,7 +39,6 @@ class SuaChuongRequest extends FormRequest
             'noi_dung.min' => 'Nội dung phải có ít nhất 10 ký tự.',
             'ngay_len_song.required' => 'Ngày lên sóng là bắt buộc.',
             'ngay_len_song.date' => 'Ngày lên sóng không hợp lệ.',
-            'trang_thai_chuong.required' => 'Trạng thái là bắt buộc.',
         ];
     }
 }

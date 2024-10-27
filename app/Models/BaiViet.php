@@ -44,4 +44,6 @@ class BaiViet extends Model
         'an' => 'Ẩn',
         'hien' => 'Hiện',
     ];
+    const HIEN = 'hien';
+    const AN = 'an';
 }

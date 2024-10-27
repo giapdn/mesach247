@@ -21,7 +21,7 @@ class ShareCommonData
     public function handle($request, Closure $next)
     {
         $commonData = [
-            'theLoais' => TheLoai::all(),
+            'theLoais' => TheLoai::where('trang_thai', 'hien')->get(),
             'baiviet' => BaiViet::all(),
             'chuyenMucs' => ChuyenMuc::all(),
 

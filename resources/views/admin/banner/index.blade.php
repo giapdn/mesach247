@@ -217,7 +217,7 @@
             if (!confirm('Bạn muốn thay đổi trạng thái cập nhật chứ?')) {
                 return;
             }
-            fetch(`/banner/${id}/update-status`, {
+            fetch(`/admin/banner/${id}/update-status`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

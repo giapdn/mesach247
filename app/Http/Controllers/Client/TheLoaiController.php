@@ -13,16 +13,15 @@ class TheLoaiController extends Controller
 {
     public function index(Request $request, $id)
     {
-        $sach = collect();
-        $theloaiSach = TheLoai::find($id);
-
+        $theloaiSach = TheLoai::where('id', $id)->where('trang_thai', 'hien')->first();
         if ($theloaiSach) {
-            // Lấy sách thuộc thể loại
-            $sach = $theloaiSach->saches->map(function ($anh) {
+            $sach = $theloaiSach->saches->filter(function ($item) {
+                return $item->kiem_duyet === 'duyet' && $item->trang_thai === 'hien';
+            })->map(function ($anh) {
                 $anh->anh_bia_sach = Storage::url($anh->anh_bia_sach);
                 return $anh;
             });
-            // Lọc
+            // Lọc theo điều kiện
             if ($request->has('filter')) {
                 $kiemDuyet = $request->input('filter');
                 $sach = $sach->filter(function ($item) use ($kiemDuyet) {
@@ -34,7 +33,7 @@ class TheLoaiController extends Controller
                         case 'new':
                             return $item->tinh_trang_cap_nhat === 'tiep_tuc_cap_nhat' && $item->kiem_duyet === 'duyet';
                         default:
-                            return $item->kiem_duyet === 'duyet';
+                            return $item->kiem_duyet === 'duyet' && $item->trang_thai === 'hien';
                     }
                 });
             }

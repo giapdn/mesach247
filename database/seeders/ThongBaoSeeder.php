@@ -21,6 +21,7 @@ class ThongBaoSeeder extends Seeder
                 'trang_thai' => fake()->randomElement(['da_xem', 'chua_xem']),
                 'user_id' => rand(1, 10),
                 'url' => fake()->url(),
+                'type' => fake()->randomElement(['sach', 'tien']),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

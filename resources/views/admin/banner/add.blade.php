@@ -47,9 +47,9 @@
                             <div class="mb-3">
                                 <label for="loai_banner" class="form-label">Loại Banner:</label>
                                 <select name="loai_banner" class="form-select">
-                                    <option value="Slideshow" {{ old('loai_banner') == 'Slideshow' ? 'selected' : '' }}>
+                                    <option value="slider" {{ old('loai_banner') == 'slider' ? 'selected' : '' }}>
                                         Slideshow</option>
-                                    <option value="Footer" {{ old('loai_banner') == 'Footer' ? 'selected' : '' }}>Footer
+                                    <option value="footer" {{ old('loai_banner') == 'footer' ? 'selected' : '' }}>Footer
                                     </option>
                                 </select>
                             </div>

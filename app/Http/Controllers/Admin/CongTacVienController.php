@@ -8,8 +8,10 @@ use App\Models\DanhGia;
 use App\Models\DonHang;
 use App\Models\RutTien;
 use App\Models\Sach;
+use App\Models\ThongBao;
 use App\Models\User;
 use App\Models\YeuThich;
+use App\Notifications\RutTienCTVNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -258,7 +260,24 @@ class CongTacVienController extends Controller
         // Lưu vào cơ sở dữ liệu
         $withdrawal->save();
 
-        // Trả về thông báo thành công
+        $adminUsers = User::whereHas('vai_tros', function($query) {
+            $query->whereIn('ten_vai_tro', ['admin', 'Kiểm duyệt viên']);
+        })->get();
+
+        foreach ($adminUsers as $adminUser) {
+            ThongBao::create([
+                'user_id' => $adminUser->id,
+                'tieu_de' => 'Yêu cầu rút tiền mới',
+                'noi_dung' => 'Yêu cầu rút tiền từ tài khoản "' . auth()->user()->ten_doc_gia . '" với số tiền ' . number_format($soTien, 0, ',', '.') . ' VNĐ đang chờ xử lý.',
+                'url' => route('notificationRutTien', ['id' => $withdrawal->id]),
+                'trang_thai' => 'chua_xem',
+                'type' => 'tien',
+            ]);
+//           dd($dd);
+
+        }
+//        $user = auth()->user();
+//        $user->notify(new RutTienCTVNotification($withdrawal->id, $soTien, $maYeuCau));
         return redirect()->back()->with('success', 'Yêu cầu rút tiền đã được gửi thành công.');
     }
     public function checkSD()
@@ -276,5 +295,14 @@ class CongTacVienController extends Controller
         return response()->json(['sufficient' => true, 'requestInProgress' => false]);
     }
 
-
+    public function notificationRutTien(Request $request, $id = null)
+    {
+        $danhSachYeuCauQuery = RutTien::with('user');
+        if (isset($id)) {
+            $danhSachYeuCau = $danhSachYeuCauQuery->where('id', $id)->get();
+        } else {
+            $danhSachYeuCau = $danhSachYeuCauQuery->get();
+        }
+        return view('admin.cong-tac-vien.yeu-cau-rut-tien', compact('danhSachYeuCau'));
+    }
 }

@@ -300,9 +300,8 @@
                                 nhân</a>
                         </li>
                         <li class="list-group-item" id="menu-notification">
-                            <a href="javascript:void(0)" class="menu-link" data-target="notification-content"
-                                data-breadcrumb="Thông báo"><i class="fa fa-bell" aria-hidden="true"></i> Thông
-                                báo</a>
+                            <a href="" class="menu-link" data-target="notification-content"
+                               data-breadcrumb="Thông báo"><i class="fa fa-bell" aria-hidden="true"></i> Thông báo</a>
                         </li>
                         <li class="list-group-item" id="menu-message">
                             <a href="javascript:void(0)" class="menu-link" data-target="message-content"

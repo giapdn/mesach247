@@ -46,11 +46,12 @@
         </div>
         <div class="card-body">
             <form id="createproduct-form" autocomplete="off" class="needs-validation" novalidate
-                  action="{{ route('chuong.update', [$sach->id, $chuong->id]) }}" method="post" enctype="multipart/form-data">
+                  action="{{ route('chuong.update', [$sach->id, $chuong->id]) }}" method="post"
+                  enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title mb-0">Thông tin chính</h5>
@@ -88,50 +89,21 @@
                                           class="form-control @error('noi_dung') is-invalid @enderror">{{ old('noi_dung', $chuong->noi_dung) }}</textarea>
                             </div>
                         </div>
-                        <!-- end card -->
                         <div class="text-end mb-3">
                             <a href="{{ route('sach.show', $sach->id) }}" class="btn btn-info">Quay lại</a>
-
-                            <button type="submit" class="btn btn-warning ">Sửa chương</button>
-                        </div>
-                    </div>
-                    <!-- end col -->
-
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">Trạng thái</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="mb-3">
-                                        <label class="form-label" for="">Trạng thái</label>
-                                        <select name="trang_thai_chuong" id="" class="form-select">
-                                            @foreach($trang_thai as $key => $value)
-                                                <option class=""
-                                                        value="{{$key}}" @if (old('trang_thai_chuong') == $key)  @endif {{ $chuong->trang_thai == $key ? 'selected' : '' }}>{{ $value }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label" for="">Kiểm duyệt</label>
-                                        <select name="kiem_duyet_chuong" id="" class="form-select">
-                                            @foreach($kiem_duyet as $key => $value)
-                                                <option class=""
-                                                        value="{{$key}}" @if (old('kiem_duyet_chuong') == $key)  @endif {{ $chuong->kiem_duyet == $key ? 'selected' : '' }}>{{ $value }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                            <!-- end card body -->
+                            @if ($chuong->kiem_duyet != 'duyet')
+                                <button type="submit" name="action" value="ban_nhap" class="btn btn-secondary ">Lưu
+                                    thành bản nháp
+                                </button>
+                            @endif
+                            <button type="submit" name="action" value="cho_xac_nhan" class="btn btn-warning ">Lưu chương
+                            </button>
                         </div>
                         <!-- end card -->
 
                     </div>
                     <!-- end col -->
+
                 </div>
                 <!-- end row -->
             </form>

@@ -85,10 +85,19 @@
                             </div>
                         </div>
                         <!-- end card -->
-                        <div class="text-end mb-3">
-                            <a href="{{ route('sach.show', $sach->id) }}" class="btn btn-info">Quay lại</a>
-
-                            <button type="submit" class="btn btn-success ">Thêm chương</button>
+                        <div class="d-flex justify-content-end mb-3">
+                            <div class="mb-3 p-1">
+                                <a href="{{ route('sach.show', $sach->id) }}" class="btn btn-info">Quay lại</a>
+                            </div>
+                            <div class="mb-3 p-1">
+                                <button type="submit" name="action" value="cho_xac_nhan" class="btn btn-success ">Lưu chương
+                                </button>
+                            </div>
+                            <div class="mb-3 p-1">
+                                <button type="submit" name="action" value="ban_nhap" class="btn btn-secondary ">Lưu
+                                    thành bản nháp
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <!-- end col -->

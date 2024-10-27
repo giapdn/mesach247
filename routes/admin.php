@@ -89,9 +89,16 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('/banner/{id}/update-status', [BannerController::class, 'updateStatus'])
         ->name('banner.update-status');
 
+    // Kiểm duyệt cộng tác viên
+    Route::get('kiem-duyet-cong-tac-vien', [\App\Http\Controllers\Admin\KiemDuyetCongTacVienController::class, 'index'])->name('kiem-duyet-cong-tac-vien');
+    Route::post('/kiem-duyet-cong-tac-vien/{id}/update-status', [\App\Http\Controllers\Admin\KiemDuyetCongTacVienController::class, 'updateStatus']);
+    Route::get('chi-tiet-kiem-duyet/{id}', [\App\Http\Controllers\Admin\KiemDuyetCongTacVienController::class, 'show'])->name('chi-tiet-kiem-duyet.show');
+    Route::get('notificationCTV/{id}', [\App\Http\Controllers\Admin\KiemDuyetCongTacVienController::class, 'notificationCTV'])->name('notificationCTV');
+
     //Thông báo
     Route::post('/notifications/read/{id}', [\App\Http\Controllers\Admin\ThongBaoController::class, 'xemThongBao'])->name('notifications.read');
     Route::get('notificationSach/{id}', [SachController::class, 'notificationSach'])->name('notificationSach');
+    Route::get('notificationRutTien/{id}', [\App\Http\Controllers\Admin\CongTacVienController::class, 'notificationRutTien'])->name('notificationRutTien');
 
     // Quản lý thông tin chi tiết tài khoản
     Route::get('users/{user}/showProfile', [UserController::class, 'showProfile'])->name('users.showProfile');
@@ -125,7 +132,11 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('the-loai', TheLoaiController::class);
     // Xử lý trạng thái ẩn hiện của thể loại
     Route::post('/the-loai/cap-nhat-trang-thai/{id}', [TheLoaiController::class, 'capNhatTrangThai'])->name('the-loai.capNhatTrangThai');
-
+    // Quản lý chương
+    Route::get('chuong', [\App\Http\Controllers\Admin\ChuongController::class,'index'])->name('chuong.index');
+    Route::post('/chuong/an-hien/{id}', [\App\Http\Controllers\Admin\ChuongController::class, 'anHien'])->name('chuong.an-hien');
+    // Xử lý tình trạng cập nhật
+    Route::post('/chuong/tinh-trang-cap-nhat/{id}', [\App\Http\Controllers\Admin\ChuongController::class, 'kiemDuyet'])->name('chuong.kiemDuyet');
     // route thêm chương vào sách
     Route::get('sach/{sach}/chuong/create', [\App\Http\Controllers\Admin\ChuongController::class, 'createChuong'])->name('chuong.create');
     Route::post('sach/{sach}/chuong', [\App\Http\Controllers\Admin\ChuongController::class, 'storeChuong'])->name('chuong.store');

@@ -57,11 +57,11 @@
                             <div class="filter-choices-input mt-3">
                                 <label for="loai_banner">Loại Banner:</label>
                                 <select name="loai_banner" class="form-control">
-                                    <option value="Slideshow"
-                                        {{ old('loai_banner', $banner->loai_banner) == 'Slideshow' ? 'selected' : '' }}>
+                                    <option value="slider"
+                                        {{ old('loai_banner', $banner->loai_banner) == 'slider' ? 'selected' : '' }}>
                                         Slideshow</option>
-                                    <option value="Footer"
-                                        {{ old('loai_banner', $banner->loai_banner) == 'Footer' ? 'selected' : '' }}>Footer
+                                    <option value="footer"
+                                        {{ old('loai_banner', $banner->loai_banner) == 'footer' ? 'selected' : '' }}>Footer
                                     </option>
                                 </select>
                             </div>

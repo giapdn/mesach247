@@ -141,7 +141,10 @@
 
                         <div class="text-end mb-3">
                             <a href="{{ route('sach.index') }}" class="btn btn-secondary me-2">Quay lại</a>
-                            <button type="submit" class="btn btn-warning ">Sửa</button>
+                            @if ($sach->kiem_duyet != 'duyet')
+                            <button type="submit" class="btn btn-info" name="kiem_duyet" value="ban_nhap">Lưu bản nháp</button>
+                            @endif
+                            <button type="submit" class="btn btn-warning" name="kiem_duyet" value="cho_xac_nhan">Chờ xác nhận</button>
                         </div>
                     </div>
                     <!-- end col -->

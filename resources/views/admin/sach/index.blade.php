@@ -15,38 +15,71 @@
                             <h5 class="fs-16">Bộ lọc</h5>
                         </div>
                         <div class="flex-shrink-0">
-                            <a href="{{ route('sach.index') }}" class="text-decoration-underline" id="clearall">Xóa tất cả</a>
+                            <a href="{{ route('sach.index') }}" class="text-decoration-underline" id="clearall">Xóa tất
+                                cả</a>
                         </div>
                     </div>
                 </div>
                 <div class="accordion accordion-flush filter-accordion">
-                    <div class="card-body border-bottom">
-                        <div>
-                            <p class="text-muted text-uppercase fs-12 fw-medium mb-2">Thể loại</p>
-                            <ul class="list-unstyled mb-0 filter-list">
-                                @foreach($theLoais as $item)
-                                    <li>
-                                        <a href="{{ route('sach.index', ['the_loai_id' => $item->id]) }}"
-                                           class="d-flex py-1 align-items-center {{ request('the_loai_id') == $item->id ? 'active' : '' }}"
-                                           role="link">
-                                            <div class="flex-grow-1">
-                                                <h5 class="fs-13 mb-0 listname">{{ $item->ten_the_loai }}</h5>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <span class="badge bg-light text-muted">{{ $item->saches->count() }}</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-
+                    <form action="{{ route('sach.index') }}" method="GET" id="filterForm">
+                        <div class="card-body border-bottom">
+                            <p class="text-muted text-uppercase fs-12 fw-medium mb-2">Trạng thái</p>
+                            <div class="d-flex gap-2 justify-content-center">
+                                <div class="col-lg-6">
+                                    <select class="form-select" name="kiem_duyet">
+                                        <option value="all">Tất cả</option>
+                                        <option
+                                            value="cho_xac_nhan" {{ request('kiem_duyet') == 'cho_xac_nhan' ? 'selected' : '' }}>
+                                            Chờ xác nhận
+                                        </option>
+                                        <option
+                                            value="duyet" {{ request('kiem_duyet') == 'duyet' ? 'selected' : '' }}>
+                                            Duyệt
+                                        </option>
+                                        <option
+                                            value="tu_choi" {{ request('kiem_duyet') == 'tu_choi' ? 'selected' : '' }}>
+                                            Từ chối
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6">
+                                    <select class="form-select" name="trang_thai">
+                                        <option value="all">Tất cả</option>
+                                        <option
+                                            value="hien" {{ request('trang_thai') == 'hien' ? 'selected' : '' }}>
+                                            Hiện
+                                        </option>
+                                        <option value="an" {{ request('trang_thai') == 'an' ? 'selected' : '' }}>
+                                            Ẩn
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="card-body border-bottom">
-                        <div class="row">
-                            <p class="text-muted text-uppercase fs-12 fw-medium mb-2">Lọc theo khoảng thời gian</p>
-                            <form action="{{ route('sach.index') }}" method="GET">
+                        <div class="card-body border-bottom">
+                            <p class="text-muted text-uppercase fs-12 fw-medium mb-2">Thể loại</p>
+                            <div id="flush-collapseBrands" class="accordion-collapse collapse show"
+                                 aria-labelledby="flush-headingBrands">
+                                <div class="accordion-body text-body pt-0">
+                                    <div class="d-flex flex-column gap-2 mt-3 filter-check">
+                                        @foreach($theLoais as $item)
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox"
+                                                       id="theloai-{{$item->id}}" value="{{$item->id}}"
+                                                       name="the_loai[]"
+                                                    {{ in_array($item->id, request()->get('the_loai', [])) ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="theloai-{{$item->id}}">
+                                                    {{$item->ten_the_loai}}
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body border-bottom">
+                            <div class="row">
+                                <p class="text-muted text-uppercase fs-12 fw-medium mb-2">Lọc theo khoảng thời gian</p>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Từ ngày</span>
                                     <input type="date" class="form-control" name="from_date"
@@ -58,11 +91,11 @@
                                            value="{{ request()->get('to_date') }}">
                                 </div>
                                 <div class="d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-primary">Lọc</button>
+                                    <button type="submit" class="btn btn-primary" name="{{ request('sach-cua-tois') == 'mySach' ? 'sach-cua-tois' : '' }}" value="mySach">Lọc</button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
             <!-- end card -->
@@ -75,12 +108,12 @@
                     <div class="card-header align-items-center d-flex">
 
                         <h4 class="card-title mb-0 flex-grow-1">Danh sách </h4>
-                        @if(auth()->user()->vai_tros->contains('id', 1) || auth()->user()->vai_tros->contains('id', 3))
+                        @if(auth()->user()->vai_tros->contains('id', 1))
                             <div class="me-3 d-flex gap-3">
                                 <a href="{{ route('sach.index') }}" class="btn btn-info">Xem tất cả danh sách</a>
-                                <form method="GET" action="{{ route('sach.index') }}">
-                                    <button type="submit" name="sach-cua-tois" class="btn btn-primary">Xem sách của tôi</button>
-                                </form>
+                                    <button type="submit" name="sach-cua-tois" class="btn btn-primary" form="filterForm" value="mySach">Xem sách của
+                                        tôi
+                                    </button>
                             </div>
                         @endif
 
@@ -174,7 +207,7 @@
 
                             let statusClass = lien === 'da_full' ? 'status-da_full' : 'status-tiep_tuc_cap_nhat';
                             var html = '';
-                            if(canCapNhat) {
+                            if (canCapNhat) {
                                 html = `
                                 <div class="btn-group btn-group-sm" id="update-status-${row.cells[0].data}"
                                     onmouseover="showStatusOptions(${row.cells[0].data})"
@@ -228,8 +261,8 @@
                                     statusClass = 'status-ban_nhap';
                                     break;
                             }
-                            var  html = '';
-                            if(canKiemDuyet) {
+                            var html = '';
+                            if (canKiemDuyet) {
                                 html = `
                                 <div class="btn-group btn-group-sm" id="update-${row.cells[0].data}"
                                     onmouseover="showStatusOptions(${row.cells[0].data})"
@@ -269,7 +302,7 @@
 
                             let statusClass = lien === 'an' ? 'status-an' : 'status-hien';
                             var html = '';
-                            if(canAnHien) {
+                            if (canAnHien) {
                                 html = `
                                 <div class="btn-group btn-group-sm" id="visibility-status-${row.cells[0].data}"
                                     onmouseover="showStatusOptions(${row.cells[0].data})"

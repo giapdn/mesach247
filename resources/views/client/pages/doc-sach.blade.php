@@ -56,13 +56,7 @@
             <div class="col-xs-12">
                 <h1 class="text-center"> Chương {{ $chuong->so_chuong }} : {{ $chuong->tieu_de }} <span
                         class="dropdown dropdown-wrench ms-3 color-gray font-16"> <a class="dropdown-toggle"
-                                                                                     data-toggle="dropdown" href="#"> <i
-                                class="fa fa-wrench" aria-hidden="true"></i>
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/user/quan-ly-truyen/edit-chuong/?id=9841429#h2"><i
-                                        class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa Chương</a></li>
-                        </ul>
+                                                                                     data-toggle="dropdown" href="#"></a>
                     </span></h1>
                 <div class="text-center color-gray"> <span class="me-3"> <a href="/author/dieudieu"> <i
                                 class="fa fa-user" aria-hidden="true"></i> {{ $chuong->sach->tac_gia }} </a> </span>
@@ -177,7 +171,7 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container mt-3">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="https://truyenhdt.com"><span class="fa fa-home"></span> Home</a>
             </li>

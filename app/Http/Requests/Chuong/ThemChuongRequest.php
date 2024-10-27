@@ -25,7 +25,6 @@ class ThemChuongRequest extends FormRequest
             'so_chuong' => 'required',
             'tieu_de' => 'required|min:3|max:255',
             'noi_dung' => 'required|min:10',
-            'trang_thai_chuong' => 'required',
         ];
     }
 
@@ -39,7 +38,6 @@ class ThemChuongRequest extends FormRequest
             'noi_dung.required' => 'Nội dung là bắt buộc.',
             'noi_dung.min' => 'Nội dung phải có ít nhất 10 ký tự.',
             'ngay_len_song.required' => 'Ngày lên sóng là bắt buộc.',
-            'trang_thai_chuong.required' => 'Trạng thái là bắt buộc.',
         ];
     }
 }

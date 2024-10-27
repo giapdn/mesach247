@@ -12,7 +12,10 @@ class ThongBaoController extends Controller
     {
         $userId = auth()->id();
         $soluong = 10;
-        $thong_baos = ThongBao::where('user_id', $userId)->paginate($soluong);
+        $thong_baos = ThongBao::where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->paginate($soluong);
+
         return view('client.pages.thong-bao-chung', compact('thong_baos'));
     }
 

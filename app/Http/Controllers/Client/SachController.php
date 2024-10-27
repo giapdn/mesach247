@@ -26,7 +26,9 @@ class SachController extends Controller
      */
     public function dataSach(Request $request)
     {
-        $query = Sach::with('theLoai')->where('kiem_duyet', 'duyet');
+        $query = Sach::with('theLoai')->where('kiem_duyet', 'duyet')->whereHas('theLoai', function ($q) {
+            $q->where('trang_thai', '=', 'hien');
+        });
 
         // Lọc theo tên sách
         if ($request->filled('title')) {
@@ -68,7 +70,7 @@ class SachController extends Controller
             return [
                 'id' => $item->id,
                 'ten_sach' => $item->ten_sach,
-                'anh_bia_sach' => $item->anh_bia_sach,
+                'anh_bia_sach' => Storage::url($item->anh_bia_sach),
                 'tac_gia' => $item->tac_gia,
                 'tom_tat' => $item->tom_tat,
                 'theloai' => $item->theLoai->ten_the_loai,
@@ -89,7 +91,7 @@ class SachController extends Controller
     public function chiTietSach(string $id, Request $request)
     {
         $sach = Sach::with('theLoai', 'danh_gias', 'chuongs', 'user')->where('id', $id)->first();
-        $sachCungTheLoai = $sach->where('the_loai_id', $sach->the_loai_id)->get();
+        $sachCungTheLoai = $sach->where('the_loai_id', $sach->the_loai_id)->where('trang_thai', 'hien')->where('id', '!=', $sach->id)->where('kiem_duyet', 'duyet')->get();
         $gia_sach = $sach->gia_khuyen_mai ?
             number_format($sach->gia_khuyen_mai, 0, ',', '.') :
             number_format($sach->gia_goc, 0, ',', '.');
@@ -117,6 +119,8 @@ class SachController extends Controller
         }
         // Lấy tất cả các đánh giá của sách
         $listDanhGia = DanhGia::with('sach', 'user')->where('sach_id', $sach->id)->where('trang_thai', 'hien')->latest('id')->get();
+
+        // dd($danhGia);
 
         $soLuongDanhGia = $listDanhGia->count();
         $limit = 3;
@@ -149,6 +153,8 @@ class SachController extends Controller
         }
 
         return view('client.pages.chi-tiet-sach', compact('sach', 'chuongMoi', 'gia_sach', 'sachCungTheLoai', 'soLuongDanhGia', 'trungBinhHaiLong', 'listDanhGia', 'userReview', 'soSao'));
+        $chuongDauTien = $sach->chuongs->first();
+        return view('client.pages.chi-tiet-sach', compact('sach', 'chuongMoi', 'gia_sach', 'sachCungTheLoai', 'soLuongDanhGia', 'trungBinhHaiLong', 'listDanhGia', 'chuongDauTien'));
     }
 
     public function dataChuong(string $id)
@@ -179,7 +185,7 @@ class SachController extends Controller
             'user_id' => $request->input('user_id'),
             'noi_dung' => $request->input('noi_dung'),
             'ngay_danh_gia' => now(),
-            'muc_do_hai_long' => $this->getMucDoHaiLong($ratingValue),
+            'muc_do_hai_long' => $this->getMucDoHaiLong($request->input('rating_value')),
             'trang_thai' => 'hien',
         ]);
 
@@ -189,7 +195,7 @@ class SachController extends Controller
             'message' => 'Đánh giá đã được thêm thành công.',
             'data' => [
                 'danhGia' => $danhGia,
-                'rating_value' => $ratingValue, 
+                'rating_value' => $ratingValue,
             ]
         ]);
     }

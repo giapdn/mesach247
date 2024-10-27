@@ -11,10 +11,12 @@
     <form action="{{ route('lien_he.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <label for="name">Họ Tên:</label>
-        <input type="text" id="name" name="ten_khach_hang" class="editable" value="QuangSon" required>
+        <input type="text" id="name" name="ten_khach_hang" class="editable"
+               value="{{ Auth::check() ? Auth::user()->ten_doc_gia : 'Nhập tên' }}" required>
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" class="editable" value="sonnqph33526@fpt.edu.vn" required>
+        <input type="email" id="email" name="email" class="editable"
+               value="{{ Auth::check() ? Auth::user()->email : 'Nhập email' }}" required>
 
         <label for="link">Chủ đề:</label>
         <input type="text" id="chu_de" name="chu_de" class="editable" required>
@@ -39,15 +41,13 @@
             </div>
         </div>
 
-
         <script>
             // Xử lý khi người dùng chọn file ảnh
             document.getElementById('fileUpload').addEventListener('change', function(event) {
                 const file = event.target.files[0]; // Lấy file được chọn
                 const previewImage = document.getElementById('previewImage'); // Thẻ img hiển thị preview
                 const fileName = document.getElementById('fileName'); // Thẻ span hiển thị tên file
-                const imagePreviewContainer = document.getElementById(
-                    'imagePreviewContainer'); // Container hiển thị ảnh
+                const imagePreviewContainer = document.getElementById('imagePreviewContainer'); // Container hiển thị ảnh
 
                 if (file) {
                     const reader = new FileReader();
@@ -55,7 +55,7 @@
                     // Giới hạn tên file nếu dài quá 20 ký tự
                     let fileNameText = file.name;
                     if (fileNameText.length > 20) {
-                        fileNameText = fileNameText.substring(0, 37) + '...'; // Cắt ngắn tên và thêm "..."
+                        fileNameText = fileNameText.substring(0, 17) + '...'; // Cắt ngắn tên và thêm "..."
                     }
 
                     // Khi file được tải xong, đặt URL vào src của thẻ img và hiển thị container
@@ -69,7 +69,6 @@
                     reader.readAsDataURL(file);
                 }
             });
-
 
             // Xử lý khi người dùng nhấn vào biểu tượng thùng rác để xóa ảnh
             document.getElementById('removeImage').addEventListener('click', function() {
@@ -101,6 +100,7 @@
 
         <button type="submit" class="btn btn-primary mt-4">Gửi Lời Nhắn</button>
     </form>
+
 
 </div>
 

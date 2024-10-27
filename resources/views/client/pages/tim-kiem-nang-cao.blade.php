@@ -12,7 +12,7 @@
     <div class="container tax"></div>
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 sidebar-right">
+            <div class="col-lg-2 sidebar-right">
                 <form method="GET" action="" id="searchForm">
                     <div class="row">
                         <div class="col-xs-12">
@@ -81,7 +81,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-lg-9">
+            <div class="col-lg-10">
                 <div class="alert-first"></div>
                 <div id="alert-info" class="alert alert-info alert-dismissible" role="alert"></div>
                 <div class="theloai-thumlist" id="data-sach">
@@ -116,7 +116,7 @@
                         $('#data-sach').empty();
                         response.data.forEach(function (data) {
                             let content = `
-                                <li class="col-md-6 col-sm-6 col-xs-12">
+                                <li class="col-md-4 col-sm-4 col-xs-12">
                                     <a href="/sach/${data.id}" class="thumbnail" title="${data.ten_sach}">
                                         <img src="${data.anh_bia_sach}" alt="${data.ten_sach}"/>
                                     </a>

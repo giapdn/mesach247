@@ -30,9 +30,9 @@ class BinhLuan extends Model
     }
 
     public function baiViet()
-    {
-        return $this->hasMany(BinhLuan::class, 'bai_viet_id');
-    }
+{
+    return $this->belongsTo(BaiViet::class, 'bai_viet_id');
+}
 
     public function getFormattedNgayBinhLuanAttribute()
     {
@@ -47,4 +47,6 @@ class BinhLuan extends Model
     {
         return self::TRANG_THAI[$this->trang_thai];
     }
+    const HIEN = 'hien';
+    const AN = 'an';
 }

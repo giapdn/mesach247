@@ -64,7 +64,7 @@
                     </table>
                     <div class="card">
                         <div class="card-header">
-                            <h6 class="fw-semibold text-uppercase">Nội Dung Đánh Giá</h6>
+                            <h6 class="fw-semibold text-uppercase">Nội Dung Bình Luận</h6>
 
                         </div>
                         <div class="card-body">
@@ -87,7 +87,7 @@
                         <ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" data-bs-toggle="tab" href="#reviews" role="tab">
-                                    Đánh giá khác của khách hàng ({{ $danhGiaKhac->count() }})
+                                    Bình luận khác của khách hàng ({{ $danhGiaKhac->count() }})
                                 </a>
                             </li>
                         </ul>

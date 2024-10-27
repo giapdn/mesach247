@@ -34,7 +34,8 @@ class Sach extends Model
     {
         return $this->belongsTo(TheLoai::class, 'the_loai_id');
     }
-   // Liên kết với bảng tài khoản
+
+    // Liên kết với bảng tài khoản
     public function tai_khoan()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -54,10 +55,12 @@ class Sach extends Model
     {
         return $this->hasOne(DonHang::class, 'sach_id'); // Thay đổi từ belongsTo sang hasOne
     }
+
     public function danh_gias()
     {
         return $this->hasMany(DanhGia::class, 'sach_id');
     }
+
     public function nguoiYeuThich()
     {
         return $this->belongsToMany(User::class, 'yeu_thiches');
@@ -67,7 +70,8 @@ class Sach extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    const MAU_TRANG_THAI= [
+
+    const MAU_TRANG_THAI = [
         'hien' => 'bg-success',
         'an' => 'bg-danger',
         'co' => 'bg-info',
@@ -106,5 +110,19 @@ class Sach extends Model
     {
         return $this->trang_thai === 'hien' ? 'Hiện' : 'Ẩn';
     }
+
+
+    public function getFormattedViewsAttribute()
+    {
+        $views = $this->luot_xem;
+        if ($views >= 1000000) {
+            return round($views / 1000000, 1) . 'M';
+        } elseif ($views >= 1000) {
+            return round($views / 1000, 1) . 'k';
+        } else {
+            return $views;
+        }
+    }
+
 
 }

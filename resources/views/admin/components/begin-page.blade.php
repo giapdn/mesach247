@@ -176,9 +176,12 @@
                                 id="page-header-notifications-dropdown" data-bs-toggle="dropdown"
                                 data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
                             <i class='bx bx-bell fs-22'></i>
-                            <span
-                                class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">3<span
-                                    class="visually-hidden">unread messages</span></span>
+                            @if($tong > 0)
+                                <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">
+                                    {{ $tong }}
+                                    <span class="visually-hidden">unread messages</span>
+                                </span>
+                            @endif
                         </button>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                              aria-labelledby="page-header-notifications-dropdown">
@@ -190,7 +193,9 @@
                                             <h6 class="m-0 fs-16 fw-semibold text-white"> Thông Báo </h6>
                                         </div>
                                         <div class="col-auto dropdown-tabs">
-                                            <span class="badge bg-light text-body fs-13"> 4 New</span>
+                                            @if($tong > 0)
+                                                <span class="badge bg-light text-body fs-13">{{ $tong }} Thông Báo Mới</span>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -207,13 +212,13 @@
                                         <li class="nav-item waves-effect waves-light">
                                             <a class="nav-link" data-bs-toggle="tab" href="#messages-tab"
                                                role="tab" aria-selected="false">
-                                                Messages
+                                                Tiền
                                             </a>
                                         </li>
                                         <li class="nav-item waves-effect waves-light">
                                             <a class="nav-link" data-bs-toggle="tab" href="#alerts-tab"
                                                role="tab" aria-selected="false">
-                                                Alerts
+                                                Đăng ký cộng tác viên
                                             </a>
                                         </li>
                                     </ul>
@@ -222,188 +227,145 @@
                             </div>
 
                             <div class="tab-content position-relative" id="notificationItemsTabContent">
+                                <!-- Tab thông báo sách -->
                                 <div class="tab-pane fade show active py-2 ps-2" id="all-noti-tab" role="tabpanel">
                                     <div data-simplebar style="max-height: 300px;" class="pe-2">
-                                        @if($notifications->isEmpty())
-                                            <p>Không có thông báo nào</p>
+                                        @if($notificationsSach->isEmpty())
+                                            <p>Không có thông báo nào về sách</p>
                                         @else
-                                            @foreach($notifications as $notification)
-                                                <div class="text-reset notification-item d-block dropdown-item position-relative" data-notification-id="{{ $notification->id }}">
-                                                    <div class="d-flex">
-                                                        <div class="avatar-xs me-3 flex-shrink-0">
-                                                            <span class="avatar-title bg-info-subtle text-info rounded-circle fs-16">
-                                                                <i class="bx bx-book"></i>
-                                                            </span>
-                                                        </div>
-                                                        <div class="flex-grow-1">
-                                                            @if(isset($notification->url))
-                                                            <a href="{{ $notification->url }}" class="stretched-link">
-                                                                <h6 class="mt-0 mb-1 fs-13 fw-semibold">{{ $notification->tieu_de }}</h6>
-                                                            </a>
-                                                            @else
-                                                                <h6 class="mt-0 mb-1 fs-13 fw-semibold">{{ $notification->tieu_de }}</h6>
-                                                            @endif
-                                                            <div class="fs-13 text-muted">
-                                                                <p class="mb-1">{{ $notification->noi_dung }}</p>
+                                            <div id="notification-list-sach">
+                                                @foreach($notificationsSach as $index => $notification)
+                                                    <div class="text-reset notification-item d-block dropdown-item position-relative"
+                                                         data-notification-id="{{ $notification->id }}"
+                                                         style="display: {{ $index < 5 ? 'block' : 'none' }};">
+                                                        <div class="d-flex">
+                                                            <div class="avatar-xs me-3 flex-shrink-0">
+                                                                <span class="avatar-title bg-info-subtle text-info rounded-circle fs-16">
+                                                                    <i class="bx bx-book"></i>
+                                                                </span>
                                                             </div>
-                                                            <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                                                <span><i class="mdi mdi-clock-outline"></i> {{ $notification->created_at->diffForHumans() }}</span>
-                                                            </p>
+                                                            <div class="flex-grow-1">
+                                                                @if(isset($notification->url))
+                                                                    <a href="{{ $notification->url }}" class="stretched-link">
+                                                                        <h6 class="mt-0 mb-1 fs-13 fw-semibold">{{ $notification->tieu_de }}</h6>
+                                                                    </a>
+                                                                @else
+                                                                    <h6 class="mt-0 mb-1 fs-13 fw-semibold">{{ $notification->tieu_de }}</h6>
+                                                                @endif
+                                                                <div class="fs-13 text-muted">
+                                                                    <p class="mb-1">{{ $notification->noi_dung }}</p>
+                                                                </div>
+                                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                                    <span><i class="mdi mdi-clock-outline"></i> {{ $notification->created_at->diffForHumans() }}</span>
+                                                                </p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            @endforeach
+                                                @endforeach
+                                            </div>
                                         @endif
-
-
-
-
                                         <div class="my-3 text-center view-all">
-                                            <button type="button" class="btn btn-soft-success waves-effect waves-light">
+                                            <button type="button" id="view-more-btn-sach" class="btn btn-soft-success waves-effect waves-light">
                                                 Xem Thêm
-                                                <i class="ri-arrow-right-line align-middle"></i></button>
+                                                <i class="ri-arrow-right-line align-middle"></i>
+                                            </button>
                                         </div>
                                     </div>
-
                                 </div>
 
-                                <div class="tab-pane fade py-2 ps-2" id="messages-tab" role="tabpanel"
-                                     aria-labelledby="messages-tab">
+                                <!-- Tab thông báo tiền -->
+                                <div class="tab-pane fade py-2 ps-2" id="messages-tab" role="tabpanel">
                                     <div data-simplebar style="max-height: 300px;" class="pe-2">
-                                        <div class="text-reset notification-item d-block dropdown-item">
-                                            <div class="d-flex">
-                                                <img src="{{ asset('assets/admin/images/user/avatar-3.jpg') }}"
-                                                     class="me-3 rounded-circle avatar-xs" alt="user-pic">
-                                                <div class="flex-grow-1">
-                                                    <a href="#!" class="stretched-link">
-                                                        <h6 class="mt-0 mb-1 fs-13 fw-semibold">James Lemire</h6>
-                                                    </a>
-                                                    <div class="fs-13 text-muted">
-                                                        <p class="mb-1">We talked about a project on linkedin.
-                                                        </p>
+                                        @if($notificationsTien->isEmpty())
+                                            <p>Không có thông báo nào về tiền</p>
+                                        @else
+                                            <div id="notification-list-tien">
+                                                @foreach($notificationsTien as $index => $notification)
+                                                    <div class="text-reset notification-item d-block dropdown-item position-relative"
+                                                         data-notification-id="{{ $notification->id }}"
+                                                         style="display: {{ $index < 5 ? 'block' : 'none' }};">
+                                                        <div class="d-flex">
+                                                            <div class="avatar-xs me-3 flex-shrink-0">
+                                                                <span class="avatar-title bg-info-subtle text-info rounded-circle fs-16">
+                                                                    <i class="bx bx-money"></i>
+                                                                </span>
+                                                            </div>
+                                                            <div class="flex-grow-1">
+                                                                @if(isset($notification->url))
+                                                                    <a href="{{ $notification->url }}" class="stretched-link">
+                                                                        <h6 class="mt-0 mb-1 fs-13 fw-semibold">{{ $notification->tieu_de }}</h6>
+                                                                    </a>
+                                                                @else
+                                                                    <h6 class="mt-0 mb-1 fs-13 fw-semibold">{{ $notification->tieu_de }}</h6>
+                                                                @endif
+                                                                <div class="fs-13 text-muted">
+                                                                    <p class="mb-1">{{ $notification->noi_dung }}</p>
+                                                                </div>
+                                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                                    <span><i class="mdi mdi-clock-outline"></i> {{ $notification->created_at->diffForHumans() }}</span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                                        <span><i class="mdi mdi-clock-outline"></i> 30 min
-                                                            ago</span>
-                                                    </p>
-                                                </div>
-                                                <div class="px-2 fs-15">
-                                                    <div class="form-check notification-check">
-                                                        <input class="form-check-input" type="checkbox"
-                                                               value="" id="messages-notification-check01">
-                                                        <label class="form-check-label"
-                                                               for="messages-notification-check01"></label>
-                                                    </div>
-                                                </div>
+                                                @endforeach
                                             </div>
-                                        </div>
-
-                                        <div class="text-reset notification-item d-block dropdown-item">
-                                            <div class="d-flex">
-                                                <img src="{{ asset('assets/admin/images/user/avatar-2.jpg') }}"
-                                                     class="me-3 rounded-circle avatar-xs" alt="user-pic">
-                                                <div class="flex-grow-1">
-                                                    <a href="#!" class="stretched-link">
-                                                        <h6 class="mt-0 mb-1 fs-13 fw-semibold">Angela Bernier</h6>
-                                                    </a>
-                                                    <div class="fs-13 text-muted">
-                                                        <p class="mb-1">Answered to your comment on the cash flow
-                                                            forecast's
-                                                            graph 🔔.</p>
-                                                    </div>
-                                                    <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                                        <span><i class="mdi mdi-clock-outline"></i> 2 hrs
-                                                            ago</span>
-                                                    </p>
-                                                </div>
-                                                <div class="px-2 fs-15">
-                                                    <div class="form-check notification-check">
-                                                        <input class="form-check-input" type="checkbox"
-                                                               value="" id="messages-notification-check02">
-                                                        <label class="form-check-label"
-                                                               for="messages-notification-check02"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="text-reset notification-item d-block dropdown-item">
-                                            <div class="d-flex">
-                                                <img src="{{ asset('assets/admin/images/user/avatar-6.jpg') }}"
-                                                     class="me-3 rounded-circle avatar-xs" alt="user-pic">
-                                                <div class="flex-grow-1">
-                                                    <a href="#!" class="stretched-link">
-                                                        <h6 class="mt-0 mb-1 fs-13 fw-semibold">Kenneth Brown</h6>
-                                                    </a>
-                                                    <div class="fs-13 text-muted">
-                                                        <p class="mb-1">Mentionned you in his comment on 📃
-                                                            invoice #12501.
-                                                        </p>
-                                                    </div>
-                                                    <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                                        <span><i class="mdi mdi-clock-outline"></i> 10 hrs
-                                                            ago</span>
-                                                    </p>
-                                                </div>
-                                                <div class="px-2 fs-15">
-                                                    <div class="form-check notification-check">
-                                                        <input class="form-check-input" type="checkbox"
-                                                               value="" id="messages-notification-check03">
-                                                        <label class="form-check-label"
-                                                               for="messages-notification-check03"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="text-reset notification-item d-block dropdown-item">
-                                            <div class="d-flex">
-                                                <img src="{{ asset('assets/admin/images/user/avatar-8.jpg') }}"
-                                                     class="me-3 rounded-circle avatar-xs" alt="user-pic">
-                                                <div class="flex-grow-1">
-                                                    <a href="#!" class="stretched-link">
-                                                        <h6 class="mt-0 mb-1 fs-13 fw-semibold">Maureen Gibson</h6>
-                                                    </a>
-                                                    <div class="fs-13 text-muted">
-                                                        <p class="mb-1">We talked about a project on linkedin.
-                                                        </p>
-                                                    </div>
-                                                    <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                                        <span><i class="mdi mdi-clock-outline"></i> 3 days
-                                                            ago</span>
-                                                    </p>
-                                                </div>
-                                                <div class="px-2 fs-15">
-                                                    <div class="form-check notification-check">
-                                                        <input class="form-check-input" type="checkbox"
-                                                               value="" id="messages-notification-check04">
-                                                        <label class="form-check-label"
-                                                               for="messages-notification-check04"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
+                                        @endif
                                         <div class="my-3 text-center view-all">
-                                            <button type="button"
-                                                    class="btn btn-soft-success waves-effect waves-light">View
-                                                All Messages <i class="ri-arrow-right-line align-middle"></i></button>
+                                            <button type="button" id="view-more-btn-tien" class="btn btn-soft-success waves-effect waves-light">
+                                                Xem Thêm
+                                                <i class="ri-arrow-right-line align-middle"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade p-4" id="alerts-tab" role="tabpanel"
-                                     aria-labelledby="alerts-tab"></div>
 
-                                <div class="notification-actions" id="notification-actions">
-                                    <div class="d-flex text-muted justify-content-center">
-                                        Select
-                                        <div id="select-content" class="text-body fw-semibold px-1">0</div>
-                                        Result
-                                        <button type="button" class="btn btn-link link-danger p-0 ms-3"
-                                                data-bs-toggle="modal" data-bs-target="#removeNotificationModal">Remove
-                                        </button>
+                                {{-- Tab thông báo CTV --}}
+                                <div class="tab-pane fade p-4" id="alerts-tab" role="tabpanel"
+                                     aria-labelledby="alerts-tab">
+                                    <div data-simplebar style="max-height: 300px;" class="pe-2">
+                                        @if($notificationCTV->isEmpty())
+                                            <p>Không có thông báo nào về đăng ký cộng tác viên</p>
+                                        @else
+                                            <div id="notification-list-tien">
+                                                @foreach($notificationCTV as $index => $notification)
+                                                    <div class="text-reset notification-item d-block dropdown-item position-relative"
+                                                         data-notification-id="{{ $notification->id }}"
+                                                         style="display: {{ $index < 5 ? 'block' : 'none' }};">
+                                                        <div class="d-flex">
+                                                            <div class="avatar-xs me-3 flex-shrink-0">
+                                                                <span class="avatar-title bg-info-subtle text-info rounded-circle fs-16">
+                                                                  <i class="bx bx-user-plus"></i>
+                                                                </span>
+                                                            </div>
+                                                            <div class="flex-grow-1">
+                                                                @if(isset($notification->url))
+                                                                    <a href="{{ $notification->url }}" class="stretched-link">
+                                                                        <h6 class="mt-0 mb-1 fs-13 fw-semibold">{{ $notification->tieu_de }}</h6>
+                                                                    </a>
+                                                                @else
+                                                                    <h6 class="mt-0 mb-1 fs-13 fw-semibold">{{ $notification->tieu_de }}</h6>
+                                                                @endif
+                                                                <div class="fs-13 text-muted">
+                                                                    <p class="mb-1">{{ $notification->noi_dung }}</p>
+                                                                </div>
+                                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                                    <span><i class="mdi mdi-clock-outline"></i> {{ $notification->created_at->diffForHumans() }}</span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        @endif
+                                        <div class="my-3 text-center view-all">
+                                            <button type="button" id="view-more-btn-tien" class="btn btn-soft-success waves-effect waves-light">
+                                                Xem Thêm
+                                                <i class="ri-arrow-right-line align-middle"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -668,13 +630,18 @@
                                             </a>
                                         </li>
                                     @endif
-
+                                        @if (Auth::check() && Auth::user()->hasPermission('sach-index'))
+                                            <li class="nav-item">
+                                                <a class="nav-link menu-link" href="{{ route('chuong.index') }}">
+                                                   <span data-key="t-quanlychuong">Quản lý chương</span>
+                                                </a>
+                                            </li>
+                                        @endif
                                 </ul>
                             </div>
 
                         </li>
                     @endif
-
 
                     {{--                        <li class="nav-item"> --}}
                     {{--                            <a class="nav-link menu-link" href="{{ route('users.index') }}"> --}}
@@ -803,6 +770,13 @@
                         </li>
                     @endif
 
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="{{ route('kiem-duyet-cong-tac-vien') }}">
+                            <i class="ri-pages-line"></i>
+                            <span data-key="t-quanlybanner">Kiểm duyệt cộng tác viên</span>
+                        </a>
+                    </li>
+
                     {{-- Bắt đầu phần của CTV --}}
                     @if(Auth()->user()->hasRole('4'))
                         <li class="menu-title"><span data-key="t-menu">Cộng tác viên</span></li>
@@ -905,3 +879,48 @@
 </div>
 
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Tab thông báo sách
+        let currentIndexSach = 5;
+        const loadMoreBtnSach = document.getElementById('view-more-btn-sach');
+        const notificationsSach = document.querySelectorAll('#notification-list-sach .notification-item');
+
+        notificationsSach.forEach((notification, index) => {
+            if (index >= currentIndexSach) {
+                notification.style.display = 'none';
+            }
+        });
+
+        loadMoreBtnSach.addEventListener('click', function () {
+            for (let i = currentIndexSach; i < currentIndexSach + 5 && i < notificationsSach.length; i++) {
+                notificationsSach[i].style.display = 'block';
+            }
+            currentIndexSach += 5;
+            if (currentIndexSach >= notificationsSach.length) {
+                loadMoreBtnSach.style.display = 'none';
+            }
+        });
+
+        // Tab thông báo tiền
+        let currentIndexTien = 5;
+        const loadMoreBtnTien = document.getElementById('view-more-btn-tien');
+        const notificationsTien = document.querySelectorAll('#notification-list-tien .notification-item');
+        notificationsTien.forEach((notification, index) => {
+            if (index >= currentIndexTien) {
+                notification.style.display = 'none';
+            }
+        });
+
+        loadMoreBtnTien.addEventListener('click', function () {
+            for (let i = currentIndexTien; i < currentIndexTien + 5 && i < notificationsTien.length; i++) {
+                notificationsTien[i].style.display = 'block';
+            }
+            currentIndexTien += 5;
+            if (currentIndexTien >= notificationsTien.length) {
+                loadMoreBtnTien.style.display = 'none';
+            }
+        });
+    });
+
+</script>

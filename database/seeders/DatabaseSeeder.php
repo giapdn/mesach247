@@ -55,7 +55,8 @@ class DatabaseSeeder extends Seeder
             DonHangSeeder::class,
             HinhAnhBanner::class,
             RutTienSeeder::class,
-            LichSuDangNhapSeeder::class
+            LichSuDangNhapSeeder::class,
+            KiemDuyetCongTacVienSeeder::class
         ]);
     }
 }
