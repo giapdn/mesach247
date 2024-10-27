@@ -1,3 +1,12 @@
+<style>
+    .no-data-row {
+        font-weight: bold;
+        color: #999;
+        text-align: center;
+        padding: 20px 0;
+        line-height: 1.5;
+    }
+</style>
 <table class="table">
     <thead>
         <tr>
@@ -9,28 +18,38 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($sachDaMua as $key => $sachMua)
-            <tr>
-                <th>{{ $key + 1 }}</th>
-
-                <th>
-                    <a href="{{ route('chi-tiet-sach', $sachMua->sach->id) }}">
-                    <img src="https://truyenhdt.com/wp-content/uploads/2023/04/9140707.jpg" width="40" height="60"
-                        style="margin-right: 5px;" />
-                    {{ $sachMua->sach->ten_sach }}
-                </a>
-                </th>
-                <th> {{ $sachMua->sach->user->ten_doc_gia }}</th>
-                <th>{{ number_format($sachMua->sach->gia_goc, 0, ',', '.') }} VNĐ</th>
-                <th>
-                    @if ($sachMua->sach->tinh_trang_cap_nhat == 'da_full')
-                        <span class="badge badge-success">Hoàn Thành</span>
-                    @else
-                        <span class="badge badge-warning">Đang cập nhật</span>
-                    @endif
-                </th>
+        @if ($sachDaMua == null || $sachDaMua->isEmpty())
+            <tr class="text-center">
+                <td colspan="6" class="no-data-row">Bạn chưa mua quyển sách nào</td>
             </tr>
-        @endforeach
+        @else
+            @foreach ($sachDaMua as $key => $sachMua)
+                <tr>
+                    <th>{{ $key + 1 }}</th>
+
+                    <th>
+                        <a href="{{ route('chi-tiet-sach', $sachMua->sach->id) }}">
+                            <img src="https://truyenhdt.com/wp-content/uploads/2023/04/9140707.jpg" width="40"
+                                height="60" style="margin-right: 5px;" />
+                            {{ $sachMua->sach->ten_sach }}
+                        </a>
+                    </th>
+                    <th> {{ $sachMua->sach->user->ten_doc_gia }}</th>
+                    <th>{{ number_format($sachMua->sach->gia_goc, 0, ',', '.') }} VNĐ</th>
+                    <th>
+                        @if ($sachMua->sach->tinh_trang_cap_nhat == 'da_full')
+                            <span class="badge badge-success">Hoàn Thành</span>
+                        @else
+                            <span class="badge badge-warning">Đang cập nhật</span>
+                        @endif
+                    </th>
+                </tr>
+            @endforeach
+
+
+        @endif
+
+
     </tbody>
 </table>
 

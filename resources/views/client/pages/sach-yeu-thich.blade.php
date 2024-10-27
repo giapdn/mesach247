@@ -1,3 +1,12 @@
+<style>
+    .no-data-row {
+        font-weight: bold;
+        color: #999;
+        text-align: center;
+        padding: 20px 0;
+        line-height: 1.5;
+    }
+</style>
 <table class="table">
     <thead>
         <tr>
@@ -9,40 +18,47 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($danhSachYeuThich as $key => $yeuThich)
-            <tr>
-                <th>{{ $danhSachYeuThich->firstItem() + $key }}</th>
-                <th>
-                    <a href="{{ route('chi-tiet-sach', $yeuThich->sach->id) }}">
-                        <img src="https://truyenhdt.com/wp-content/uploads/2023/06/truc-ma-cua-toi-vo-cung-nham-hiem-1686392020.jpg"
-                            width="40" height="60" style="margin-right: 5px;" />
-                        {{ $yeuThich->sach->ten_sach }}</a>
-                </th>
-                <th>{{ $yeuThich->sach->user->ten_doc_gia }}</th>
-                <th>{{ number_format($yeuThich->sach->gia_goc, 0, ',', '.') }} VNĐ</th>
-                <th>
-                    @if ($yeuThich->sach->tinh_trang_cap_nhat == 'da_full')
-                        <span class="badge badge-success">Hoàn Thành</span>
-                    @else
-                        <span class="badge badge-warning">Đang cập nhật</span>
-                    @endif
-                </th>
-                <th>
-                    <form action="{{ route('xoa-yeu-thich', $yeuThich->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="button" class="btn btn-link text-danger delete-btn">
-
-                            <div class="d-flex justify-content-between ">
-                                <i class="fa fa-trash" aria-hidden="true"></i>
-                                <p class="ms-2">Xóa</p>
-                            </div>
-
-                        </button>
-                    </form>
-                </th>
+        @if ($danhSachYeuThich == null || $danhSachYeuThich->isEmpty())
+            <tr class="text-center">
+                <td colspan="6" class="no-data-row">Bạn chưa có mục yêu thích nào</td>
             </tr>
-        @endforeach
+        @else
+            @foreach ($danhSachYeuThich as $key => $yeuThich)
+                <tr>
+                    <th>{{ $danhSachYeuThich->firstItem() + $key }}</th>
+                    <th>
+                        <a href="{{ route('chi-tiet-sach', $yeuThich->sach->id) }}">
+                            <img src="https://truyenhdt.com/wp-content/uploads/2023/06/truc-ma-cua-toi-vo-cung-nham-hiem-1686392020.jpg"
+                                width="40" height="60" style="margin-right: 5px;" />
+                            {{ $yeuThich->sach->ten_sach }}</a>
+                    </th>
+                    <th>{{ $yeuThich->sach->user->ten_doc_gia }}</th>
+                    <th>{{ number_format($yeuThich->sach->gia_goc, 0, ',', '.') }} VNĐ</th>
+                    <th>
+                        @if ($yeuThich->sach->tinh_trang_cap_nhat == 'da_full')
+                            <span class="badge badge-success">Hoàn Thành</span>
+                        @else
+                            <span class="badge badge-warning">Đang cập nhật</span>
+                        @endif
+                    </th>
+                    <th>
+                        <form action="{{ route('xoa-yeu-thich', $yeuThich->id) }}" method="POST"
+                            style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" class="btn btn-link text-danger delete-btn">
+
+                                <div class="d-flex justify-content-between ">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                    <p class="ms-2">Xóa</p>
+                                </div>
+
+                            </button>
+                        </form>
+                    </th>
+                </tr>
+            @endforeach
+        @endif
     </tbody>
 </table>
 

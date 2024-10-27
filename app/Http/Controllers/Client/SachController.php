@@ -86,7 +86,7 @@ class SachController extends Controller
         ]);
     }
 
-    public function chiTietSach(string $id)
+    public function chiTietSach(string $id, Request $request)
     {
         $sach = Sach::with('theLoai', 'danh_gias', 'chuongs', 'user')->where('id', $id)->first();
         $sachCungTheLoai = $sach->where('the_loai_id', $sach->the_loai_id)->get();
@@ -119,6 +119,14 @@ class SachController extends Controller
         $listDanhGia = DanhGia::with('sach', 'user')->where('sach_id', $sach->id)->where('trang_thai', 'hien')->latest('id')->get();
 
         $soLuongDanhGia = $listDanhGia->count();
+        $limit = 3;
+        $page = $request->input('page', 1);
+        $danhGia = DanhGia::with('user')->where('trang_thai', 'hien')
+            ->where('sach_id', $request->input('sach_id'))
+            ->orderBy('ngay_danh_gia', 'desc')->latest('id')
+            ->paginate($limit, ['*'], 'page', $page);
+
+        // dd(  $danhGia->count(),$soLuongDanhGia);
 
         $trungBinhHaiLong = $sach->danh_gias()->where('trang_thai', 'hien')
             ->whereHas('sach', function ($query) {
@@ -165,16 +173,25 @@ class SachController extends Controller
             'noi_dung' => 'required|string',
         ]);
 
+        $ratingValue = $request->input('rating_value');
         $danhGia = DanhGia::create([
             'sach_id' => $request->input('sach_id'),
             'user_id' => $request->input('user_id'),
             'noi_dung' => $request->input('noi_dung'),
             'ngay_danh_gia' => now(),
-            'muc_do_hai_long' => $this->getMucDoHaiLong($request->input('rating_value')),
+            'muc_do_hai_long' => $this->getMucDoHaiLong($ratingValue),
             'trang_thai' => 'hien',
         ]);
 
-        return response()->json(['message' => 'Đánh giá đã được thêm thành công.', 'data' => $danhGia]);
+        $danhGia->load('user');
+
+        return response()->json([
+            'message' => 'Đánh giá đã được thêm thành công.',
+            'data' => [
+                'danhGia' => $danhGia,
+                'rating_value' => $ratingValue, 
+            ]
+        ]);
     }
 
     private function getMucDoHaiLong($ratingValue)

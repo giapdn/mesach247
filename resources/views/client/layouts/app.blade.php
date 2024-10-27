@@ -61,7 +61,7 @@
         href="{{ asset('assets/client/themes/truyenfull/echo/favicon/apple-touch-icon-76x76.png') }}">
     <link rel="apple-touch-icon" sizes="152x152"
         href="{{ asset('assets/client/themes/truyenfull/echo/favicon/apple-touch-icon-152x152.png') }}">
-        <link rel="apple-touch-icon" sizes="180x180"
+    <link rel="apple-touch-icon" sizes="180x180"
         href="{{ asset('assets/client/themes/truyenfull/echo/favicon/apple-touch-icon-180x180.png') }}">
     <link rel="stylesheet"
         href="{{ asset('assets/client/themes/truyenfull/echo/css/bootstrap/bootstrap.minf384.css?v100063') }}">
@@ -69,9 +69,8 @@
         href="{{ asset('assets/client/themes/truyenfull/echo/css/bootstrap/bootstrap-theme.minf384.css?v100063') }}">
     <link rel="stylesheet"
         href="{{ asset('assets/client/themes/truyenfull/echo/css/font-awesome/css/font-awesome.minf384.css?v100063') }}">
-    <link rel="stylesheet"
-        href="{{ asset('assets/client/themes/truyenfull/echo/css/custom.minf384.css?v100063') }}">
-       <link  href="{{ asset('assets/client/themes/truyenfull/echo/css/custom.minf384.css?v100063') }}">
+    <link rel="stylesheet" href="{{ asset('assets/client/themes/truyenfull/echo/css/custom.minf384.css?v100063') }}">
+    <link href="{{ asset('assets/client/themes/truyenfull/echo/css/custom.minf384.css?v100063') }}">
     <meta name="zalo-platform-site-verification" content="GVRYAQlQRJPSrBqrdy9cDX-ypHdppXP0C3O" />
     <meta name="facebook-domain-verification" content="su9859dm2ngrd4954ao7xl2lqno1rj" />
     <meta name="dmca-site-verification" content="Mmt1Z04yUGs4TU5nUTI3NWJZd2dUdz090" />
@@ -86,7 +85,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Marmelad&amp;family=Oswald&amp;family=Roboto+Condensed&amp;family=Roboto:wght@400;500&amp;display=swap"
         rel="stylesheet">
-        @stack('styles')
+    @stack('styles')
 
 
     <style>
@@ -572,7 +571,7 @@
             top: 0;
             left: -7px;
             z-index: 1;
-            background: transparent url({{asset('assets/client/themes/truyenfull/echo/img/full-label.png')}}) no-repeat
+            background: transparent url({{ asset('assets/client/themes/truyenfull/echo/img/full-label.png') }}) no-repeat
         }
 
         .label-new {
@@ -2692,6 +2691,12 @@
             border-bottom: 1px dashed black;
             padding: 2px;
         }
+        
+        .commenttext {
+            margin-top: -25px;
+        }
+        
+
 
         .commenttext a:hover {
             background: -webkit-linear-gradient(135deg, #1ebbf0 30%, #39dfaa 100%);
@@ -2712,7 +2717,6 @@
             padding: 0;
         }
 
-        /*#comments img.avatar-32 { position: relative; float: left; margin-left: 0; margin-top: 0; width: 32px; height: 32px; border-radius: 50%; border: 1px solid #E6E6E6; }*/
         .user_position {
             text-align: center;
             font-size: 10px;
@@ -2722,9 +2726,10 @@
         }
 
         #comments img.avatar-32 {
-            height: 30px;
-            width: 50px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
+            object-fit: cover;
         }
 
         .avatar_user_comment {
@@ -2732,10 +2737,13 @@
             float: left;
             margin-left: 0;
             margin-top: 0;
-            width: 32px;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
         }
 
         #comments .post-comments {
+            margin-top: -3px;
             border: 1px solid #FAFAFA;
             border-radius: 15px;
             margin-bottom: 10px;
@@ -2972,19 +2980,20 @@
         .is-valid {
             border-color: #28a745;
         }
-    .dropdown-submenu {
-        position: relative;
-    }
 
-    .dropdown-submenu>.dropdown-menu {
-        top: 0;
-        left: 100%;
-        margin-top: -1px;
-    }
+        .dropdown-submenu {
+            position: relative;
+        }
 
-    .dropdown-submenu:hover>.dropdown-menu {
-        display: block;
-    }
+        .dropdown-submenu>.dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -1px;
+        }
+
+        .dropdown-submenu:hover>.dropdown-menu {
+            display: block;
+        }
     </style>
     <script
         type="979411ecb373ccbd737fc22f-text/javascript"> if (screen.width < 992) { document.location = "mobile/index.html"; } function init() { var imgDefer = document.getElementsByTagName('img'); for (var i=0; i<imgDefer.length; i++) { if(imgDefer[i].getAttribute('data-src')) { imgDefer[i].setAttribute('src',imgDefer[i].getAttribute('data-src')); } } } window.onload = init; </script>
@@ -2993,18 +3002,18 @@
 <body>
 
 
-@include('client.components.header')
-<!-- end header -->
-{{-- @include('client.components.sidebar-mobile') --}}
-{{-- end sidebar mobile --}}
+    @include('client.components.header')
+    <!-- end header -->
+    {{-- @include('client.components.sidebar-mobile') --}}
+    {{-- end sidebar mobile --}}
 
-@yield('content')
-@include('client.components.footer')
-@include('client.components.lienhe')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-@stack('scripts')
+    @yield('content')
+    @include('client.components.footer')
+    @include('client.components.lienhe')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    @stack('scripts')
 
 
-<!-- Mirrored from demo.nqtcomics.site/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Sep 2024 09:31:15 GMT -->
+    <!-- Mirrored from demo.nqtcomics.site/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Sep 2024 09:31:15 GMT -->
 
 </html>

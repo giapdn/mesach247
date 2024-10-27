@@ -1,18 +1,10 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <form method="POST" action="{{ route('cai-dat-bao-mat', $user->id) }}" id="change-password-form">
     @csrf @method('PUT')
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
     <div class="form-group">
         <div class="form-group">
             <label for="current-password">Mật khẩu hiện tại:</label>
-            <input type="password" class="form-control" id="old_password" name="old_password" autocomplete="off"
-                required>
+            <input type="password" class="form-control" id="old_password" name="old_password" autocomplete="off" required>
             <span class="text-danger" id="error-old_password"></span>
         </div>
     </div>

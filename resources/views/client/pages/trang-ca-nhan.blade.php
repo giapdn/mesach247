@@ -501,7 +501,7 @@
                         margin-right: -4px;
                         min-height: 44px;
                         /*		 	border-right-width: 0;
-                                                                                                                                                                                                                                                                                                                        */
+                                                                                                                                                                                                                                                                                                                                */
                     }
 
                     .list-group-horizontal .list-group-item:first-child {
@@ -516,8 +516,8 @@
                     }
 
                     /*-------------------------------------------------
-                                                                                                                                                                                                                                                                                                                            |           Badge
-                                                                                                                                                                                                                                                                                                                            |-------------------------------------------------*/
+                                                                                                                                                                                                                                                                                                                                    |           Badge
+                                                                                                                                                                                                                                                                                                                                    |-------------------------------------------------*/
                     .badge {
                         display: inline-block;
                         padding: .25em .4em;
@@ -579,14 +579,14 @@
                     }
 
                     /*		@media (min-width: 1200px) {
-                                                                                                                                                                                                                                                                                                                                .pull-right .badge, a .badge, .tf-active .badge{
-                                                                                                                                                                                                                                                                                                                                    padding: 3px 7px;
-                                                                                                                                                                                                                                                                                                                                    font-size: 12px;
-                                                                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                                                            }*/
+                                                                                                                                                                                                                                                                                                                                        .pull-right .badge, a .badge, .tf-active .badge{
+                                                                                                                                                                                                                                                                                                                                            padding: 3px 7px;
+                                                                                                                                                                                                                                                                                                                                            font-size: 12px;
+                                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                    }*/
                     /*-------------------------------------------------
-                                                                                                                                                                                                                                                                                                                            |            Button Ajax Loading
-                                                                                                                                                                                                                                                                                                                            |-------------------------------------------------*/
+                                                                                                                                                                                                                                                                                                                                    |            Button Ajax Loading
+                                                                                                                                                                                                                                                                                                                                    |-------------------------------------------------*/
                     .lds-ellipsis {
                         display: inline-block;
                         position: relative;
@@ -1122,19 +1122,6 @@
                             <div class="hr-primary"></div>
                             <div class="list-group-item list-group-item-info d-flex">
                                 <strong class="font-16">Sách đã mua({{ $sachDaMua->total() }})</strong>
-
-                                <div class="pull-right">
-                                    <form action="" method="get" class="navbar-form navbar-left"
-                                        role="search_truyen">
-                                        <input name="sort" value="new" role="search_truyen" class="hidden">
-                                        <input name="author" value="my" role="search_truyen" class="hidden">
-                                        <input name="post_status" value="all" role="search_truyen" class="hidden">
-                                        <input class="form-control" name="search_title" type="text" value=""
-                                            placeholder="Nhập Tên Truyện..." aria-label="" role="search_truyen">
-                                        <input class="btn btn-primary" type="submit" value="Tìm kiếm"
-                                            role="search_truyen">
-                                    </form>
-                                </div>
                             </div>
                             <div class="list-group-item">
                                 <div style="overflow-x:auto;">
@@ -1151,19 +1138,6 @@
                             <div class="hr-primary"></div>
                             <div class="list-group-item list-group-item-info d-flex">
                                 <strong class="font-16">Sách yêu thích ({{ $danhSachYeuThich->total() }})</strong>
-
-                                <div class="pull-right">
-                                    <form action="" method="get" class="navbar-form navbar-left"
-                                        role="search_truyen">
-                                        <input name="sort" value="new" role="search_truyen" class="hidden">
-                                        <input name="author" value="my" role="search_truyen" class="hidden">
-                                        <input name="post_status" value="all" role="search_truyen" class="hidden">
-                                        <input class="form-control" name="search_title" type="text" value=""
-                                            placeholder="Nhập Tên Truyện..." aria-label="" role="search_truyen">
-                                        <input class="btn btn-primary" type="submit" value="Tìm kiếm"
-                                            role="search_truyen">
-                                    </form>
-                                </div>
                             </div>
                             <div class="list-group-item">
                                 <div style="overflow-x:auto;">
@@ -2127,7 +2101,6 @@
         });
     </script>
 
-
     <script>
         $(document).on('click', '.pagination a', function(event) {
             event.preventDefault();
@@ -2247,9 +2220,7 @@
         table tbody tr:last-child .dropdown-menu,
         table tbody tr:nth-last-child(2) .dropdown-menu {
             /*		right: 0;
-                                                                                                                                        left: unset;
-                                                                                                                                        top: unset;
-                                                                                                                                        bottom: 35px;*/
+                    left: unset;             top: unset;             bottom: 35px;*/
         }
 
         ul.pagination li {
@@ -2289,6 +2260,4 @@
             width: 100%
         }
     </style>
-
-
 @endpush
