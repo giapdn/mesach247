@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\YeuThich;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class TrangCaNhanController extends Controller
 {
@@ -20,7 +22,7 @@ class TrangCaNhanController extends Controller
 
         $danhSachYeuThich = YeuThich::with('user', 'sach.user')
             ->where('user_id', $user->id)
-            ->whereHas('saches', function ($query) {
+            ->whereHas('sach', function ($query) {
                 $query->where('kiem_duyet', 'duyet')
                     ->where('trang_thai', 'hien');
             })
@@ -86,5 +88,46 @@ class TrangCaNhanController extends Controller
         $yeuThich->delete();
 
         return response()->json(['success' => true, 'message' => 'Xóa thành công!']);
+    }
+
+    public function doiMatKhau(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        $validator = Validator::make($request->all(), [
+            'old_password' => [
+                'required',
+                function ($attribute, $value, $fail) use ($user) {
+                    if (!Hash::check($value, $user->password)) {
+                        $fail('Mật khẩu hiện tại không chính xác.');
+                    }
+                },
+            ],
+            'new_password' => [
+                'required',
+                'string',
+                'min:8',
+                'different:old_password',
+                'confirmed'
+            ],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        Auth::logout();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Mật khẩu đã được cập nhật thành công'
+        ]);
     }
 }

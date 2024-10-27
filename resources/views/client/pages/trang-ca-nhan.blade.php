@@ -501,7 +501,7 @@
                         margin-right: -4px;
                         min-height: 44px;
                         /*		 	border-right-width: 0;
-                                                                                                                                                                                                                                                                                                        */
+                                                                                                                                                                                                                                                                                                                        */
                     }
 
                     .list-group-horizontal .list-group-item:first-child {
@@ -516,8 +516,8 @@
                     }
 
                     /*-------------------------------------------------
-                                                                                                                                                                                                                                                                                                            |           Badge
-                                                                                                                                                                                                                                                                                                            |-------------------------------------------------*/
+                                                                                                                                                                                                                                                                                                                            |           Badge
+                                                                                                                                                                                                                                                                                                                            |-------------------------------------------------*/
                     .badge {
                         display: inline-block;
                         padding: .25em .4em;
@@ -579,14 +579,14 @@
                     }
 
                     /*		@media (min-width: 1200px) {
-                                                                                                                                                                                                                                                                                                                .pull-right .badge, a .badge, .tf-active .badge{
-                                                                                                                                                                                                                                                                                                                    padding: 3px 7px;
-                                                                                                                                                                                                                                                                                                                    font-size: 12px;
-                                                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                                            }*/
+                                                                                                                                                                                                                                                                                                                                .pull-right .badge, a .badge, .tf-active .badge{
+                                                                                                                                                                                                                                                                                                                                    padding: 3px 7px;
+                                                                                                                                                                                                                                                                                                                                    font-size: 12px;
+                                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                                            }*/
                     /*-------------------------------------------------
-                                                                                                                                                                                                                                                                                                            |            Button Ajax Loading
-                                                                                                                                                                                                                                                                                                            |-------------------------------------------------*/
+                                                                                                                                                                                                                                                                                                                            |            Button Ajax Loading
+                                                                                                                                                                                                                                                                                                                            |-------------------------------------------------*/
                     .lds-ellipsis {
                         display: inline-block;
                         position: relative;
@@ -797,7 +797,7 @@
                                     @endif
 
                                     {{--  Thông báo lỗi chung --}}
-                                    @if ($errors->any())
+                                    {{-- @if ($errors->any())
                                         <div class="alert alert-danger alert-dismissible" role="alert">
                                             <button type="button" class="close" data-dismiss="alert"
                                                 aria-label="Close">
@@ -811,7 +811,7 @@
                                                 @endforeach
                                             </ul>
                                         </div>
-                                    @endif
+                                    @endif --}}
 
                                     <form id="avatar-upload-form" action="{{ route('trang-ca-nhan.update', $user->id) }}"
                                         method="POST" enctype="multipart/form-data">
@@ -898,7 +898,8 @@
                                         </div>
 
                                         <div class="d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-2">Cập nhật</button>
+                                            <button type="submit" onclick="return confirm('Xác nhận thay đổi thông tin')"
+                                                class="btn btn-primary me-2">Cập nhật</button>
                                             <button type="reset" class="btn btn-secondary">Hủy bỏ</button>
 
                                         </div>
@@ -1327,26 +1328,48 @@
                                     <i class="fa fa-lock" aria-hidden="true"></i>
                                 </div>
                                 <div class="panel-body">
-                                    <form method="POST" action="#">
-                                        @csrf
-                                        @method('PUT')
-                                        <div class="form-group">
-                                            <label for="current-password">Mật khẩu hiện tại:</label>
-                                            <input type="password" class="form-control" id="current-password"
-                                                name="current_password">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="new-password">Mật khẩu mới:</label>
-                                            <input type="password" class="form-control" id="new-password"
-                                                name="new_password">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="confirm-password">Xác nhận mật khẩu mới:</label>
-                                            <input type="password" class="form-control" id="confirm-password"
-                                                name="confirm_password">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Cập nhật mật khẩu</button>
-                                    </form>
+
+                                    @include('client.pages.doi-mat-khau')
+
+                                    {{-- <script>
+                                        $(document).ready(function() {
+                                            $('#change-password-form').on('submit', function(e) {
+                                                e.preventDefault(); // Ngăn không cho form reload trang
+
+                                                // Lấy dữ liệu từ form
+                                                var formData = $(this).serialize();
+                                                var url = "{{ route('cai-dat-bao-mat', $user->id) }}";
+
+                                                $.ajax({
+                                                    type: 'PUT',
+                                                    url: url,
+                                                    data: formData,
+                                                    success: function(response) {
+                                                        alert(response.success);
+                                                        // Bạn có thể làm thêm gì đó nếu cần
+                                                    },
+                                                    error: function(xhr) {
+                                                        console.log(xhr.responseText); // In ra toàn bộ phản hồi từ server
+                                                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                                                            var errors = xhr.responseJSON.errors;
+                                                            let errorMsg = '';
+                                                            for (let key in errors) {
+                                                                errorMsg += errors[key].join(', ') +
+                                                                '\n'; // Gộp tất cả thông báo lỗi
+                                                            }
+                                                            alert('Có lỗi xảy ra:\n' +
+                                                            errorMsg); // Hiển thị tất cả thông báo lỗi
+                                                        } else if (xhr.responseJSON && xhr.responseJSON.error) {
+                                                            alert(xhr.responseJSON.error); // Hiển thị thông báo lỗi chung
+                                                        } else {
+                                                            alert(
+                                                            'Đã xảy ra lỗi không xác định.'); // Thông báo lỗi không xác định
+                                                        }
+                                                    }
+                                                });
+                                            });
+                                        });
+                                    </script> --}}
                                 </div>
                             </article>
                         </div>
@@ -2106,29 +2129,33 @@
 
 
     <script>
-      $(document).on('click', '.pagination a', function(event) {
-    event.preventDefault();
-    
-    var page = $(this).attr('href').split('page=')[1]; // Lấy số trang từ URL
-    var targetContent = $(this).closest('.content-div').attr('id'); // Lấy loại nội dung (sách đã mua hoặc yêu thích)
-    
-    var section = (targetContent === 'purchased-content') ? 'purchased' : 'favorites'; // Xác định phần đang thao tác
+        $(document).on('click', '.pagination a', function(event) {
+            event.preventDefault();
 
-    $.ajax({
-        url: $(this).attr('href'),
-        data: { section: section }, // Gửi section để phân biệt phần được yêu cầu
-        success: function(data) {
-            if (section === 'purchased') {
-                $('#sach-da-mua').html(data); // Cập nhật nội dung sách đã mua
-            } else {
-                $('#yeu-thich-content').html(data); // Cập nhật nội dung sách yêu thích
-            }
-        },
-        error: function() {
-            alert('Có lỗi xảy ra khi tải dữ liệu!');
-        }
-    });
-});
+            var page = $(this).attr('href').split('page=')[1]; // Lấy số trang từ URL
+            var targetContent = $(this).closest('.content-div').attr(
+                'id'); // Lấy loại nội dung (sách đã mua hoặc yêu thích)
+
+            var section = (targetContent === 'purchased-content') ? 'purchased' :
+                'favorites'; // Xác định phần đang thao tác
+
+            $.ajax({
+                url: $(this).attr('href'),
+                data: {
+                    section: section
+                }, // Gửi section để phân biệt phần được yêu cầu
+                success: function(data) {
+                    if (section === 'purchased') {
+                        $('#sach-da-mua').html(data); // Cập nhật nội dung sách đã mua
+                    } else {
+                        $('#yeu-thich-content').html(data); // Cập nhật nội dung sách yêu thích
+                    }
+                },
+                error: function() {
+                    alert('Có lỗi xảy ra khi tải dữ liệu!');
+                }
+            });
+        });
     </script>
 
     <script>
@@ -2165,101 +2192,103 @@
     </script>
 
 
-<style type="text/css">
-    .d-flex {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+    <style type="text/css">
+        .d-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .d-flex .form-group {
-        margin-bottom: 0px;
-    }
+        .d-flex .form-group {
+            margin-bottom: 0px;
+        }
 
-    table {
-        background-color: transparent;
-        border-collapse: collapse;
-        border-spacing: 0;
-        width: 100%;
-    }
+        table {
+            background-color: transparent;
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+        }
 
-    .table>caption+thead>tr:first-child>td,
-    .table>caption+thead>tr:first-child>th,
-    .table>colgroup+thead>tr:first-child>td,
-    .table>colgroup+thead>tr:first-child>th,
-    .table>thead:first-child>tr:first-child>td,
-    .table>thead:first-child>tr:first-child>th {
-        border-top: 0;
-    }
+        .table>caption+thead>tr:first-child>td,
+        .table>caption+thead>tr:first-child>th,
+        .table>colgroup+thead>tr:first-child>td,
+        .table>colgroup+thead>tr:first-child>th,
+        .table>thead:first-child>tr:first-child>td,
+        .table>thead:first-child>tr:first-child>th {
+            border-top: 0;
+        }
 
-    .table>thead>tr>th {
-        vertical-align: bottom;
-        border-bottom: 2px solid #ddd;
-    }
+        .table>thead>tr>th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #ddd;
+        }
 
-    .table>tbody>tr>td,
-    .table>tbody>tr>th,
-    .table>tfoot>tr>td,
-    .table>tfoot>tr>th,
-    .table>thead>tr>td,
-    .table>thead>tr>th {
-        padding: 8px;
-        line-height: 1.42857143;
-        vertical-align: middle;
-        border-top: 1px solid #ddd;
-    }
+        .table>tbody>tr>td,
+        .table>tbody>tr>th,
+        .table>tfoot>tr>td,
+        .table>tfoot>tr>th,
+        .table>thead>tr>td,
+        .table>thead>tr>th {
+            padding: 8px;
+            line-height: 1.42857143;
+            vertical-align: middle;
+            border-top: 1px solid #ddd;
+        }
 
-    th {
-        text-align: left;
-    }
+        th {
+            text-align: left;
+        }
 
-    tbody th {
-        font-weight: normal;
-    }
+        tbody th {
+            font-weight: normal;
+        }
 
-    table tbody tr:last-child .dropdown-menu,
-    table tbody tr:nth-last-child(2) .dropdown-menu {
-        /*		right: 0;
-                                                                                                                        left: unset;
-                                                                                                                        top: unset;
-                                                                                                                        bottom: 35px;*/
-    }
+        table tbody tr:last-child .dropdown-menu,
+        table tbody tr:nth-last-child(2) .dropdown-menu {
+            /*		right: 0;
+                                                                                                                                        left: unset;
+                                                                                                                                        top: unset;
+                                                                                                                                        bottom: 35px;*/
+        }
 
-    ul.pagination li {
-        list-style: none;
-        display: inline-block;
-        margin: 10px 0px;
-    }
+        ul.pagination li {
+            list-style: none;
+            display: inline-block;
+            margin: 10px 0px;
+        }
 
-    .pagination li:hover a {
-        background: linear-gradient(135deg, #848484 30%, #000000 100%);
-        color: #fff;
-    }
+        .pagination li:hover a {
+            background: linear-gradient(135deg, #848484 30%, #000000 100%);
+            color: #fff;
+        }
 
-    .pagination li.active a {
-        color: #fff;
-        background: linear-gradient(135deg, #000000 30%, #848484 100%);
-    }
+        .pagination li.active a {
+            color: #fff;
+            background: linear-gradient(135deg, #000000 30%, #848484 100%);
+        }
 
-    .pagination li.active:hover a,
-    .pagination li.disabled:hover a {
-        background: linear-gradient(135deg, #000000 30%, #848484 100%);
-        cursor: not-allowed;
-        pointer-events: none;
-    }
+        .pagination li.active:hover a,
+        .pagination li.disabled:hover a {
+            background: linear-gradient(135deg, #000000 30%, #848484 100%);
+            cursor: not-allowed;
+            pointer-events: none;
+        }
 
-    .pagination li a {
-        border: solid 1px #000000;
-        color: #000000;
-        padding: 0.6rem 1.0rem;
-        border-radius: 4px;
-        border: solid 1px black;
-        margin: 4px 2px;
-    }
+        .pagination li a {
+            border: solid 1px #000000;
+            color: #000000;
+            padding: 0.6rem 1.0rem;
+            border-radius: 4px;
+            border: solid 1px black;
+            margin: 4px 2px;
+        }
 
-    #css-td-n-a-q-a td {
-        display: block;
-        width: 100%
-    }
-</style>
+        #css-td-n-a-q-a td {
+            display: block;
+            width: 100%
+        }
+    </style>
+
+
 @endpush

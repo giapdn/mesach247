@@ -40,8 +40,10 @@ Route::get('/trang-ca-nhan', [TrangCaNhanController::class, 'index'])
     ->name('trang-ca-nhan');
 Route::put('/trang-ca-nhan/{id}', [TrangCaNhanController::class, 'update'])
     ->name('trang-ca-nhan.update');
-// Route::get('/trang-ca-nhan/sach-yeu-thich', [TrangCaNhanController::class, 'showYeuThich'])->name('sach-yeu-thich');
-// Route::get('/trang-ca-nhan/sach-da-mua', [TrangCaNhanController::class, 'showYeuThich'])->name('sach-yeu-thich');
+
+Route::put('/cai-dat-bao-mat/{id}', [TrangCaNhanController::class, 'doiMatKhau'])
+    ->name('cai-dat-bao-mat');
+
 Route::delete('/trang-ca-nhan/sach-yeu-thich/{id}', [TrangCaNhanController::class, 'destroy'])->name('xoa-yeu-thich');
 
 // Bài viết
@@ -135,5 +137,3 @@ Route::get('bai-viet/{id}', action: [\App\Http\Controllers\Client\BaiVietControl
 Route::get('chi-tiet-bai-viet', function () {
     return view('client.pages.chi-tiet-bai-viet');
 });
-
-
