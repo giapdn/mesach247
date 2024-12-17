@@ -218,10 +218,16 @@ class VnPayController extends Controller
 
                 broadcast(new NotificationSent($notificationContributor));
 
-                Mail::raw($noiDung . ' Xem chi tiết đơn hàng tại đây: ' . $url, function ($message) use ($bookOwner) {
-                    $message->to($bookOwner->email)
-                        ->subject('Thông báo nhận tiền từ đơn hàng');
-                });
+//                Mail::raw($noiDung . ' Xem chi tiết đơn hàng tại đây: ' . $url, function ($message) use ($bookOwner) {
+//                    $message->to($bookOwner->email)
+//                        ->subject('Thông báo nhận tiền từ đơn hàng');
+//                });
+
+                SendRawEmailJob::dispatch(
+                    $bookOwner->email,
+                    'Thông báo nhận tiền từ đơn hàng',
+                    $noiDung . ' Xem chi tiết đơn hàng tại đây: ' . $url
+                );
 
                 // Thông báo cho admin
                 $adminNoiDung = 'Bạn đã nhận được ' . number_format($roseForAdmin, 0, ',', '.') . ' VND từ đơn hàng "' . $order->ma_don_hang . '".';
@@ -237,10 +243,16 @@ class VnPayController extends Controller
 
                 broadcast(new NotificationSent($notificationAdmin));
 
-                Mail::raw($adminNoiDung . ' Xem chi tiết tại đây: ' . $url, function ($message) use ($admin) {
-                    $message->to($admin->email)
-                        ->subject('Thông báo nhận tiền từ đơn hàng');
-                });
+//                Mail::raw($adminNoiDung . ' Xem chi tiết tại đây: ' . $url, function ($message) use ($admin) {
+//                    $message->to($admin->email)
+//                        ->subject('Thông báo nhận tiền từ đơn hàng');
+//                });
+
+                SendRawEmailJob::dispatch(
+                    $admin->email,
+                    'Thông báo nhận tiền từ đơn hàng',
+                    $adminNoiDung . ' Xem chi tiết tại đây: ' . $url
+                );
             } elseif ($bookOwner->hasRole(VaiTro::ADMIN_ROLE_ID)) {
                 // Admin đăng sách
                 $rose = $amount;

@@ -424,6 +424,7 @@ class CongTacVienController extends Controller
         $dailyCount = DB::table('rut_tiens')
             ->where('cong_tac_vien_id', $userId)
             ->whereDate('created_at', $today)
+            ->where('trang_thai', 'da_duyet')
             ->count();
 
         return $dailyCount < $dailyLimit;
