@@ -14352,6 +14352,7 @@
                                         <p>- Hoa hồng chỉ được tính cho các đơn hàng thành công .
                                             Nếu đơn hàng bị hủy vì lý do nào đó, hoa hồng sẽ không được tính.</p>
                                         <p>- MêSách247 có quyền xác minh các giao dịch và hoa hồng trước khi thanh toán.</p>
+                                        <p>- Mỗi ngày, bạn được phép rút tối đa 3 lần, với hạn mức tối đa 30 triệu đồng mỗi tuần.</p>
                                         <p>&nbsp;</p>
                                         <strong>4. Phương Thức Thanh Toán Hoa Hồng</strong>
                                         <p>- Các khoản thanh toán sẽ được thực hiện khi bạn gửi yêu cầu rút tiền
