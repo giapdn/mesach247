@@ -199,9 +199,9 @@
                     <li role="presentation" data-time="view" class="active">
                         <a href="#" onclick="changeBackground('image1.jpg')">Sách bán chạy nhất</a>
                     </li>
-                    <li role="presentation" data-time="review">
-                        <a href="#" onclick="changeBackground('image2.jpg')">Sách được đánh giá cao nhất</a>
-                    </li>
+{{--                    <li role="presentation" data-time="review">--}}
+{{--                        <a href="#" onclick="changeBackground('image2.jpg')">Sách được đánh giá cao nhất</a>--}}
+{{--                    </li>--}}
                     <li role="presentation" data-time="favorite">
                         <a href="#" onclick="changeBackground('image3.jpg')">Top tác giả</a>
                     </li>
@@ -430,78 +430,78 @@
         </div>
         <div class="list-group review-row">
             <div class="col-xs-12 col-sm-6 col-md-8">
-                <div class="h3">
-                    <h3 class="heading"><i class="fa fa-star" aria-hidden="true"></i> Top sách được đánh giá cao</h3>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="list-group mb-3">
-                                <div class="book-container" data-section="sachmienphi">
-                                    @foreach ($sachKhongThuocTop5DG as $yeuThich)
-                                        @php
-                                            $book = $yeuThich;
-                                            $user = Auth()->user();
-                                            $checkVaiTro = '';
-                                            $buy = '';
-                                            if (Auth::check()) {
-                                                $checkVaiTro =
-                                                    $user->hasRole(1) ||
-                                                    $user->hasRole(3) ||
-                                                    ($user->hasRole(4) && $book->user_id == $user->id);
-                                                $buy = $book
-                                                    ->DonHang()
-                                                    ->where('user_id', $user->id)
-                                                    ->where('trang_thai', 'thanh_cong')
-                                                    ->exists();
-                                            }
-                                            $isPurchased = $checkVaiTro || $buy;
-                                            if ($checkVaiTro) {
-                                                $status = 'Đã Sở Hữu';
-                                            } else {
-                                                $status = 'Đã Mua';
-                                            }
-                                        @endphp
-                                        <li class="book-item">
-                                            <a href="{{ route('chi-tiet-sach', $book->id) }}"
-                                                title="{{ $book->ten_sach }}">
-                                                <div class="book-image">
-                                                    <img src="{{ Storage::url($book->anh_bia_sach) }}"
-                                                        alt="{{ $book->ten_sach }}">
-                                                    <div
-                                                        class="price-tag @if ($isPurchased) da-mua @elseif($book->gia_goc === 0) gia-goc @elseif($book->gia_khuyen_mai) gia-khuyen-mai @endif">
-                                                        @if ($isPurchased)
-                                                            {{ $status }}
-                                                        @elseif($book->gia_goc === 0)
-                                                            Miễn Phí
-                                                        @elseif(!empty($book->gia_khuyen_mai))
-                                                            <div class="price-slide">
-                                                                <span class="original-price"
-                                                                    style="text-decoration: line-through; color: black;">
-                                                                    {{ number_format($book->gia_khuyen_mai, 0, ',', '.') }}
-                                                                    VNĐ
-                                                                </span>
-                                                            </div>
-                                                            <div class="price-slide">
-                                                                <span class="promo-price">
-                                                                    {{ number_format($book->gia_goc, 0, ',', '.') }} VNĐ
-                                                                </span>
-                                                            </div>
-                                                        @elseif(!empty($book->gia_goc))
-                                                            {{ number_format($book->gia_goc, 0, ',', '.') }} VNĐ
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                                <div class="book-info">
-                                                    <h4 class="book-title">{{ $book->ten_sach }}</h4>
-                                                </div>
+{{--                <div class="h3">--}}
+{{--                    <h3 class="heading"><i class="fa fa-star" aria-hidden="true"></i> Top sách được đánh giá cao</h3>--}}
+{{--                    <div class="row">--}}
+{{--                        <div class="col-xs-12 col-sm-12 col-md-12">--}}
+{{--                            <div class="list-group mb-3">--}}
+{{--                                <div class="book-container" data-section="sachmienphi">--}}
+{{--                                    @foreach ($sachKhongThuocTop5DG as $yeuThich)--}}
+{{--                                        @php--}}
+{{--                                            $book = $yeuThich;--}}
+{{--                                            $user = Auth()->user();--}}
+{{--                                            $checkVaiTro = '';--}}
+{{--                                            $buy = '';--}}
+{{--                                            if (Auth::check()) {--}}
+{{--                                                $checkVaiTro =--}}
+{{--                                                    $user->hasRole(1) ||--}}
+{{--                                                    $user->hasRole(3) ||--}}
+{{--                                                    ($user->hasRole(4) && $book->user_id == $user->id);--}}
+{{--                                                $buy = $book--}}
+{{--                                                    ->DonHang()--}}
+{{--                                                    ->where('user_id', $user->id)--}}
+{{--                                                    ->where('trang_thai', 'thanh_cong')--}}
+{{--                                                    ->exists();--}}
+{{--                                            }--}}
+{{--                                            $isPurchased = $checkVaiTro || $buy;--}}
+{{--                                            if ($checkVaiTro) {--}}
+{{--                                                $status = 'Đã Sở Hữu';--}}
+{{--                                            } else {--}}
+{{--                                                $status = 'Đã Mua';--}}
+{{--                                            }--}}
+{{--                                        @endphp--}}
+{{--                                        <li class="book-item">--}}
+{{--                                            <a href="{{ route('chi-tiet-sach', $book->id) }}"--}}
+{{--                                                title="{{ $book->ten_sach }}">--}}
+{{--                                                <div class="book-image">--}}
+{{--                                                    <img src="{{ Storage::url($book->anh_bia_sach) }}"--}}
+{{--                                                        alt="{{ $book->ten_sach }}">--}}
+{{--                                                    <div--}}
+{{--                                                        class="price-tag @if ($isPurchased) da-mua @elseif($book->gia_goc === 0) gia-goc @elseif($book->gia_khuyen_mai) gia-khuyen-mai @endif">--}}
+{{--                                                        @if ($isPurchased)--}}
+{{--                                                            {{ $status }}--}}
+{{--                                                        @elseif($book->gia_goc === 0)--}}
+{{--                                                            Miễn Phí--}}
+{{--                                                        @elseif(!empty($book->gia_khuyen_mai))--}}
+{{--                                                            <div class="price-slide">--}}
+{{--                                                                <span class="original-price"--}}
+{{--                                                                    style="text-decoration: line-through; color: black;">--}}
+{{--                                                                    {{ number_format($book->gia_khuyen_mai, 0, ',', '.') }}--}}
+{{--                                                                    VNĐ--}}
+{{--                                                                </span>--}}
+{{--                                                            </div>--}}
+{{--                                                            <div class="price-slide">--}}
+{{--                                                                <span class="promo-price">--}}
+{{--                                                                    {{ number_format($book->gia_goc, 0, ',', '.') }} VNĐ--}}
+{{--                                                                </span>--}}
+{{--                                                            </div>--}}
+{{--                                                        @elseif(!empty($book->gia_goc))--}}
+{{--                                                            {{ number_format($book->gia_goc, 0, ',', '.') }} VNĐ--}}
+{{--                                                        @endif--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                                <div class="book-info">--}}
+{{--                                                    <h4 class="book-title">{{ $book->ten_sach }}</h4>--}}
+{{--                                                </div>--}}
 
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+{{--                                            </a>--}}
+{{--                                        </li>--}}
+{{--                                    @endforeach--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
 
                 <style>
@@ -650,139 +650,139 @@
 
             <!-- CSS cho bố cục sách điều chỉnh kích thước linh hoạt -->
 
-            <div class="col-xs-12 col-sm-6 col-md-4">
-                <div class="h3">
-                    <h3 class="heading"><i class="fa fa-star" aria-hidden="true"></i> Top 5</h3>
-                    <div id="top">
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <div class="row" id="top">
-                                    @if (!empty($top5DG) && $top5DG instanceof \Illuminate\Support\Collection)
-                                        @foreach ($top5DG as $index => $sach)
-                                            @if ($index < 3)
-                                                <div class="ztop-item ztop-item-{{ $index + 1 }}">
-                                                    <div class="vinhdanhtop" style="width:70%; margin-left:14px;">
-                                                        <!-- Thay đổi href để liên kết đến trang chi tiết sách -->
-                                                        <a class="img"
-                                                            href="{{ route('chi-tiet-sach', ['id' => $sach->sach_id]) }}"
-                                                            title="{{ $sach->ten_sach }}">
-                                                            <img style="border-radius: 5px; width: 90px; height: 120px;"
-                                                                src="{{ Storage::url($sach->anh_bia_sach) }}"
-                                                                alt="{{ $sach->ten_sach }}">
-                                                            <span class="khung-vien-rank"></span>
+{{--            <div class="col-xs-12 col-sm-6 col-md-4">--}}
+{{--                <div class="h3">--}}
+{{--                    <h3 class="heading"><i class="fa fa-star" aria-hidden="true"></i> Top 5</h3>--}}
+{{--                    <div id="top">--}}
+{{--                        <ul class="list-group">--}}
+{{--                            <li class="list-group-item">--}}
+{{--                                <div class="row" id="top">--}}
+{{--                                    @if (!empty($top5DG) && $top5DG instanceof \Illuminate\Support\Collection)--}}
+{{--                                        @foreach ($top5DG as $index => $sach)--}}
+{{--                                            @if ($index < 3)--}}
+{{--                                                <div class="ztop-item ztop-item-{{ $index + 1 }}">--}}
+{{--                                                    <div class="vinhdanhtop" style="width:70%; margin-left:14px;">--}}
+{{--                                                        <!-- Thay đổi href để liên kết đến trang chi tiết sách -->--}}
+{{--                                                        <a class="img"--}}
+{{--                                                            href="{{ route('chi-tiet-sach', ['id' => $sach->sach_id]) }}"--}}
+{{--                                                            title="{{ $sach->ten_sach }}">--}}
+{{--                                                            <img style="border-radius: 5px; width: 90px; height: 120px;"--}}
+{{--                                                                src="{{ Storage::url($sach->anh_bia_sach) }}"--}}
+{{--                                                                alt="{{ $sach->ten_sach }}">--}}
+{{--                                                            <span class="khung-vien-rank"></span>--}}
 
 
 
-                                                            <div class="ztop-labeld">
-                                                                <img
-                                                                    src="{{ asset('assets/client/themes/truyenfull/echo/img/crown.png') }}">
-                                                            </div>
-                                                            <div class="ztop-label-3a">{{ $index + 1 }}</div>
-                                                        </a>
-                                                    </div>
-                                                    <strong class="ztop-name">
-                                                        <a href="{{ route('chi-tiet-sach', ['id' => $sach->sach_id]) }}"
-                                                            class="crop-text-1">{{ $sach->ten_sach }}</a>
-                                                    </strong>
-                                                    <strong class="ztop-gold crop-text">
-                                                        @php
-                                                            $tongMucDoHaiLong = 0;
-                                                            $soLuotDanhGia = 0;
-                                                            $danhGias = \App\Models\DanhGia::where(
-                                                                'sach_id',
-                                                                $sach->sach_id,
-                                                            )
-                                                                ->where('trang_thai', 'hien')
-                                                                ->get();
-                                                            foreach ($danhGias as $danhGia) {
-                                                                $tongMucDoHaiLong +=
-                                                                    $mucDoHaiLongOrder[$danhGia->muc_do_hai_long];
-                                                                $soLuotDanhGia++;
-                                                            }
-                                                            $trungBinh =
-                                                                $soLuotDanhGia > 0
-                                                                    ? $tongMucDoHaiLong / $soLuotDanhGia
-                                                                    : 0;
-                                                            $soSao = round($trungBinh);
-                                                            $soSao = min($soSao, 5);
-                                                        @endphp
-                                                        @for ($i = 0; $i < 5; $i++)
-                                                            @if ($i < $soSao)
-                                                                <span style="color: #FFD700;">★</span>
-                                                            @else
-                                                                <span style="color: #C0C0C0;">★</span>
-                                                            @endif
-                                                        @endfor
-                                                    </strong>
-                                                </div>
-                                            @endif
-                                        @endforeach
-                                    @else
-                                        <div class="col-12 text-center">Không có sách nào trong danh sách top 5.</div>
-                                    @endif
+{{--                                                            <div class="ztop-labeld">--}}
+{{--                                                                <img--}}
+{{--                                                                    src="{{ asset('assets/client/themes/truyenfull/echo/img/crown.png') }}">--}}
+{{--                                                            </div>--}}
+{{--                                                            <div class="ztop-label-3a">{{ $index + 1 }}</div>--}}
+{{--                                                        </a>--}}
+{{--                                                    </div>--}}
+{{--                                                    <strong class="ztop-name">--}}
+{{--                                                        <a href="{{ route('chi-tiet-sach', ['id' => $sach->sach_id]) }}"--}}
+{{--                                                            class="crop-text-1">{{ $sach->ten_sach }}</a>--}}
+{{--                                                    </strong>--}}
+{{--                                                    <strong class="ztop-gold crop-text">--}}
+{{--                                                        @php--}}
+{{--                                                            $tongMucDoHaiLong = 0;--}}
+{{--                                                            $soLuotDanhGia = 0;--}}
+{{--                                                            $danhGias = \App\Models\DanhGia::where(--}}
+{{--                                                                'sach_id',--}}
+{{--                                                                $sach->sach_id,--}}
+{{--                                                            )--}}
+{{--                                                                ->where('trang_thai', 'hien')--}}
+{{--                                                                ->get();--}}
+{{--                                                            foreach ($danhGias as $danhGia) {--}}
+{{--                                                                $tongMucDoHaiLong +=--}}
+{{--                                                                    $mucDoHaiLongOrder[$danhGia->muc_do_hai_long];--}}
+{{--                                                                $soLuotDanhGia++;--}}
+{{--                                                            }--}}
+{{--                                                            $trungBinh =--}}
+{{--                                                                $soLuotDanhGia > 0--}}
+{{--                                                                    ? $tongMucDoHaiLong / $soLuotDanhGia--}}
+{{--                                                                    : 0;--}}
+{{--                                                            $soSao = round($trungBinh);--}}
+{{--                                                            $soSao = min($soSao, 5);--}}
+{{--                                                        @endphp--}}
+{{--                                                        @for ($i = 0; $i < 5; $i++)--}}
+{{--                                                            @if ($i < $soSao)--}}
+{{--                                                                <span style="color: #FFD700;">★</span>--}}
+{{--                                                            @else--}}
+{{--                                                                <span style="color: #C0C0C0;">★</span>--}}
+{{--                                                            @endif--}}
+{{--                                                        @endfor--}}
+{{--                                                    </strong>--}}
+{{--                                                </div>--}}
+{{--                                            @endif--}}
+{{--                                        @endforeach--}}
+{{--                                    @else--}}
+{{--                                        <div class="col-12 text-center">Không có sách nào trong danh sách top 5.</div>--}}
+{{--                                    @endif--}}
 
-                                </div>
-                            </li>
-                            @php
-                                use Illuminate\Support\Str;
-                            @endphp
+{{--                                </div>--}}
+{{--                            </li>--}}
+{{--                            @php--}}
+{{--                                use Illuminate\Support\Str;--}}
+{{--                            @endphp--}}
 
-                            @if (!empty($top5DG) && $top5DG instanceof \Illuminate\Support\Collection)
-                                @foreach ($top5DG as $index => $sach)
-                                    @if ($index >= 3)
-                                        <li class="list-group-item">
-                                            <div class="crop-text">
-                                                <a href="{{ route('chi-tiet-sach', $sach->sach_id) }}" class="ztop-flex">
-                                                    <div>
-                                                        <span class="ztop-number">{{ $index + 1 }}</span>
-                                                        <img class="ztop-img-2"
-                                                            src="{{ Storage::url($sach->anh_bia_sach) }}" />
-                                                        <strong>
-                                                            <span style="color:#000000">
-                                                                {{ Str::limit($sach->ten_sach, 15, '...') }}
-                                                            </span>
-                                                        </strong>
-                                                    </div>
-                                                    <div class="pull-right ztop-gold-2">
-                                                        @php
-                                                            $tongMucDoHaiLong = 0;
-                                                            $soLuotDanhGia = 0;
-                                                            $danhGias = \App\Models\DanhGia::where(
-                                                                'sach_id',
-                                                                $sach->sach_id,
-                                                            )
-                                                                ->where('trang_thai', 'hien')
-                                                                ->get();
-                                                            foreach ($danhGias as $danhGia) {
-                                                                $tongMucDoHaiLong +=
-                                                                    $mucDoHaiLongOrder[$danhGia->muc_do_hai_long];
-                                                                $soLuotDanhGia++;
-                                                            }
-                                                            $trungBinh =
-                                                                $soLuotDanhGia > 0
-                                                                    ? $tongMucDoHaiLong / $soLuotDanhGia
-                                                                    : 0;
-                                                            $soSao = round($trungBinh);
-                                                            $soSao = min($soSao, 5);
-                                                        @endphp
-                                                        @for ($i = 0; $i < 5; $i++)
-                                                            @if ($i < $soSao)
-                                                                <span style="color: #FFD700;">★</span>
-                                                            @else
-                                                                <span style="color: #C0C0C0;">★</span>
-                                                            @endif
-                                                        @endfor
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </li>
-                                    @endif
-                                @endforeach
-                            @endif
-                        </ul>
-                    </div>
-                </div>
-            </div>
+{{--                            @if (!empty($top5DG) && $top5DG instanceof \Illuminate\Support\Collection)--}}
+{{--                                @foreach ($top5DG as $index => $sach)--}}
+{{--                                    @if ($index >= 3)--}}
+{{--                                        <li class="list-group-item">--}}
+{{--                                            <div class="crop-text">--}}
+{{--                                                <a href="{{ route('chi-tiet-sach', $sach->sach_id) }}" class="ztop-flex">--}}
+{{--                                                    <div>--}}
+{{--                                                        <span class="ztop-number">{{ $index + 1 }}</span>--}}
+{{--                                                        <img class="ztop-img-2"--}}
+{{--                                                            src="{{ Storage::url($sach->anh_bia_sach) }}" />--}}
+{{--                                                        <strong>--}}
+{{--                                                            <span style="color:#000000">--}}
+{{--                                                                {{ Str::limit($sach->ten_sach, 15, '...') }}--}}
+{{--                                                            </span>--}}
+{{--                                                        </strong>--}}
+{{--                                                    </div>--}}
+{{--                                                    <div class="pull-right ztop-gold-2">--}}
+{{--                                                        @php--}}
+{{--                                                            $tongMucDoHaiLong = 0;--}}
+{{--                                                            $soLuotDanhGia = 0;--}}
+{{--                                                            $danhGias = \App\Models\DanhGia::where(--}}
+{{--                                                                'sach_id',--}}
+{{--                                                                $sach->sach_id,--}}
+{{--                                                            )--}}
+{{--                                                                ->where('trang_thai', 'hien')--}}
+{{--                                                                ->get();--}}
+{{--                                                            foreach ($danhGias as $danhGia) {--}}
+{{--                                                                $tongMucDoHaiLong +=--}}
+{{--                                                                    $mucDoHaiLongOrder[$danhGia->muc_do_hai_long];--}}
+{{--                                                                $soLuotDanhGia++;--}}
+{{--                                                            }--}}
+{{--                                                            $trungBinh =--}}
+{{--                                                                $soLuotDanhGia > 0--}}
+{{--                                                                    ? $tongMucDoHaiLong / $soLuotDanhGia--}}
+{{--                                                                    : 0;--}}
+{{--                                                            $soSao = round($trungBinh);--}}
+{{--                                                            $soSao = min($soSao, 5);--}}
+{{--                                                        @endphp--}}
+{{--                                                        @for ($i = 0; $i < 5; $i++)--}}
+{{--                                                            @if ($i < $soSao)--}}
+{{--                                                                <span style="color: #FFD700;">★</span>--}}
+{{--                                                            @else--}}
+{{--                                                                <span style="color: #C0C0C0;">★</span>--}}
+{{--                                                            @endif--}}
+{{--                                                        @endfor--}}
+{{--                                                    </div>--}}
+{{--                                                </a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                    @endif--}}
+{{--                                @endforeach--}}
+{{--                            @endif--}}
+{{--                        </ul>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
         </div>
 
 
