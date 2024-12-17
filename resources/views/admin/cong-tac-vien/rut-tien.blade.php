@@ -268,7 +268,8 @@
                     (ví dụ: chuyển khoản ngân hàng, ví điện tử hoặc các phương thức thanh toán khác mà MêSách247 hỗ
                     trợ). Nếu số tiền trong ví (hoa hồng) của bạn không đạt hạn mức rút chúng tôi sẽ từ chối yêu cầu rút
                     tiền của bạn.
-                    <br>4. 1 ngày được rút 3 lần và 1 tuần được rút tối đa 30tr
+                    <br>4. Mỗi ngày, bạn được phép rút tối đa 3 lần, với hạn mức tối đa 30 triệu đồng mỗi tuần.
+                    <br>
                     <span id="expandLink" style="color:blue; cursor:pointer;">Xem thêm</span>
                 </p>
 

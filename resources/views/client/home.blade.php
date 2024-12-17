@@ -308,7 +308,7 @@
                                             <a
                                                 href="{{route('chi-tiet-tac-gia', $item->id)}}">{{$item->ten_doc_gia}}</a>
                                         </div>
-                                        <span style="opacity: 60%">Đang có {{$item->total_books}} sách</span>
+                                        <span style="opacity: 60%">Đang có {{$item->total_books}} sách được bán</span>
                                     </div>
                                 </div>
                             @endforeach
